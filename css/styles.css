@@ -661,7 +661,7 @@ ul {
 /* Large single-video card (복지제도 · 레지던스) */
 .video-card-lg {
   width: 100%;
-  max-width: 720px;
+  max-width: 100%;
   aspect-ratio: 16 / 9;
   margin-bottom: 24px;
   border-top: none;
@@ -763,6 +763,7 @@ ul {
 .page-breadcrumb {
   background: #fff;
   border-bottom: 1px solid var(--color-border);
+  padding-top: calc(var(--logo-overlap-height) - var(--header-height));
 }
 
 .page-breadcrumb .wrap {
@@ -1957,10 +1958,7 @@ a.crumb-item:hover {
 
   :root {
     --header-height: 76px;
-  }
-
-  .brand-logo {
-    height: 108px;
+    --logo-overlap-height: 108px;
   }
 
   .brand-divider {

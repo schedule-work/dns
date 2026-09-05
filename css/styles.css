@@ -1577,6 +1577,10 @@ a.crumb-item:hover {
   gap: 24px;
 }
 
+.channel-grid.cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
 .channel-grid.cols-4 {
   grid-template-columns: repeat(4, 1fr);
 }
@@ -1969,6 +1973,7 @@ a.crumb-item:hover {
 
 @media (max-width: 1200px) and (min-width: 961px) {
   .video-grid,
+  .channel-grid.cols-3,
   .channel-grid.cols-4 {
     grid-template-columns: repeat(2, 1fr);
   }

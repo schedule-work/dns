@@ -658,6 +658,28 @@ ul {
   background: #fff;
 }
 
+/* Large single-video card (복지제도 · 레지던스) */
+.video-card-lg {
+  width: 100%;
+  max-width: 720px;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 24px;
+  border-top: none;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(38, 34, 35, 0.16);
+}
+
+.video-card-lg .video-play {
+  width: 96px;
+  height: 96px;
+}
+
+.video-card-lg .video-play svg {
+  width: 36px;
+  height: 36px;
+  margin-left: 5px;
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
   background: var(--color-footer-bg);

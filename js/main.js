@@ -130,23 +130,33 @@ function initCalendar() {
 
 function initBlurText() {
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const CHAR_DELAY = 0.13;
+  const ANIM_DURATION = 2.4;
+  const PHRASE_GAP = 0.6;
 
   document.querySelectorAll("[data-blur-text]").forEach((el) => {
-    const chars = Array.from(el.textContent.trim());
+    const text = el.textContent.trim();
+    const phrases = text.split(/(?<=,)\s*/).filter(Boolean);
     el.textContent = "";
-    chars.forEach((ch, i) => {
-      const span = document.createElement("span");
-      span.className = "blur-word";
-      span.textContent = ch === " " ? " " : ch;
-      if (prefersReduced) {
-        span.style.animation = "none";
-        span.style.opacity = "1";
-        span.style.filter = "none";
-        span.style.transform = "none";
-      } else {
-        span.style.animationDelay = `${i * 0.13}s`;
-      }
-      el.appendChild(span);
+    let baseDelay = 0;
+    phrases.forEach((phrase, pIdx) => {
+      const prefix = pIdx > 0 ? " " : "";
+      const chars = Array.from(prefix + phrase);
+      chars.forEach((ch, i) => {
+        const span = document.createElement("span");
+        span.className = "blur-word";
+        span.textContent = ch === " " ? " " : ch;
+        if (prefersReduced) {
+          span.style.animation = "none";
+          span.style.opacity = "1";
+          span.style.filter = "none";
+          span.style.transform = "none";
+        } else {
+          span.style.animationDelay = `${baseDelay + i * CHAR_DELAY}s`;
+        }
+        el.appendChild(span);
+      });
+      baseDelay += (chars.length - 1) * CHAR_DELAY + ANIM_DURATION + PHRASE_GAP;
     });
   });
 }

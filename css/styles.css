@@ -621,6 +621,43 @@ ul {
   object-fit: cover;
 }
 
+.video-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 45%);
+  pointer-events: none;
+}
+
+.video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.video-play svg {
+  width: 22px;
+  height: 22px;
+  color: var(--color-primary);
+  margin-left: 3px;
+}
+
+.video-card:hover .video-play {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: #fff;
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
   background: var(--color-footer-bg);
@@ -1409,42 +1446,107 @@ a.crumb-item:hover {
   color: var(--color-text);
 }
 
-/* Year-grouped lists (연구/QI 활동) */
+/* Year-grouped research list (연도별 연구활동) — PDF 원본: 연도 라벨 + ■ 불릿 + 부서 태그 */
 .year-group + .year-group {
-  margin-top: 36px;
+  margin-top: 44px;
 }
 
 .year-group h3 {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 800;
   color: var(--color-primary);
-  margin: 0 0 18px;
+  margin: 0 0 20px;
 }
 
 .year-group ul {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .year-group li {
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.7;
-  padding: 16px 20px;
-  border: 1px solid var(--color-border);
-  border-radius: 10px;
+  padding-left: 26px;
+  position: relative;
+  color: var(--color-text);
+}
+
+.year-group li::before {
+  content: "■";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  font-size: 11px;
   color: var(--color-text);
 }
 
 .year-group li .dept {
-  display: inline-block;
-  font-size: 12.5px;
+  color: #1a56c4;
   font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Year-grouped QI table (연도별 QI활동) — PDF 원본: 파란 알약형 연도 라벨 + 파란 헤더 표 */
+.qi-year-badge {
+  display: inline-block;
+  background: linear-gradient(160deg, #2b7fd9, #1a56c4);
   color: #fff;
-  background: var(--color-text-mute);
-  padding: 3px 11px;
+  font-weight: 800;
+  font-size: 20px;
+  padding: 10px 32px;
   border-radius: 999px;
-  margin-right: 10px;
+  margin: 0 0 20px;
+  box-shadow: 0 8px 18px rgba(26, 86, 196, 0.28);
+}
+
+.qi-table-wrap {
+  overflow-x: auto;
+}
+
+.qi-table-wrap + .qi-table-wrap {
+  margin-top: 48px;
+}
+
+.qi-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14.5px;
+  border: 1px solid #1a56c4;
+}
+
+.qi-table th {
+  background: linear-gradient(160deg, #2b7fd9, #1a56c4);
+  color: #fff;
+  font-weight: 800;
+  padding: 14px 16px;
+  text-align: center;
+  border: 1px solid #1a56c4;
+}
+
+.qi-table td {
+  padding: 13px 16px;
+  text-align: center;
+  border: 1px solid #b9d3f2;
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.qi-table td:nth-child(1),
+.qi-table td:nth-child(2) {
+  font-weight: 700;
+  color: #1a56c4;
+  width: 64px;
+}
+
+.qi-table td:nth-child(3) {
+  font-weight: 700;
+  width: 210px;
+}
+
+.qi-table tr:nth-child(even) td {
+  background: #f2f7fd;
 }
 
 /* External link / CTA cards used across life & community pages */
@@ -1472,41 +1574,74 @@ a.crumb-item:hover {
 .channel-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: 24px;
+}
+
+.channel-grid.cols-4 {
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .channel-card {
-  display: flex;
-  gap: 18px;
-  align-items: center;
+  display: block;
+  border-radius: 16px;
+  overflow: hidden;
   border: 1px solid var(--color-border);
-  border-radius: 14px;
-  padding: 20px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .channel-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(38, 34, 35, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 18px 36px rgba(38, 34, 35, 0.14);
 }
 
 .channel-thumb {
-  width: 80px;
-  height: 80px;
-  border-radius: 12px;
+  position: relative;
+  aspect-ratio: 16 / 9;
   background: linear-gradient(160deg, var(--color-primary-light), var(--color-primary-dark));
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+}
+
+.channel-card:nth-child(4n + 2) .channel-thumb { background: linear-gradient(160deg, #d98a2b, #a5551f); }
+.channel-card:nth-child(4n + 3) .channel-thumb { background: linear-gradient(160deg, #2b7fd9, #1a56c4); }
+.channel-card:nth-child(4n + 4) .channel-thumb { background: linear-gradient(160deg, #2f9e6b, #1c6b49); }
+
+.channel-thumb .badge {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+.channel-thumb .duration {
+  position: absolute;
+  bottom: 12px;
+  right: 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+
+.channel-body {
+  padding: 20px 22px;
 }
 
 .channel-card .title {
   font-weight: 700;
-  font-size: 15.5px;
-  margin-bottom: 6px;
-  line-height: 1.45;
+  font-size: 16px;
+  margin-bottom: 8px;
+  line-height: 1.5;
 }
 
 .channel-card .meta {
@@ -1833,7 +1968,8 @@ a.crumb-item:hover {
 }
 
 @media (max-width: 1200px) and (min-width: 961px) {
-  .video-grid {
+  .video-grid,
+  .channel-grid.cols-4 {
     grid-template-columns: repeat(2, 1fr);
   }
 }

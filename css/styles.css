@@ -189,9 +189,9 @@ ul {
   display: flex;
   align-items: center;
   height: 100%;
-  padding: 0 22px;
-  font-weight: 700;
-  font-size: 15.5px;
+  padding: 0 30px;
+  font-weight: 600;
+  font-size: 16px;
   color: var(--color-text);
   white-space: nowrap;
 }
@@ -306,15 +306,6 @@ ul {
 }
 
 /* Stats bar */
-.stats-bar {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  gap: 48px;
-  margin-top: 40px;
-  flex-wrap: wrap;
-}
-
 .stat {
   min-width: 130px;
 }
@@ -342,11 +333,8 @@ ul {
 
 .quick-menu-inner {
   display: grid;
-  grid-template-columns: 200px repeat(5, 1fr);
+  grid-template-columns: 210px repeat(5, 1fr);
   background: #fff;
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow-card);
 }
 
 .quick-menu-label {
@@ -355,17 +343,46 @@ ul {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 24px 28px;
+  gap: 14px;
+  padding: 26px 30px;
   font-weight: 800;
-  font-size: 20px;
+  font-size: 24px;
   letter-spacing: -0.01em;
 }
 
-.quick-menu-label span {
-  font-size: 12px;
+.quick-menu-pager {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
   font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.quick-menu-pager button {
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: transparent;
+  color: #fff;
   opacity: 0.85;
-  margin-top: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quick-menu-progress {
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.quick-menu-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #fff;
 }
 
 .quick-item {
@@ -373,11 +390,12 @@ ul {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 14px;
   padding: 22px 12px;
   border-left: 1px solid var(--color-border);
   font-weight: 700;
   font-size: 14.5px;
+  color: var(--color-text);
   text-align: center;
   transition: background 0.15s ease;
 }
@@ -387,9 +405,10 @@ ul {
 }
 
 .quick-item .icon {
-  width: 34px;
-  height: 34px;
-  color: var(--color-primary);
+  width: 40px;
+  height: 40px;
+  color: var(--color-text);
+  stroke-width: 1.4;
 }
 
 /* ---------- Main layout ---------- */

@@ -92,10 +92,10 @@ ul {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 14px 26px;
+  padding: 15px 28px;
   border-radius: 999px;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 16px;
   border: 1px solid transparent;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -164,7 +164,7 @@ ul {
 }
 
 .brand-dept {
-  font-size: 21px;
+  font-size: 24px;
   font-weight: 800;
   color: var(--color-text);
   white-space: nowrap;
@@ -189,9 +189,9 @@ ul {
   display: flex;
   align-items: center;
   height: 100%;
-  padding: 0 30px;
+  padding: 0 28px;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 18.5px;
   color: var(--color-text);
   white-space: nowrap;
 }
@@ -205,7 +205,7 @@ ul {
   position: absolute;
   top: 100%;
   left: 50%;
-  min-width: 200px;
+  min-width: 230px;
   background: #fff;
   border: 1px solid var(--color-border);
   border-top: 2px solid var(--color-primary);
@@ -226,8 +226,8 @@ ul {
 
 .gnb .submenu a {
   display: block;
-  padding: 9px 20px;
-  font-size: 14px;
+  padding: 11px 22px;
+  font-size: 15.5px;
   color: var(--color-text-mute);
 }
 
@@ -288,7 +288,7 @@ ul {
   font-weight: 700;
   letter-spacing: 0.1em;
   color: #f0c8d3;
-  margin-bottom: 22px;
+  margin-bottom: 8px;
 }
 
 .hero h1 {
@@ -305,10 +305,10 @@ ul {
 }
 
 .hero-pretitle {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.9);
-  margin: 0 0 12px;
+  margin: 0 0 32px;
 }
 
 /* BlurText word-reveal effect */
@@ -317,7 +317,7 @@ ul {
   opacity: 0;
   filter: blur(10px);
   transform: translateY(-50px);
-  animation: heroBlurIn 1.6s linear forwards;
+  animation: heroBlurIn 2.4s linear forwards;
   will-change: transform, filter, opacity;
 }
 
@@ -425,7 +425,7 @@ ul {
   padding: 44px 16px;
   border-left: 1px solid var(--color-border);
   font-weight: 700;
-  font-size: 18px;
+  font-size: 19px;
   color: var(--color-text);
   text-align: center;
   position: relative;
@@ -495,7 +495,7 @@ ul {
 
 .news-title {
   flex: 1;
-  font-size: 16.5px;
+  font-size: 17.5px;
   font-weight: 600;
 }
 
@@ -513,12 +513,12 @@ ul {
 }
 
 .card-head h3 {
-  font-size: 21px;
+  font-size: 23px;
   margin: 0;
 }
 
 .more-link {
-  font-size: 14px;
+  font-size: 14.5px;
   font-weight: 700;
   color: var(--color-text-mute);
 }
@@ -557,64 +557,124 @@ ul {
 }
 
 .side-widget h3 {
-  font-size: 17px;
+  font-size: 18.5px;
   margin: 0 0 18px;
 }
 
-.link-list li {
-  border-bottom: 1px dashed var(--color-border);
-  padding: 13px 0;
-  font-size: 15px;
-  font-weight: 600;
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
 }
 
-.link-list li:last-child {
-  border-bottom: none;
+.cal-title {
+  font-size: 17px;
+  font-weight: 800;
+  margin: 0;
+  color: var(--color-text);
 }
 
-.link-list a::before {
-  content: "· ";
-  color: var(--color-accent);
+.cal-nav {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: #fff;
+  color: var(--color-text-mute);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.cal-nav:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
 }
 
 .mini-cal-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
+  gap: 6px;
   text-align: center;
-  font-size: 12px;
+  font-size: 13.5px;
 }
 
 .mini-cal-grid span {
-  padding: 6px 0;
-  border-radius: 6px;
-  color: var(--color-text-mute);
+  padding: 8px 0;
+  border-radius: 8px;
+  color: var(--color-text);
 }
 
 .mini-cal-grid span.dow {
   font-weight: 700;
-  color: var(--color-text);
+  color: var(--color-text-mute);
+  font-size: 12px;
+  padding-bottom: 4px;
 }
 
-.mini-cal-grid span.on {
+.mini-cal-grid span.dow.sun,
+.mini-cal-grid span.sun {
+  color: #c0315a;
+}
+
+.mini-cal-grid span.dow.sat,
+.mini-cal-grid span.sat {
+  color: #2b6fd9;
+}
+
+.mini-cal-grid span.today {
   background: var(--color-primary);
-  color: #fff;
-  font-weight: 700;
+  color: #fff !important;
+  font-weight: 800;
 }
 
-.cta-banner {
-  background: linear-gradient(160deg, var(--color-primary), var(--color-primary-dark));
-  color: #fff;
+.mini-cal-grid span.holiday {
+  font-weight: 700;
+  cursor: help;
+}
+
+/* Jobs / recruitment card */
+.jobs-card {
   text-align: center;
 }
 
-.cta-banner h3 {
+.jobs-card-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: linear-gradient(160deg, var(--color-primary-light), var(--color-primary-dark));
   color: #fff;
-  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 22px rgba(151, 0, 34, 0.28);
 }
 
-.cta-banner .btn-outline {
-  background: #fff;
+.jobs-card-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.jobs-card h3 {
+  font-size: 18px;
+  margin: 0 0 10px;
+}
+
+.jobs-card p {
+  font-size: 14px;
+  color: var(--color-text-mute);
+  line-height: 1.7;
+  margin: 0 0 22px;
+}
+
+.jobs-card .btn {
+  width: 100%;
+  justify-content: center;
 }
 
 /* ---------- Video section ---------- */
@@ -762,7 +822,7 @@ ul {
   display: flex;
   gap: 22px;
   flex-wrap: wrap;
-  font-size: 13.5px;
+  font-size: 15px;
   font-weight: 600;
 }
 
@@ -776,7 +836,7 @@ ul {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 16px;
-  font-size: 13px;
+  font-size: 14.5px;
 }
 
 .footer-bottom .info p {
@@ -1784,7 +1844,7 @@ a.crumb-item:hover {
 }
 
 .hub-card .hub-desc {
-  font-size: 14.5px;
+  font-size: 15.5px;
   line-height: 1.75;
   color: var(--color-text-mute);
 }

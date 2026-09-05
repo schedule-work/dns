@@ -3,10 +3,11 @@
    ========================================================================== */
 
 :root {
-  --color-primary: #7d1636;
-  --color-primary-dark: #591026;
-  --color-primary-light: #a52a4d;
+  --color-primary: #970022;
+  --color-primary-dark: #6b0019;
+  --color-primary-light: #b8213f;
   --color-accent: #c0315a;
+  --color-gold: #c69a58;
   --color-bg: #f7f5f3;
   --color-bg-alt: #efe9e6;
   --color-text: #262223;
@@ -14,7 +15,7 @@
   --color-border: #e3dcda;
   --color-footer-bg: #4a4547;
   --color-footer-text: #cfc9ca;
-  --header-height: 84px;
+  --header-height: 96px;
   --max-width: 1280px;
   --font-base: "Pretendard", "Noto Sans KR", -apple-system, BlinkMacSystemFont,
     "Malgun Gothic", sans-serif;
@@ -142,38 +143,24 @@ ul {
   flex-shrink: 0;
 }
 
-.brand-badge {
-  width: 46px;
-  height: 46px;
-  border-radius: 10px;
-  background: linear-gradient(160deg, var(--color-primary), var(--color-primary-dark));
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 15px;
-  letter-spacing: -0.02em;
+.brand-logo {
+  height: 56px;
+  width: auto;
   flex-shrink: 0;
 }
 
-.brand-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.25;
+.brand-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--color-border);
+  flex-shrink: 0;
 }
 
-.brand-text .hospital {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--color-text-mute);
-  letter-spacing: 0.02em;
-}
-
-.brand-text .dept {
-  font-size: 19px;
+.brand-dept {
+  font-size: 22px;
   font-weight: 800;
   color: var(--color-text);
+  white-space: nowrap;
 }
 
 .gnb {
@@ -181,7 +168,8 @@ ul {
   align-items: stretch;
   height: 100%;
   flex: 1;
-  justify-content: center;
+  justify-content: space-between;
+  margin-left: 32px;
 }
 
 .gnb > li {
@@ -247,19 +235,6 @@ ul {
   align-items: center;
   gap: 12px;
   flex-shrink: 0;
-}
-
-.search-btn {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  border: 1px solid var(--color-border);
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: var(--color-text-mute);
 }
 
 .nav-toggle {
@@ -715,10 +690,9 @@ ul {
   gap: 12px;
 }
 
-.footer-brand .brand-badge {
-  width: 38px;
-  height: 38px;
-  font-size: 12px;
+.footer-logo {
+  height: 36px;
+  width: auto;
 }
 
 .footer-brand .name {
@@ -885,6 +859,7 @@ ul {
     left: 0;
     right: 0;
     bottom: 0;
+    margin-left: 0;
     background: #fff;
     flex-direction: column;
     justify-content: flex-start;
@@ -927,6 +902,18 @@ ul {
 
   .nav-toggle {
     display: block;
+  }
+
+  .brand-logo {
+    height: 42px;
+  }
+
+  .brand-divider {
+    height: 30px;
+  }
+
+  .brand-dept {
+    font-size: 18px;
   }
 
   .quick-menu-inner {

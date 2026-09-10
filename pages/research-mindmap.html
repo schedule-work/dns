@@ -1,0 +1,1160 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>고려대학교 구로병원 간호부</title>
+<meta name="description" content="고려대학교구로병원 간호부 — 연도별 연구활동과 QI활동을 하나의 네트워크로 연결한 3D 마인드맵입니다." />
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="../css/styles.css?v=13" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <img class="brand-logo" src="../assets/logo-guro.svg" alt="고려대학교구로병원 KU MEDICINE" />
+      <span class="brand-divider"></span>
+      <span class="brand-dept">간호부</span>
+    </a>
+
+    <nav>
+      <ul class="gnb">
+        <li><a href="about.html">간호부 소개</a>
+          <ul class="submenu">
+            <li><a href="about-greeting.html">간호부서장 인사말</a></li>
+            <li><a href="about-mission.html">미션과 비전</a></li>
+            <li><a href="about-org.html">조직도</a></li>
+            <li><a href="about-areas.html">간호영역</a></li>
+          </ul>
+        </li>
+        <li><a href="education.html">간호인재 및 교육</a>
+          <ul class="submenu">
+            <li><a href="education-talent.html">직무 인터뷰</a></li>
+            <li><a href="education-overview.html">교육체계 Overview</a></li>
+            <li><a href="education-level.html">임상역량단계</a></li>
+            <li><a href="education-target.html">대상별 교육</a></li>
+            <li><a href="education-ce.html">보수교육 · 공지</a></li>
+          </ul>
+        </li>
+        <li class="active"><a href="research-mindmap.html">연구·QI</a>
+          <ul class="submenu">
+            <li><a href="research-study.html">연도별 연구활동</a></li>
+            <li><a href="research-qi.html">연도별 QI활동</a></li>
+            <li><a href="research-mindmap.html">마인드맵으로 보기</a></li>
+          </ul>
+        </li>
+        <li><a href="life.html">복지 및 채용</a>
+          <ul class="submenu">
+            <li><a href="life-welfare.html">복지제도</a></li>
+            <li><a href="life-residence.html">레지던스</a></li>
+            <li><a href="life-jobs.html">채용정보</a></li>
+          </ul>
+        </li>
+        <li><a href="community.html">커뮤니티</a>
+          <ul class="submenu">
+            <li><a href="community-video.html">홍보영상</a></li>
+            <li><a href="community-story.html">간호사 이야기</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="mega-backdrop"></div>
+    </nav>
+
+    <div class="header-tools">
+      <button class="nav-toggle" aria-label="메뉴 열기" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="page-breadcrumb">
+  <div class="wrap">
+    <a class="crumb-home" href="../index.html" aria-label="홈"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></a>
+    <span class="crumb-sep">|</span>
+    <span class="crumb-item current">연구·QI</span>
+    <a class="crumb-link" href="#" aria-label="링크 복사"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07L11.5 4.5"/><path d="M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 0 0 7.07 7.07L12.5 19.5"/></svg></a>
+  </div>
+</div>
+
+<div class="page-title-block">
+  <div class="wrap"><h1>연구·QI</h1></div>
+</div>
+
+<main>
+  <section class="wrap page-section tight">
+    <div class="view-toggle" role="tablist" aria-label="연구·QI 보기 방식">
+      <div class="btn-color-mode-switch">
+        <input type="checkbox" id="view-mode-switch" aria-label="마인드맵 보기와 목록 보기 전환" />
+        <label class="btn-color-mode-switch-inner" for="view-mode-switch" data-on="목록으로 보기" data-off="마인드맵으로 보기"></label>
+      </div>
+    </div>
+
+    <div class="mindmap-stage" id="mindmap-stage">
+      <div id="mindmap-graph" style="width:100%;height:100%;"></div>
+      <div class="mindmap-loading" id="mindmap-loading" role="status" aria-label="마인드맵 로딩 중">
+        <div class="loader" aria-hidden="true">
+          <span class="loader__circle"></span>
+          <span class="loader__circle"></span>
+          <span class="loader__circle"></span>
+        </div>
+      </div>
+
+      <!-- 상단 좌측: 필터 HUD -->
+      <div class="mindmap-stats-hud">
+        <div class="hud-legend-chips">
+          <button type="button" class="hud-chip active" data-filter="all">전체 그래프 (63)</button>
+          <button type="button" class="hud-chip" data-filter="research"><span class="dot gold"></span>간호연구 10건</button>
+          <button type="button" class="hud-chip" data-filter="qi"><span class="dot crimson"></span>QI활동 53건</button>
+          <button type="button" class="hud-chip" data-filter="2025">2025년 (23)</button>
+          <button type="button" class="hud-chip" data-filter="2024">2024년 (22)</button>
+          <button type="button" class="hud-chip" data-filter="2023">2023년 (18)</button>
+        </div>
+      </div>
+
+      <!-- 상단 우측: 옵시디언 조작 HUD -->
+      <div class="mindmap-controls-hud">
+        <button type="button" class="ctrl-btn" id="btn-toggle-rotate" title="자동 회전 일시정지/재생" aria-label="회전 토글">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <span id="rotate-label">회전 일시정지</span>
+        </button>
+        <button type="button" class="ctrl-btn" id="btn-reset-view" title="지식 그래프 정면 보기 (시점 리셋)" aria-label="시점 리셋">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+          <span>정면 보기</span>
+        </button>
+      </div>
+
+      <!-- 하단 조작 안내 -->
+      <div class="mindmap-hint">드래그: 회전 · 휠: 확대 · 노드 클릭/호버: 상세 내용 보기</div>
+
+      <!-- 우측 슬라이드인 글래스모피즘 상세 패널 -->
+      <div class="mindmap-detail" id="mindmap-detail">
+        <button class="close-btn" id="detail-close" aria-label="닫기">&times;</button>
+        <div class="mindmap-detail-badges">
+          <span class="badge" id="detail-badge">연구활동</span>
+          <span class="badge year-badge" id="detail-year">2025</span>
+        </div>
+        <h4 id="detail-title"></h4>
+        <p class="dept-info" id="detail-dept"></p>
+        <a class="detail-link" id="detail-link" href="#">전체 목록 및 상세 보기 →</a>
+      </div>
+    </div>
+
+    <div class="detail-section wide research-list-view" id="research-list-view" hidden></div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-top">
+    <div class="footer-brand">
+      <img class="footer-logo" src="../assets/logo-guro-footer.svg" alt="고려대학교구로병원" />
+    </div>
+    <div class="footer-links">
+      <a href="#">인터넷이용약관</a>
+      <a href="#">개인정보처리방침</a>
+      <a href="#">환자권리장전</a>
+      <a href="#">이메일주소수집거부</a>
+    </div>
+    <a class="footer-family" href="#">패밀리 사이트 +</a>
+  </div>
+  <div class="wrap footer-bottom">
+    <div class="info">
+      <p>주소 : (우) 08308. 서울시 구로구 구로동로 148(구로동)</p>
+      <p>대표번호 : 02-2626-1114 &nbsp;|&nbsp; 진료예약센터 : 1577-9966</p>
+    </div>
+  </div>
+  <div class="wrap copyright">
+    Copyright&copy; <span data-year></span> Korea University Guro Hospital, Department of Nursing Service. All Rights Reserved.
+  </div>
+</footer>
+
+<script src="../js/main.js?v=13"></script>
+<script src="../js/vendor/three.min.js"></script>
+<script>
+if (window.THREE && !window.THREE.Timer) {
+  window.THREE.Timer = class {
+    constructor() {
+      this._previousTime = 0;
+      this._currentTime = 0;
+      this._startTime = performance.now();
+      this._delta = 0;
+      this._elapsed = 0;
+      this._timescale = 1;
+      this._document = null;
+      this._pageVisibilityHandler = null;
+    }
+    connect(e) {
+      this._document = e;
+      if (e && e.hidden !== undefined) {
+        this._pageVisibilityHandler = () => {};
+        e.addEventListener('visibilitychange', this._pageVisibilityHandler, false);
+      }
+    }
+    disconnect() {
+      if (this._document && this._pageVisibilityHandler) {
+        this._document.removeEventListener('visibilitychange', this._pageVisibilityHandler, false);
+      }
+    }
+    getDelta() { return this._delta; }
+    getElapsed() { return this._elapsed; }
+    update(e) {
+      this._currentTime = e !== undefined ? e : performance.now();
+      if (this._previousTime) {
+        this._delta = ((this._currentTime - this._previousTime) * this._timescale) / 1000;
+        this._elapsed += this._delta;
+      } else {
+        this._delta = 0;
+      }
+      this._previousTime = this._currentTime;
+      return this;
+    }
+  };
+}
+</script>
+<script src="../js/vendor/3d-force-graph.min.js"></script>
+<script src="../js/data/research-mindmap-data.js"></script>
+<script>
+(function () {
+  var data = window.RESEARCH_MINDMAP_DATA;
+  var container = document.getElementById('mindmap-graph');
+  var loadingEl = document.getElementById('mindmap-loading');
+
+  if (!data || typeof ForceGraph3D !== 'function' || typeof window.THREE === 'undefined') {
+    if (loadingEl) loadingEl.textContent = '마인드맵을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.';
+    return;
+  }
+
+  // Three.js 글로벌 참조
+  var THREE = window.THREE;
+
+  // 노드는 더 이상 고정된 실루엣 좌표에 못박히지 않고, 관계(링크)를 따라 물리 시뮬레이션으로
+  // 자유롭게 뭉치고 퍼지며 옵시디언 그래프뷰처럼 유기적인 지식 그래프를 형성한다.
+  // (초기 위치만 대략적인 힌트로 흩뿌려 두면 시뮬레이션이 더 빠르고 안정적으로 수렴한다)
+  data.nodes.forEach(function (n) {
+    var seedRadius = n.level === 0 ? 4 : (n.level === 1 ? 45 : (n.level === 2 ? 90 : 140));
+    var theta = Math.random() * Math.PI * 2;
+    var phi = Math.acos(2 * Math.random() - 1);
+    n.x = seedRadius * Math.sin(phi) * Math.cos(theta);
+    n.y = seedRadius * Math.sin(phi) * Math.sin(theta);
+    n.z = seedRadius * Math.cos(phi) * 0.4;
+
+    // 무중력 부유 파라미터 (Harmonic Drift) — 시뮬레이션이 자리 잡은 뒤 별처럼 둥둥 떠다니는 효과에 사용
+    n.__floatPhaseX = Math.random() * Math.PI * 2;
+    n.__floatPhaseY = Math.random() * Math.PI * 2;
+    n.__floatPhaseZ = Math.random() * Math.PI * 2;
+    n.__floatAmp = (n.level < 2 ? 0.6 : (n.featured ? 1.0 : 1.2));
+
+    // 대표 과제가 아닌 일반 리프 노드만 기본적으로 라벨을 숨겨 전체 그래프가 한눈에 들어오게 하고,
+    // 확대(줌 인)하거나 직접 호버할 때만 상세 라벨이 드러나도록 함 (라벨 난립으로 인한 가독성 저하 방지).
+    // 허브/카테고리/연도와 "대표" 과제는 처음부터 항상 잘 보여야 하므로 숨김 대상에서 제외한다.
+    n.__isMinor = n.level === 3;
+    n.__revealTier = n.__isMinor ? 'minor' : null;
+  });
+
+  // 심우주 은하 색상 팔레트
+  var COLORS = {
+    root: '#ffffff',
+    research: '#f5c26b',
+    qi: '#ff3366',
+    linkResearch: 'rgba(245, 194, 107, 0.32)',
+    linkQI: 'rgba(255, 51, 102, 0.32)',
+    linkCross: 'rgba(147, 197, 253, 0.24)',
+    linkDim: 'rgba(255, 255, 255, 0.03)'
+  };
+
+  function colorFor(n) {
+    if (n.level === 0) return COLORS.root;
+    if (n.category === 'research') return COLORS.research;
+    if (n.category === 'qi') return COLORS.qi;
+    return '#cbd5e1';
+  }
+
+  // 방사형 글로우 스타 텍스처 (Additive Blending)
+  // 확대했을 때 픽셀이 깨져 보이지 않도록 충분히 높은 해상도로 생성한다.
+  var GLOW_TEXTURE = (function () {
+    var size = 256;
+    var c = document.createElement('canvas');
+    c.width = c.height = size;
+    var ctx = c.getContext('2d');
+    var g = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+    g.addColorStop(0, 'rgba(255,255,255,1)');
+    g.addColorStop(0.2, 'rgba(255,255,255,0.92)');
+    g.addColorStop(0.48, 'rgba(255,255,255,0.58)');
+    g.addColorStop(0.78, 'rgba(255,255,255,0.16)');
+    g.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, size, size);
+    return new THREE.CanvasTexture(c);
+  })();
+
+  function wrapText(text, maxChars, maxLines) {
+    var words = String(text).trim().split(/\s+/);
+    var lines = [];
+    var current = '';
+    for (var i = 0; i < words.length; i++) {
+      var word = words[i];
+      while (word.length > maxChars) {
+        if (current) {
+          lines.push(current);
+          current = '';
+          if (lines.length >= maxLines) return lines;
+        }
+        lines.push(word.slice(0, maxChars));
+        word = word.slice(maxChars);
+        if (lines.length >= maxLines) return lines;
+      }
+      var test = current ? current + ' ' + word : word;
+      if (test.length > maxChars && current) {
+        lines.push(current);
+        current = word;
+        if (lines.length >= maxLines) return lines;
+      } else {
+        current = test;
+      }
+    }
+    if (lines.length < maxLines && current) lines.push(current);
+    return lines;
+  }
+
+  // 노드별 3D 플로팅 라벨 텍스처 생성 (배경 박스 없이 글자만 떠 있는 형태)
+  // 박스/테두리를 아예 없애고, 어떤 배경 위에서도 읽히도록 글자 뒤에 옅은 검은 아웃라인만 둔다.
+  // 세로 스케일이 캔버스의 "논리적"(=디자인 기준) 픽셀 높이에 정비례(PX_TO_WORLD)하도록 통일해서,
+  // 계층별 크기 차이는 오직 폰트 크기로만 표현되고 종횡비 때문에 뜻하지 않게 커지는 일이 없게 한다.
+  var PX_TO_WORLD = 0.19;
+
+  // 확대해서 봐도 글자 가장자리가 픽셀처럼 깨지지 않도록, 실제 캔버스 해상도는 디자인 기준
+  // 크기보다 훨씬 높게(SUPERSAMPLE배) 렌더링한다. 그 안의 모든 그리기 좌표/폰트 크기는 그대로
+  // "논리적" 픽셀 단위를 쓰면 되도록 컨텍스트 자체를 미리 스케일해 둔다.
+  var SUPERSAMPLE = 3;
+
+  function makeCard(logicalW, logicalH) {
+    var c = document.createElement('canvas');
+    c.width = Math.round(logicalW * SUPERSAMPLE);
+    c.height = Math.round(logicalH * SUPERSAMPLE);
+    var ctx = c.getContext('2d');
+    ctx.scale(SUPERSAMPLE, SUPERSAMPLE);
+    return { canvas: c, ctx: ctx, w: logicalW, h: logicalH };
+  }
+
+  function drawOutlinedText(ctx, text, x, y, fillColor) {
+    ctx.lineJoin = 'round';
+    ctx.miterLimit = 2;
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = 'rgba(3, 4, 8, 0.82)';
+    ctx.strokeText(text, x, y);
+    ctx.fillStyle = fillColor;
+    ctx.fillText(text, x, y);
+  }
+
+  function finalizeCard(card) {
+    var texture = new THREE.CanvasTexture(card.canvas);
+    texture.anisotropy = 4;
+    return { texture: texture, width: card.w, height: card.h, scale: card.h * PX_TO_WORLD };
+  }
+
+  function createCardTexture(node) {
+    var isRoot = node.level === 0;
+    var isCat = node.level === 1;
+    var isYear = node.level === 2;
+    var isFeatured = Boolean(node.featured);
+
+    if (isRoot) {
+      var cardRoot = makeCard(340, 70);
+      var ctxRoot = cardRoot.ctx;
+      ctxRoot.textAlign = 'center';
+      ctxRoot.textBaseline = 'middle';
+      ctxRoot.font = '700 16px "Pretendard", sans-serif';
+      drawOutlinedText(ctxRoot, '고려대학교 구로병원 간호부', cardRoot.w / 2, 22, 'rgba(255, 255, 255, 0.8)');
+      ctxRoot.font = '800 27px "Pretendard", sans-serif';
+      drawOutlinedText(ctxRoot, '연구·QI 지식 그래프', cardRoot.w / 2, 52, '#ffffff');
+      return finalizeCard(cardRoot);
+    }
+
+    if (isCat) {
+      var isQiCat = node.category === 'qi';
+      var catAccent = isQiCat ? '#ff6b8f' : '#f5c26b';
+      var cardCat = makeCard(300, 60);
+      var ctxCat = cardCat.ctx;
+      ctxCat.textAlign = 'center';
+      ctxCat.textBaseline = 'middle';
+      ctxCat.font = '700 13px "Pretendard", sans-serif';
+      drawOutlinedText(ctxCat, isQiCat ? 'QUALITY IMPROVEMENT' : 'NURSING RESEARCH', cardCat.w / 2, 18, catAccent);
+      ctxCat.font = '800 24px "Pretendard", sans-serif';
+      drawOutlinedText(ctxCat, node.name, cardCat.w / 2, 44, '#ffffff');
+      return finalizeCard(cardCat);
+    }
+
+    if (isYear) {
+      var cardYear = makeCard(130, 46);
+      var ctxYear = cardYear.ctx;
+      ctxYear.textAlign = 'center';
+      ctxYear.textBaseline = 'middle';
+      ctxYear.font = '800 24px "Pretendard", sans-serif';
+      drawOutlinedText(ctxYear, node.name, cardYear.w / 2, cardYear.h / 2, '#ffffff');
+      return finalizeCard(cardYear);
+    }
+
+    // Leaf nodes (개별 연구 및 QI 과제)
+    var isQi = node.category === 'qi';
+    var accentColor = isQi ? '#ff6b8f' : '#f5c26b';
+
+    if (isFeatured) {
+      // 대표 연구·활동: 평소에는 짧게, 클릭하면 전체 제목을 펼쳐 보여주는 라벨
+      var titleLinesF = wrapText(node.name, node.__expandedLabel ? 42 : 28, node.__expandedLabel ? 10 : 2);
+      var cardF = makeCard(node.__expandedLabel ? 600 : 380, 34 + titleLinesF.length * 25);
+      var ctxF = cardF.ctx;
+      ctxF.textAlign = 'left';
+      ctxF.textBaseline = 'alphabetic';
+      ctxF.font = '700 14px "Pretendard", sans-serif';
+      var tagText = (node.year ? node.year + '년' : '') + ' · ' + (node.dept || '구로병원');
+      drawOutlinedText(ctxF, tagText, 4, 17, accentColor);
+
+      ctxF.font = '700 ' + (node.__expandedLabel ? 21 : 19) + 'px "Pretendard", sans-serif';
+      titleLinesF.forEach(function (line, idx) {
+        drawOutlinedText(ctxF, line, 4, 17 + 25 * (idx + 1), '#ffffff');
+      });
+      return finalizeCard(cardF);
+    } else {
+      // 일반 과제 노드: 윗줄 — 연도·부서/팀, 아랫줄 — 주제(과제명) 텍스트
+      var topLine = [node.year ? node.year + '년' : '', node.dept || ''].filter(Boolean).join(' · ');
+      var titleLinesM = wrapText(node.name, node.__expandedLabel ? 44 : 30, node.__expandedLabel ? 10 : 2);
+      var cardM = makeCard(node.__expandedLabel ? 540 : 300, 28 + titleLinesM.length * 22);
+      var ctxM = cardM.ctx;
+      ctxM.textAlign = 'left';
+      ctxM.textBaseline = 'alphabetic';
+      ctxM.font = '700 13px "Pretendard", sans-serif';
+      drawOutlinedText(ctxM, topLine, 4, 15, accentColor);
+
+      ctxM.font = '600 ' + (node.__expandedLabel ? 19 : 16) + 'px "Pretendard", sans-serif';
+      titleLinesM.forEach(function (line, idx) {
+        drawOutlinedText(ctxM, line, 4, 15 + 22 * (idx + 1), 'rgba(255, 255, 255, 0.95)');
+      });
+      return finalizeCard(cardM);
+    }
+  }
+
+  function nodeObjectFor(node) {
+    var group = new THREE.Group();
+
+    // 그래프 시뮬레이션이 자리를 잡은 뒤라면(핫 리로드 등) 확정된 좌표를 즉시 반영
+    if (node.__anchorX != null) {
+      group.position.set(node.__anchorX, node.__anchorY, node.__anchorZ);
+    }
+
+    var glowSize = node.level === 0 ? 13 : (node.level === 1 ? 9.0 : (node.level === 2 ? 6.2 : (node.featured ? 4.8 : 3.0)));
+    var defaultGlowOpacity = node.__isMinor ? 0.62 : 0.95;
+    var defaultLabelOpacity = node.level <= 2 ? 0.96 : 0;
+
+    // 1. 발광 별빛 스프라이트
+    var glowMat = new THREE.SpriteMaterial({
+      map: GLOW_TEXTURE,
+      color: colorFor(node),
+      transparent: true,
+      opacity: defaultGlowOpacity,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending
+    });
+    var glowSprite = new THREE.Sprite(glowMat);
+    glowSprite.scale.set(glowSize, glowSize, 1);
+    group.add(glowSprite);
+
+    // 2. 플로팅 텍스트 라벨 빌보드
+    // 일반(비대표) 리프 노드는 라벨을 기본적으로 숨겨두고, 확대(줌 인) 또는 호버 시에만 드러냄
+    var card = createCardTexture(node);
+    // 필터/호버/클릭 포커스가 정하는 "의도한" 라벨 밝기. 실제 렌더링되는 opacity는 매 프레임
+    // 여기에 카메라 거리 기반 depth-fade를 곱해서 구하므로(아래 animateFloat), 이 값 자체를
+    // 직접 __labelMat.opacity에 쓰지 않는다.
+    node.__labelBaseOpacity = node.__revealTier ? 0 : defaultLabelOpacity;
+    // 호버/클릭/필터 상태가 바뀔 때 이 두 목표값(target)만 갱신하고, 실제 __glowMat.opacity와
+    // __labelBaseOpacity는 animateFloat 루프에서 매 프레임 목표값 쪽으로 서서히(이징) 다가가게
+    // 한다. 예전에는 상태가 바뀌는 즉시 값을 확 덮어써서, 노드를 클릭하면 라벨이 뚝 하고
+    // 순간적으로 나타났다 사라지는 부자연스러운 "팝" 현상이 있었다(버그).
+    node.__glowOpacityTarget = defaultGlowOpacity;
+    node.__labelOpacityTarget = node.__labelBaseOpacity;
+    var labelMat = new THREE.SpriteMaterial({
+      map: card.texture,
+      transparent: true,
+      opacity: node.__labelBaseOpacity,
+      depthWrite: false
+    });
+    var labelSprite = new THREE.Sprite(labelMat);
+    var aspect = card.width / card.height;
+    labelSprite.scale.set(card.scale * aspect, card.scale, 1);
+    labelSprite.position.set(0, glowSize * 0.55 + card.scale * 0.52, 0);
+    group.add(labelSprite);
+    node.__labelSprite = labelSprite;
+    node.__labelScale = 1;
+    node.__labelScaleTarget = 1;
+    node.__labelBaseScaleX = card.scale * aspect;
+    node.__labelBaseScaleY = card.scale;
+    node.__glowSize = glowSize;
+    node.__expandedLabel = false;
+
+    // 3. 클릭/호버 감지용 보이지 않는 감지체 (Raycast 정확도 극대화)
+    var hitSphere = new THREE.Mesh(
+      new THREE.SphereGeometry(Math.max(glowSize * 0.8, card.scale * 0.7), 8, 8),
+      new THREE.MeshBasicMaterial({ visible: false })
+    );
+    group.add(hitSphere);
+
+    node.__group = group;
+    node.__glowMat = glowMat;
+    node.__labelMat = labelMat;
+    node.__defaultGlowOpacity = defaultGlowOpacity;
+    node.__defaultLabelOpacity = defaultLabelOpacity;
+
+    return group;
+  }
+
+  function refreshNodeLabel(node, expanded) {
+    if (!node.__labelMat || !node.__labelSprite || node.__expandedLabel === expanded) return;
+    node.__expandedLabel = expanded;
+    var card = createCardTexture(node);
+    var oldTexture = node.__labelMat.map;
+    node.__labelMat.map = card.texture;
+    node.__labelMat.needsUpdate = true;
+    if (oldTexture && oldTexture !== card.texture) oldTexture.dispose();
+
+    var aspect = card.width / card.height;
+    node.__labelBaseScaleX = card.scale * aspect;
+    node.__labelBaseScaleY = card.scale;
+    node.__labelSprite.position.y = node.__glowSize * 0.55 + card.scale * 0.52;
+    // 텍스처가 바뀌는 순간의 팝을 막고, 새 카드가 opacity easing으로 나타나게 한다.
+    node.__labelBaseOpacity = 0;
+  }
+
+  function labelFor(n) {
+    var isQi = n.category === 'qi';
+    return '<div style="font:600 13px/1.4 Pretendard,sans-serif;color:#fff;background:rgba(12,16,28,0.95);padding:10px 14px;border-radius:10px;border:1px solid ' + (isQi ? '#ff3366' : '#f5c26b') + ';box-shadow:0 8px 24px rgba(0,0,0,0.6);max-width:320px;">' +
+      '<div style="font-size:11px;opacity:0.85;margin-bottom:4px;color:' + (isQi ? '#ff99b3' : '#ffe082') + ';">' + [n.dept, n.year ? n.year + '년' : '', isQi ? 'QI활동' : '연구활동'].filter(Boolean).join(' · ') + '</div>' +
+      '<strong style="font-size:14px;display:block;line-height:1.45;">' + n.name + '</strong>' +
+      '</div>';
+  }
+
+  var Graph = ForceGraph3D()(container)
+    .width(container.clientWidth)
+    .height(container.clientHeight)
+    .backgroundColor('#060810')
+    .showNavInfo(false)
+    .nodeThreeObject(nodeObjectFor)
+    .nodeLabel(labelFor)
+    .linkColor(function (l) {
+      if (l.cross) return COLORS.linkCross;
+      return l.target && (l.target.category === 'qi' || (typeof l.target === 'object' && l.target.category === 'qi'))
+        ? COLORS.linkQI : COLORS.linkResearch;
+    })
+    .linkWidth(function (l) { return l.cross ? 0.25 : 0.45; })
+    .linkDirectionalParticles(function (l) { return l.cross ? 0 : 1; })
+    .linkDirectionalParticleSpeed(0.0035)
+    .linkDirectionalParticleWidth(1.2)
+    .linkDirectionalParticleColor(function (l) {
+      var isQi = l.target && (l.target.category === 'qi' || (typeof l.target === 'object' && l.target.category === 'qi'));
+      return isQi ? '#ff7597' : '#ffe082';
+    })
+    .onNodeHover(handleNodeHover)
+    .onNodeClick(handleNodeClick)
+    .onBackgroundClick(closeDetail)
+    // 노드는 무중력 부유 애니메이션이 매 프레임 자기 자리로 다시 붙잡아 두므로,
+    // 기본 드래그를 켜두면 마우스가 노드를 스치기만 해도 두 힘이 서로 충돌해
+    // 노드가 부자연스럽게 떨리듯 움직인다. 드래그 자체를 꺼서 이 충돌을 없앤다.
+    .enableNodeDrag(false)
+    // 관계(링크)를 따라 자연스럽게 뭉치고 퍼지도록 물리 시뮬레이션을 충분히 돌려 그래프 형태로 수렴시킴
+    .warmupTicks(0)
+    .cooldownTicks(160)
+    .onEngineTick(flattenTowardViewPlane)
+    .onEngineStop(handleEngineStop);
+
+  Graph.d3AlphaDecay(0.065); // 조금 더 빠르게 수렴시켜 대기 시간을 줄임
+
+  // 계층 관계는 서로를 끌어당기고(링크), 같은 계층끼리는 밀어내며(전하) 옵시디언 그래프뷰처럼
+  // 유기적인 그래프 구조로 수렴한다. 허브(루트/카테고리)일수록 반발력이 커서 하위 군집이 넓게 갈라진다.
+  if (Graph.d3Force('charge')) {
+    Graph.d3Force('charge').strength(function (n) {
+      return n.level === 0 ? -260 : (n.level === 1 ? -170 : (n.level === 2 ? -80 : -26));
+    });
+  }
+  if (Graph.d3Force('link')) {
+    Graph.d3Force('link')
+      .distance(function (l) { return l.cross ? 34 : (l.weight === 3 ? 70 : (l.weight === 2 ? 42 : 16)); })
+      .strength(function (l) { return l.cross ? 0.15 : 0.85; });
+  }
+
+  // 완전한 구(sphere)로 퍼지면 고정된 정면 카메라에서 절반 가까이가 가려지므로, 매 틱마다 z값을
+  // 살짝만 0쪽으로 눌러준다. 너무 세게 누르면(예: 0.96) 노드들이 종이처럼 완전히 납작해져서 안개
+  // 구름과 같은 깊이에서 어우러지지 못하므로, 여기서는 은하 안개와 실제로 뒤섞일 정도의 두께(입체감)는
+  // 남겨두는 선에서만 완만하게 눌러준다.
+  function flattenTowardViewPlane() {
+    for (var i = 0; i < data.nodes.length; i++) {
+      data.nodes[i].z *= 0.992;
+    }
+  }
+
+  Graph.graphData({ nodes: data.nodes, links: data.links });
+
+  window.addEventListener('resize', function () {
+    Graph.width(container.clientWidth).height(container.clientHeight);
+  });
+
+  // 초기 카메라 위치 (지식 그래프와 호랑이 성운이 화면 중앙에 웅장하고 또렷하게 들어오는 구도)
+  var ROT_RADIUS = 260;
+  Graph.cameraPosition({ x: 0, y: 0, z: ROT_RADIUS }, { x: 0, y: 0, z: 0 }, 0);
+
+  // 옵시디언 포커스 & 필터 & 줌 기반 라벨 노출 상태 (animateFloat보다 먼저 선언해 최초 프레임에서도 안전하게 참조)
+  var currentFilter = 'all';
+  var hoverNode = null;
+  var highlightNodes = new Set();
+  var highlightLinks = new Set();
+  // 노드를 클릭하면 그 노드만 남기고 나머지를 모두 지워 "그 노드의 내용만" 깔끔하게 보여준다.
+  var clickFocusNode = null;
+
+  // 일반(비대표) 리프 노드 라벨의 줌 기반 점진적 노출(Progressive Disclosure)
+  // 53건에 달하는 일반 QI 라벨이 기본 시점에 한꺼번에 겹쳐 보이는 것을 막기 위해, 초기 시점에는
+  // 숨겨두고 사용자가 확대할수록 드러난다. 허브/카테고리/연도/대표 과제 라벨은 처음부터 항상 보인다.
+  var REVEAL_THRESHOLDS = {
+    minor: { far: 210, near: 80 }
+  };
+  var revealFrac = { minor: 0 };
+
+  function computeFilterMatch(n) {
+    if (currentFilter === 'all' || n.level <= 1) return true;
+    if (currentFilter === 'research') return n.category === 'research';
+    if (currentFilter === 'qi') return n.category === 'qi';
+    if (currentFilter === '2025' || currentFilter === '2024' || currentFilter === '2023') return String(n.year) === currentFilter;
+    return true;
+  }
+
+  // 물리 시뮬레이션이 관계를 따라 자연스럽게 뭉치고 퍼진 뒤(그래프 형성 완료), 그 자리를 각 노드의
+  // "고정 자리"로 확정해 이후 무중력 부유 애니메이션의 기준점으로 삼는다.
+  function handleEngineStop() {
+    data.nodes.forEach(function (n) {
+      n.__anchorX = n.x;
+      n.__anchorY = n.y;
+      n.__anchorZ = n.z;
+      n.fx = n.x;
+      n.fy = n.y;
+      n.fz = n.z;
+    });
+    if (loadingEl) loadingEl.style.display = 'none';
+  }
+
+  // 1. 고려대학교 호랑이 은하(Nebula) — 평면 이미지를 층층이 쌓는 대신, 참고 이미지(assets/tiger-nebula.png)의
+  // 밝기 정보를 픽셀 단위로 읽어 "진짜 3차원 입자 구름"을 만든다. 밝은(가스가 짙은) 픽셀일수록 더 많은
+  // 입자를 배치하고, 각 입자는 그 픽셀의 실제 색을 그대로 물려받으며, z축 위치도 각 입자마다 독립적인
+  // 난수로 흩어 놓는다. 층(layer)이라는 개념 자체가 없어, 카메라가 어느 각도로 돌아도 매 순간 입자들의
+  // 상대적 위치가 자연스럽게 달라지는 진짜 입체 시차를 만든다.
+  var tigerNebulaPoints = null;
+  (function buildTigerNebula() {
+    var img = new Image();
+    img.onload = function () {
+      var iw = img.width, ih = img.height;
+
+      // 샘플링용으로 적당히 축소해서 픽셀을 읽는다 (성능 확보 + 자연스러운 뭉침)
+      var sw = 300, sh = Math.round(300 * (ih / iw));
+      var sc = document.createElement('canvas');
+      sc.width = sw; sc.height = sh;
+      var sctx = sc.getContext('2d');
+      sctx.drawImage(img, 0, 0, sw, sh);
+      var data = sctx.getImageData(0, 0, sw, sh).data;
+
+      var worldW = 230, worldH = worldW * (sh / sw);
+      // 안개의 z 범위를 지식 그래프 노드들이 실제로 떠 있는 깊이(원점 근처)와 겹치게 배치해서,
+      // 노드가 안개 뒤쪽 배경이 아니라 "안개 속"에 함께 있는 것처럼 보이게 한다.
+      var Z_CENTER = -5, Z_HALF = 85;
+
+      var positions = [];
+      var colors = [];
+      var sumX = 0, sumY = 0, sumW = 0; // 안개의 실제 밝은 영역(호랑이 얼굴) 중심을 구해 원점으로 옮기기 위함
+
+      for (var py = 0; py < sh; py++) {
+        for (var px = 0; px < sw; px++) {
+          var idx = (py * sw + px) * 4;
+          var r = data[idx], g = data[idx + 1], b = data[idx + 2];
+          var lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+          // 원본 사진은 배경 전체에 옅은 우주 안개가 깔려 있어 밝기값이 최대 0.65 정도에 그치고 대부분
+          // 픽셀이 0~0.3 사이에 몰려 있다. 그대로 쓰면 화면 전체가 고른 잡음처럼 보이므로, 밝기 대비를
+          // 끌어올려(레벨 보정) 실제로 눈에 띄는 성운 필라멘트/별 부분만 입자로 남긴다.
+          var adj = Math.max(0, Math.min(1, (lum - 0.16) / (0.6 - 0.16)));
+          if (adj < 0.05) continue; // 배경 안개 수준은 건너뜀
+          adj = Math.pow(adj, 1.55); // 어두운 쪽을 더 눌러 대비를 강조 (필라멘트 형태가 더 또렷하게)
+
+          // 밝을수록(가스/별이 짙을수록) 그 자리에 입자를 더 많이 심어 자연스러운 농도 차이를 만든다
+          var copies = 1 + Math.floor(adj * 5);
+          var nx = px / sw - 0.5;
+          var ny = py / sh - 0.5;
+          var baseX = nx * worldW;
+          var baseY = -ny * worldH;
+          sumX += baseX * copies;
+          sumY += baseY * copies;
+          sumW += copies;
+
+          for (var c = 0; c < copies; c++) {
+            var jx = baseX + (Math.random() - 0.5) * 2.2;
+            var jy = baseY + (Math.random() - 0.5) * 2.2;
+            // 세 난수의 합 -> 중심부에 살짝 몰리고 가장자리로 갈수록 옅어지는 자연스러운 두께 분포
+            var jz = Z_CENTER + ((Math.random() + Math.random() + Math.random()) / 3 - 0.5) * 2 * Z_HALF;
+
+            positions.push(jx, jy, jz);
+            // 픽셀의 실제 색조(원본 사진의 청회색톤)는 유지하되, 밝을수록(필라멘트 진할수록) 고려대
+            // 호랑이 빛깔(호박색~크림슨)을 살짝 섞어 넣어 "호랑이" 느낌을 더 뚜렷하게 살린다
+            var boost = 1.7;
+            var pr = Math.min(1, (r / 255) * boost);
+            var pg = Math.min(1, (g / 255) * boost);
+            var pb = Math.min(1, (b / 255) * boost);
+            var tigerMix = 0.3 + adj * 0.55; // 전체적으로 호랑이색을 기본으로 깔고, 밝은 영역일수록 더 진하게
+            var tr = 0.96, tg = 0.62 - adj * 0.2, tb = 0.16;
+            colors.push(
+              pr + (tr - pr) * tigerMix,
+              pg + (tg - pg) * tigerMix,
+              pb + (tb - pb) * tigerMix
+            );
+          }
+        }
+      }
+
+      // 실제 밝은 영역(호랑이 얼굴)의 무게중심을 원점으로 재정렬 -> 지식 그래프 노드 군집(원점 부근에서
+      // 형성됨)과 안개의 중심이 서로 어긋나 "따로 노는" 두 덩어리로 보이는 것을 방지한다.
+      if (sumW > 0) {
+        var cx = sumX / sumW, cy = sumY / sumW;
+        for (var pi = 0; pi < positions.length; pi += 3) {
+          positions[pi] -= cx;
+          positions[pi + 1] -= cy;
+        }
+      }
+
+      var geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geo.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+      var mat = new THREE.PointsMaterial({
+        map: GLOW_TEXTURE,
+        vertexColors: true,
+        size: 2.1,
+        transparent: true,
+        opacity: 0.4,
+        sizeAttenuation: true,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
+      });
+
+      var points = new THREE.Points(geo, mat);
+      points.frustumCulled = false;
+      points.renderOrder = -1;
+      Graph.scene().add(points);
+      tigerNebulaPoints = points;
+    };
+    img.src = '../assets/tiger-nebula.png';
+  })();
+
+  // 2. 심우주 배경 입체 스타필드 (지식 그래프가 산만해 보이지 않도록 적당히 절제된 밀도로)
+  var bgPoints = (function () {
+    var count = 1100;
+    var positions = new Float32Array(count * 3);
+    var colors = new Float32Array(count * 3);
+    var cGold = new THREE.Color(0xf5c26b);
+    var cCrimson = new THREE.Color(0xff4f79);
+    var cCyan = new THREE.Color(0x9bd8ff);
+    var cWhite = new THREE.Color(0xffffff);
+    var palette = [cGold, cCrimson, cCyan, cWhite];
+
+    for (var i = 0; i < count; i++) {
+      var r = 850 + Math.random() * 1200;
+      var theta = Math.random() * Math.PI * 2;
+      var phi = Math.acos(2 * Math.random() - 1);
+      positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+      positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+      positions[i * 3 + 2] = r * Math.cos(phi);
+
+      var col = palette[Math.floor(Math.random() * palette.length)];
+      colors[i * 3] = col.r;
+      colors[i * 3 + 1] = col.g;
+      colors[i * 3 + 2] = col.b;
+    }
+
+    var geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+    var mat = new THREE.PointsMaterial({
+      map: GLOW_TEXTURE,
+      vertexColors: true,
+      size: 2.3,
+      transparent: true,
+      opacity: 0.42,
+      sizeAttenuation: true,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+    var points = new THREE.Points(geo, mat);
+    points.frustumCulled = false;
+    Graph.scene().add(points);
+    return points;
+  })();
+
+  // 3. 본인 자리에서 둥둥 떠 있는 무중력 부유 애니메이션 (Zero-Gravity In-Place Floating)
+  (function animateFloat() {
+    var now = performance.now();
+    var t = now * 0.001;
+
+    // 카메라 줌 거리 기반 일반 과제 라벨 노출도 계산 (가까이 볼수록 점진적으로 드러남)
+    var cam = Graph.camera().position;
+    var camDist = Math.sqrt(cam.x * cam.x + cam.y * cam.y + cam.z * cam.z);
+    revealFrac.minor = Math.min(1, Math.max(0, (REVEAL_THRESHOLDS.minor.far - camDist) / (REVEAL_THRESHOLDS.minor.far - REVEAL_THRESHOLDS.minor.near)));
+
+    // 각 노드는 호랑이 형상 내 본인의 앵커 자리에서 미세하게 둥둥 떠서 숨쉬듯 부유
+    for (var i = 0; i < data.nodes.length; i++) {
+      var n = data.nodes[i];
+      if (n.__anchorX == null) continue;
+      var amp = n.__floatAmp || 1.2;
+      var nx = n.__anchorX + Math.sin(t * 0.52 + n.__floatPhaseX) * amp;
+      var ny = n.__anchorY + Math.cos(t * 0.44 + n.__floatPhaseY) * amp;
+      var nz = n.__anchorZ + Math.sin(t * 0.38 + n.__floatPhaseZ) * (amp * 1.2);
+
+      n.x = n.fx = nx;
+      n.y = n.fy = ny;
+      n.z = n.fz = nz;
+
+      if (n.__group) {
+        n.__group.position.set(nx, ny, nz);
+      }
+
+      // 호버 중이거나 클릭으로 한 노드만 보여주는 중(클릭 포커스)이 아닐 때만 줌 노출도를 반영
+      if (n.__revealTier && n.__glowMat && !hoverNode && !clickFocusNode) {
+        applyFilterState(n);
+      }
+
+      // 글로우/라벨 밝기를 목표값(target)으로 서서히 수렴시킨다(지수 이징). 호버·클릭·필터
+      // 전환이 즉시 뚝 바뀌는 대신 자연스럽게 부드럽게 커지고/작아지도록 만드는 부분.
+      if (n.__glowMat && n.__glowOpacityTarget != null) {
+        n.__glowMat.opacity += (n.__glowOpacityTarget - n.__glowMat.opacity) * 0.15;
+      }
+      if (n.__labelMat && n.__labelOpacityTarget != null) {
+        n.__labelBaseOpacity += (n.__labelOpacityTarget - n.__labelBaseOpacity) * 0.15;
+      }
+
+      // 카메라와의 거리 기반 라벨 depth-fade: 회전 중 가까운 라벨은 또렷하게, 멀어서 다른
+      // 라벨과 겹치기 쉬운 라벨은 자연스럽게 옅어지게 해 회전할 때 글자가 뒤엉켜 정신없어
+      // 보이는 것을 줄인다. (필터/호버/클릭 포커스가 정한 __labelBaseOpacity에 곱해서 적용)
+      if (n.__labelMat) {
+        var ldx = nx - cam.x, ldy = ny - cam.y, ldz = nz - cam.z;
+        var camToNode = Math.sqrt(ldx * ldx + ldy * ldy + ldz * ldz);
+        var depthT = 1 - Math.min(1, Math.max(0, (camToNode - 90) / (340 - 90)));
+        var depthFactor = 0.32 + depthT * 0.68;
+        var baseLabelOpacity = n.__labelBaseOpacity != null ? n.__labelBaseOpacity : n.__defaultLabelOpacity;
+        n.__labelMat.opacity = baseLabelOpacity * depthFactor;
+      }
+      if (n.__labelSprite && n.__labelScaleTarget != null) {
+        n.__labelScale += (n.__labelScaleTarget - n.__labelScale) * 0.12;
+        n.__labelSprite.scale.set(
+          n.__labelBaseScaleX * n.__labelScale,
+          n.__labelBaseScaleY * n.__labelScale,
+          1
+        );
+      }
+    }
+
+    // 호랑이 실루엣 성운의 은은한 숨쉬기 발광 (안개가 천천히 짙어졌다 옅어짐)
+    if (tigerNebulaPoints) {
+      tigerNebulaPoints.material.opacity = 0.3 + Math.sin(t * 0.4) * 0.05;
+    }
+
+    // 배경 스타필드 부유 회전
+    if (bgPoints) {
+      bgPoints.rotation.y += 0.0001;
+      bgPoints.rotation.x += 0.00004;
+    }
+
+    requestAnimationFrame(animateFloat);
+  })();
+
+  // 천천히 공전하는 카메라 회전 (전면 각도 중심의 완만한 3D 유영으로 호랑이 형태 보존)
+  // x/z를 서로 다른 주기(angle, angle*0.6)로 굴리고 y는 또 다른 주기(angle*1.3)로 따로 흔들면
+  // 카메라와 원점 사이 거리가 회전 중 계속 늘었다 줄었다 해서(구면 위를 안 도니까), 글자 라벨이
+  // 카메라를 늘 바라보는 빌보드라 회전하는 동안 커졌다 작아졌다 하며 산만해 보였다(버그). 구면
+  // 좌표(각도 하나 + 작은 기울기)로 통일해 원점에서의 거리가 항상 ROT_RADIUS로 일정하게 만든다.
+  var angle = 0;
+  var autoRotate = true;
+  var rotateTimer = setInterval(function () {
+    if (!autoRotate) return;
+    var tilt = Math.sin(angle * 0.35) * 0.12;
+    var camX = ROT_RADIUS * Math.cos(tilt) * Math.sin(angle);
+    var camZ = ROT_RADIUS * Math.cos(tilt) * Math.cos(angle);
+    var camY = ROT_RADIUS * Math.sin(tilt);
+    Graph.cameraPosition({ x: camX, y: camY, z: camZ });
+    // 기존 값(파이/18000)은 한 바퀴 도는 데 12분이 걸릴 만큼 느려서, 재생을 눌러도 몇 초 안에는
+    // 거의 변화가 감지되지 않았다. 은은하되 눈에 띄게 도는 속도(한 바퀴 약 70초)로 조정.
+    angle += Math.PI / 1800;
+  }, 20);
+
+  // 사용자 수동 조작 감지 시 자동 회전 일시 정지
+  container.addEventListener('pointerdown', function () {
+    if (autoRotate) setAutoRotate(false);
+  });
+  container.addEventListener('wheel', function () {
+    if (autoRotate) setAutoRotate(false);
+  }, { passive: true });
+
+  var rotateBtn = document.getElementById('btn-toggle-rotate');
+  var rotateLabel = document.getElementById('rotate-label');
+  function setAutoRotate(enabled) {
+    autoRotate = enabled;
+    if (rotateLabel) rotateLabel.textContent = autoRotate ? '회전 일시정지' : '회전 재생';
+    // 자동 회전 중엔 마우스 드래그용 OrbitControls를 꺼둬야 한다. 켜둔 채로 카메라 좌표를 강제로
+    // 매 프레임 덮어써봤자, OrbitControls가 자기 내부 상태로 도로 밀어내며 서로 충돌해 "재생을 눌러도
+    // 아무 변화가 없는" 것처럼 보이는 원인이 된다.
+    var controls = Graph.controls && Graph.controls();
+    if (controls) controls.enabled = !autoRotate;
+  }
+  if (rotateBtn) {
+    rotateBtn.addEventListener('click', function () {
+      setAutoRotate(!autoRotate);
+    });
+  }
+  setAutoRotate(true); // 초기 상태를 명시적으로 맞춰 OrbitControls와의 충돌을 처음부터 방지
+
+  var resetBtn = document.getElementById('btn-reset-view');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function () {
+      // 자동 회전 인터벌이 20ms마다 카메라 좌표를 강제로 덮어쓰기 때문에, 켜진 채로 두면 지금 막
+      // 시작한 정면 복귀 트윈을 다음 틱에 바로 취소해버려 "눌러도 정면으로 안 돌아가는" 것처럼
+      // 보였다(버그). 트윈이 끝날 때까지는 확실히 꺼두고, 각도도 0(정면)으로 되돌려 두어 트윈이
+      // 끝나고 회전이 재개될 때 시점이 다른 곳으로 튀지 않게 한다.
+      autoRotate = false;
+      angle = 0;
+      var controls = Graph.controls && Graph.controls();
+      if (controls) controls.enabled = false;
+      if (rotateLabel) rotateLabel.textContent = '회전 재생';
+
+      Graph.cameraPosition({ x: 0, y: 8, z: ROT_RADIUS }, { x: 0, y: 0, z: 0 }, 900);
+      closeDetail();
+      applyHoverState(null);
+
+      setTimeout(function () { setAutoRotate(true); }, 950);
+    });
+  }
+
+  // 옵시디언 포커스 & 디밍 (Hover Focus & Dimming)
+  // 노드가 유기적으로 촘촘히 뭉쳐 있다 보니 마우스가 살짝만 지나가도 이웃 노드로 호버가 튀어
+  // 화면 전체가 깜빡이듯 정신없어 보일 수 있음 -> 같은 노드 위에서 잠시(120ms) 머무를 때만 반영
+  var hoverDebounceTimer = null;
+  function handleNodeHover(node) {
+    if (hoverDebounceTimer) clearTimeout(hoverDebounceTimer);
+    hoverDebounceTimer = setTimeout(function () {
+      applyHoverState(node);
+    }, 120);
+  }
+
+  function applyHoverState(node) {
+    // 클릭으로 한 노드만 남겨 보여주는 중(클릭 포커스)에는 호버 하이라이트를 적용하지 않는다.
+    if (clickFocusNode) return;
+    if ((!node && !hoverNode) || (node && hoverNode === node)) return;
+    hoverNode = node || null;
+    highlightNodes.clear();
+    highlightLinks.clear();
+
+    if (node) {
+      highlightNodes.add(node.id);
+      data.links.forEach(function (link) {
+        var sId = typeof link.source === 'object' ? link.source.id : link.source;
+        var tId = typeof link.target === 'object' ? link.target.id : link.target;
+        if (sId === node.id || tId === node.id) {
+          highlightLinks.add(link);
+          highlightNodes.add(sId);
+          highlightNodes.add(tId);
+        }
+      });
+      container.style.cursor = 'pointer';
+    } else {
+      container.style.cursor = '';
+    }
+
+    data.nodes.forEach(function (n) {
+      if (!n.__glowMat || !n.__labelMat) return;
+      if (!node) {
+        applyFilterState(n);
+      } else {
+        var isConnected = highlightNodes.has(n.id);
+        n.__glowOpacityTarget = isConnected ? 1.0 : 0.3;
+        n.__labelOpacityTarget = isConnected ? 1.0 : 0.2;
+        n.__labelScaleTarget = isConnected ? 1.06 : 0.96;
+      }
+    });
+
+    Graph.linkColor(function (l) {
+      if (!node) {
+        if (l.cross) return COLORS.linkCross;
+        var isQi = l.target && (l.target.category === 'qi' || (typeof l.target === 'object' && l.target.category === 'qi'));
+        return isQi ? COLORS.linkQI : COLORS.linkResearch;
+      }
+      return highlightLinks.has(l) ? 'rgba(255, 255, 255, 0.95)' : COLORS.linkDim;
+    });
+  }
+
+  // 카테고리 필터링 HUD
+  function applyFilterState(n) {
+    refreshNodeLabel(n, false);
+    var match = computeFilterMatch(n);
+    var tierFrac = n.__revealTier ? revealFrac[n.__revealTier] : 1;
+    var revealedLabelOpacity = n.__defaultLabelOpacity * tierFrac;
+    n.__glowOpacityTarget = match ? n.__defaultGlowOpacity : 0.12;
+    n.__labelOpacityTarget = match ? revealedLabelOpacity : (n.__revealTier ? 0 : 0.08);
+    n.__labelScaleTarget = 1;
+  }
+
+  // 노드 클릭 시 그 노드만 남기고 나머지 노드·링크는 모두 지워, "그 노드의 내용만" 깔끔하게
+  // 보여준다. clickFocusNode가 null이면(포커스 해제) 평소 필터/노출 상태로 되돌린다.
+  function applyIsolateState() {
+    data.nodes.forEach(function (n) {
+      if (!n.__glowMat || !n.__labelMat) return;
+      if (!clickFocusNode) {
+        applyFilterState(n);
+        n.__labelScaleTarget = 1;
+        return;
+      }
+      var isTarget = n.id === clickFocusNode.id;
+      refreshNodeLabel(n, isTarget);
+      n.__glowOpacityTarget = isTarget ? 1 : 0.04;
+      n.__labelOpacityTarget = isTarget ? 1 : 0;
+      n.__labelScaleTarget = isTarget ? 1.68 : 0.9;
+    });
+    Graph.linkColor(function (l) {
+      if (!clickFocusNode) {
+        if (l.cross) return COLORS.linkCross;
+        var isQi = l.target && (l.target.category === 'qi' || (typeof l.target === 'object' && l.target.category === 'qi'));
+        return isQi ? COLORS.linkQI : COLORS.linkResearch;
+      }
+      return COLORS.linkDim;
+    });
+  }
+
+  var filterChips = document.querySelectorAll('.hud-chip');
+  filterChips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      filterChips.forEach(function (c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      currentFilter = chip.getAttribute('data-filter');
+      clickFocusNode = null;
+      data.nodes.forEach(applyFilterState);
+    });
+  });
+
+  // 상세 카드 (Warp Fly-to Zoom)
+  var detailEl = document.getElementById('mindmap-detail');
+  var detailBadge = document.getElementById('detail-badge');
+  var detailYear = document.getElementById('detail-year');
+  var detailTitle = document.getElementById('detail-title');
+  var detailDept = document.getElementById('detail-dept');
+  var detailLink = document.getElementById('detail-link');
+  var detailClose = document.getElementById('detail-close');
+
+  function openDetail(node) {
+    var isQi = node.category === 'qi';
+    detailBadge.className = 'badge ' + (isQi ? 'cat-qi' : 'cat-research');
+    detailBadge.textContent = isQi ? 'QI활동' : '간호연구';
+    if (node.year) {
+      detailYear.textContent = node.year + '년';
+      detailYear.style.display = 'inline-block';
+    } else {
+      detailYear.style.display = 'none';
+    }
+    detailTitle.textContent = node.name;
+    detailDept.textContent = node.dept ? '소속/팀: ' + node.dept : '';
+    detailLink.href = node.href || (isQi ? 'research-qi.html' : 'research-study.html');
+    detailEl.classList.add('open');
+  }
+
+  function closeDetail() {
+    detailEl.classList.remove('open');
+    if (clickFocusNode) {
+      clickFocusNode = null;
+      applyIsolateState();
+    }
+  }
+  if (detailClose) detailClose.addEventListener('click', closeDetail);
+
+  // 선택 노드로 이동할 때 카메라 거리를 유지해 라벨이 갑자기 커지지 않게 한다.
+  function focusCameraOnNode(node) {
+    var camera = Graph.camera && Graph.camera();
+    if (!camera) return;
+
+    var controls = Graph.controls && Graph.controls();
+    var target = controls && controls.target ? controls.target : { x: 0, y: 0, z: 0 };
+    var viewX = camera.position.x - target.x;
+    var viewY = camera.position.y - target.y;
+    var viewZ = camera.position.z - target.z;
+    var distance = Math.hypot(viewX, viewY, viewZ) || ROT_RADIUS;
+    var viewLength = Math.hypot(viewX, viewY, viewZ) || 1;
+
+    Graph.cameraPosition({
+      x: node.x + (viewX / viewLength) * distance,
+      y: node.y + (viewY / viewLength) * distance,
+      z: node.z + (viewZ / viewLength) * distance
+    }, { x: node.x, y: node.y, z: node.z }, 720);
+  }
+
+  function handleNodeClick(node) {
+    setAutoRotate(false);
+    openDetail(node);
+    clickFocusNode = node;
+    applyIsolateState();
+    focusCameraOnNode(node);
+  }
+
+  // 목록 보기 (List View)
+  function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function buildListView() {
+    var host = document.getElementById('research-list-view');
+    if (!host) return;
+    var leaves = data.nodes.filter(function (n) { return n.level === 3; });
+    var byCat = { research: {}, qi: {} };
+    leaves.forEach(function (n) {
+      var bucket = byCat[n.category] || (byCat[n.category] = {});
+      (bucket[n.year] = bucket[n.year] || []).push(n);
+    });
+    var years = [2025, 2024, 2023];
+    var html = '';
+
+    html += '<h2>연도별 연구활동 (10편)</h2><p class="lede">부서별로 진행한 임상 간호연구를 연도별로 소개합니다.</p>';
+    years.forEach(function (y) {
+      var items = byCat.research[y];
+      if (!items || !items.length) return;
+      html += '<div class="year-group"><h3>' + y + '</h3><ul>' + items.map(function (n) {
+        return '<li>' + escapeHtml(n.name) + '<span class="dept">_' + escapeHtml(n.dept || '') + '</span></li>';
+      }).join('') + '</ul></div>';
+    });
+
+    html += '<h2 style="margin-top:44px;">연도별 QI활동 (53건)</h2><p class="lede">환자안전과 진료의 질을 높이기 위해 부서별로 추진한 QI(질 향상) 활동을 연도별로 소개합니다.</p>';
+    years.forEach(function (y) {
+      var items = byCat.qi[y];
+      if (!items || !items.length) return;
+      html += '<div class="qi-table-wrap"><div class="qi-year-badge">' + y + '</div>' +
+        '<table class="qi-table"><thead><tr><th>연도</th><th>번호</th><th>부서/팀</th><th>주제</th></tr></thead><tbody>' +
+        items.map(function (n, i) {
+          return '<tr><td>' + y + '</td><td>' + (i + 1) + '</td><td>' + escapeHtml(n.dept || '') + '</td><td>' + escapeHtml(n.name) + '</td></tr>';
+        }).join('') + '</tbody></table></div>';
+    });
+
+    host.innerHTML = html;
+  }
+  buildListView();
+
+  var stageEl = document.getElementById('mindmap-stage');
+  var viewModeSwitch = document.getElementById('view-mode-switch');
+  var listViewEl = document.getElementById('research-list-view');
+  if (viewModeSwitch) {
+    viewModeSwitch.addEventListener('change', function () {
+      var showList = viewModeSwitch.checked;
+      stageEl.hidden = showList;
+      listViewEl.hidden = !showList;
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -15,9 +15,9 @@
   --color-border: #e3dcda;
   --color-footer-bg: #4a4547;
   --color-footer-text: #cfc9ca;
-  --header-height: 92px;
+  --header-height: 96px;
   --logo-overlap-height: 134px;
-  --max-width: 1440px;
+  --max-width: min(96vw, 1920px);
   --font-base: "Pretendard", "Noto Sans KR", -apple-system, BlinkMacSystemFont,
     "Malgun Gothic", sans-serif;
   --shadow-card: 0 4px 20px rgba(38, 34, 35, 0.08);
@@ -37,8 +37,9 @@ body {
   font-family: var(--font-base);
   color: var(--color-text);
   background: var(--color-bg);
-  line-height: 1.6;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  word-break: keep-all;
 }
 
 a {
@@ -65,7 +66,7 @@ ul {
 
 .eyebrow {
   display: inline-block;
-  font-size: 13px;
+  font-size: 20.5px;
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--color-primary);
@@ -76,7 +77,7 @@ ul {
 }
 
 .section-title {
-  font-size: 34px;
+  font-size: 54.5px;
   font-weight: 800;
   margin: 0 0 10px;
   letter-spacing: -0.01em;
@@ -84,7 +85,7 @@ ul {
 
 .section-desc {
   color: var(--color-text-mute);
-  font-size: 16.5px;
+  font-size: 26px;
   margin: 0 0 40px;
 }
 
@@ -95,7 +96,7 @@ ul {
   padding: 15px 28px;
   border-radius: 999px;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 25.5px;
   border: 1px solid transparent;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -152,7 +153,11 @@ ul {
   width: auto;
   flex-shrink: 0;
   position: relative;
-  z-index: 2;
+  /* 로고가 헤더 높이보다 커서 아래로 살짝 겹쳐 튀어나오는데(overlap 디자인), 이 겹치는
+     부분이 메가메뉴 배경 패널(.mega-backdrop, z-index 498)과 같은 헤더 안 쌓임 맥락에
+     놓여 있어서 z-index가 낮으면 패널이 펼쳐질 때 로고 아래쪽이 가려 보였다(버그).
+     메가메뉴보다 항상 위에 그려지도록 넉넉히 높여둔다. */
+  z-index: 600;
   filter: drop-shadow(0 10px 14px rgba(20, 8, 14, 0.3));
 }
 
@@ -164,36 +169,53 @@ ul {
 }
 
 .brand-dept {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 800;
   color: var(--color-text);
   white-space: nowrap;
+  letter-spacing: -0.01em;
 }
 
-.gnb {
+nav {
   display: flex;
   align-items: stretch;
   height: 100%;
   flex: 1;
-  justify-content: space-between;
-  margin-left: 32px;
+}
+
+/* GNB: 5개 대메뉴 1:1:1:1:1 정확히 균등 너비(20%씩) 분할 */
+.gnb {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  gap: 0;
 }
 
 .gnb > li {
   position: relative;
+  flex: 1; /* 5개 칼럼 정확히 동일한 폭 */
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .gnb > li > a {
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 100%;
   height: 100%;
-  padding: 0 28px;
-  font-weight: 600;
-  font-size: 18.5px;
+  padding: 0 6px;
+  font-weight: 750;
+  font-size: 22px; /* 안암병원 스타일: 큼직하고 시원한 상위 메뉴 */
   color: var(--color-text);
   white-space: nowrap;
+  letter-spacing: -0.02em;
+  transition: color 0.15s ease;
 }
 
 .gnb > li > a:hover,
@@ -201,39 +223,71 @@ ul {
   color: var(--color-primary);
 }
 
+/* 메가메뉴 서브패널: 상위 li 너비와 1:1로 일치하여 5개 칼럼이 자로 잰 듯 반듯하게 정렬 */
 .gnb .submenu {
   position: absolute;
   top: 100%;
-  left: 50%;
-  min-width: 230px;
-  background: #fff;
-  border: 1px solid var(--color-border);
-  border-top: 2px solid var(--color-primary);
-  border-radius: 0 0 10px 10px;
-  box-shadow: var(--shadow-card);
-  padding: 10px 0;
+  left: 0;
+  width: 100%; /* 상위 칼럼과 100% 동일한 폭 */
+  min-width: 0;
+  height: 310px; /* backdrop 높이와 일치시켜 구분선이 바닥까지 곧게 이어짐 */
+  box-sizing: border-box;
+  padding: 30px 6px 20px;
   opacity: 0;
   visibility: hidden;
-  translate: -50% -6px;
-  transition: opacity 0.15s ease, translate 0.15s ease;
+  translate: 0 -4px;
+  transition: opacity 0.16s ease, translate 0.16s ease;
+  z-index: 499;
 }
 
-.gnb > li:hover .submenu {
+/* 칼럼 구분선: 각 칼럼의 경계선(20%, 40%, 60%, 80%)에 정확히 맞아떨어져 텍스트를 절대 침범하지 않음 */
+.gnb > li:not(:first-child) .submenu {
+  border-left: 1px solid var(--color-border);
+}
+
+nav:hover .submenu {
   opacity: 1;
   visibility: visible;
-  translate: -50% 0;
+  translate: 0 0;
 }
 
 .gnb .submenu a {
   display: block;
-  padding: 11px 22px;
-  font-size: 15.5px;
-  color: var(--color-text-mute);
+  padding: 9px 8px;
+  font-size: 17.5px; /* 시원하고 선명하며 긴 텍스트도 여유 있게 수용 */
+  font-weight: 600;
+  color: #443c3e;
+  white-space: nowrap;
+  text-align: center;
+  border-radius: 8px;
+  transition: color 0.15s ease, background 0.15s ease;
 }
 
 .gnb .submenu a:hover {
-  background: var(--color-bg-alt);
   color: var(--color-primary);
+  background: #fcf4f2;
+}
+
+.mega-backdrop {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: var(--header-height);
+  height: 310px;
+  background: #fff;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 24px 44px rgba(38, 34, 35, 0.09);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.16s ease;
+  z-index: 498;
+  pointer-events: none;
+}
+
+nav:hover .mega-backdrop {
+  opacity: 1;
+  visibility: visible;
 }
 
 .header-tools {
@@ -284,7 +338,7 @@ ul {
 }
 
 .hero-eyebrow {
-  font-size: 15px;
+  font-size: 24px;
   font-weight: 700;
   letter-spacing: 0.1em;
   color: #f0c8d3;
@@ -292,20 +346,20 @@ ul {
 }
 
 .hero h1 {
-  font-size: 58px;
+  font-size: 93px;
   font-weight: 800;
   margin: 0 0 18px;
   letter-spacing: -0.01em;
 }
 
 .hero p {
-  font-size: 20px;
+  font-size: 31.5px;
   color: rgba(255, 255, 255, 0.9);
   margin: 0;
 }
 
 .hero-pretitle {
-  font-size: 16px;
+  font-size: 25.5px;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.9);
   margin: 0 0 32px;
@@ -375,7 +429,7 @@ ul {
 
 .quick-menu-label .title {
   font-weight: 800;
-  font-size: 32px;
+  font-size: 51px;
   line-height: 1.1;
   letter-spacing: 0.01em;
 }
@@ -384,7 +438,7 @@ ul {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 15px;
+  font-size: 24px;
   font-weight: 600;
   letter-spacing: 0.02em;
 }
@@ -425,7 +479,7 @@ ul {
   padding: 44px 16px;
   border-left: 1px solid var(--color-border);
   font-weight: 700;
-  font-size: 19px;
+  font-size: 30.5px;
   color: var(--color-text);
   text-align: center;
   position: relative;
@@ -485,7 +539,7 @@ ul {
 
 .news-tag {
   flex-shrink: 0;
-  font-size: 13px;
+  font-size: 20.5px;
   font-weight: 700;
   color: var(--color-primary);
   background: rgba(125, 22, 54, 0.08);
@@ -495,13 +549,13 @@ ul {
 
 .news-title {
   flex: 1;
-  font-size: 17.5px;
+  font-size: 28.5px;
   font-weight: 600;
 }
 
 .news-date {
   flex-shrink: 0;
-  font-size: 14px;
+  font-size: 22.5px;
   color: var(--color-text-mute);
 }
 
@@ -513,18 +567,160 @@ ul {
 }
 
 .card-head h3 {
-  font-size: 23px;
+  font-size: 37px;
   margin: 0;
 }
 
 .more-link {
-  font-size: 14.5px;
+  font-size: 23.5px;
   font-weight: 700;
   color: var(--color-text-mute);
 }
 
 .more-link:hover {
   color: var(--color-primary);
+}
+
+/* 직무 인터뷰 (education-talent.html) */
+.interview-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 8px 0 32px;
+}
+
+.interview-tab {
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: #fff;
+  color: var(--color-text-mute);
+  font-weight: 700;
+  font-size: 21px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.interview-tab:hover {
+  border-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.interview-tab.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.interview-panel {
+  display: none;
+  padding-top: 12px;
+}
+
+.interview-panel.active {
+  display: block;
+}
+
+.interview-profile {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  margin-bottom: 8px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.interview-avatar {
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-bg-alt);
+  padding: 8px;
+}
+
+.interview-avatar svg {
+  width: 100%;
+  height: 100%;
+}
+
+.interview-greeting {
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--color-text-mute);
+  margin: 0 0 8px;
+}
+
+.interview-title {
+  font-size: 29.5px;
+  font-weight: 800;
+  line-height: 1.55;
+  color: var(--color-text);
+  margin: 0 0 12px;
+}
+
+.interview-byline {
+  font-size: 20px;
+  color: var(--color-text-mute);
+  margin: 0;
+}
+
+.interview-byline span {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.interview-essay {
+  padding-top: 32px;
+}
+
+.interview-essay p {
+  font-size: 22.5px;
+  line-height: 1.95;
+  color: var(--color-text);
+  margin: 0 0 26px;
+}
+
+.interview-essay p:last-child {
+  margin-bottom: 0;
+}
+
+/* Homepage 간호영역 preview grid */
+.area-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.area-preview-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 22px 10px;
+  text-align: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-bg-alt);
+  color: var(--color-text);
+  transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.area-preview-item:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.area-preview-item .icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.area-preview-item .label {
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.3;
 }
 
 /* PPM teaser */
@@ -544,7 +740,7 @@ ul {
   border-radius: var(--radius);
   padding: 18px 10px;
   text-align: center;
-  font-size: 13px;
+  font-size: 20.5px;
   font-weight: 700;
   line-height: 1.4;
   color: var(--color-primary-dark);
@@ -557,7 +753,7 @@ ul {
 }
 
 .side-widget h3 {
-  font-size: 18.5px;
+  font-size: 29.5px;
   margin: 0 0 18px;
 }
 
@@ -569,7 +765,7 @@ ul {
 }
 
 .cal-title {
-  font-size: 17px;
+  font-size: 27px;
   font-weight: 800;
   margin: 0;
   color: var(--color-text);
@@ -600,7 +796,7 @@ ul {
   grid-template-columns: repeat(7, 1fr);
   gap: 6px;
   text-align: center;
-  font-size: 13.5px;
+  font-size: 22px;
 }
 
 .mini-cal-grid span {
@@ -612,7 +808,7 @@ ul {
 .mini-cal-grid span.dow {
   font-weight: 700;
   color: var(--color-text-mute);
-  font-size: 12px;
+  font-size: 19.5px;
   padding-bottom: 4px;
 }
 
@@ -637,39 +833,29 @@ ul {
   cursor: help;
 }
 
+.mini-cal-grid span.day {
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.mini-cal-grid span.day:hover {
+  background: var(--color-bg-alt);
+}
+
+.mini-cal-grid span.day.selected {
+  background: var(--color-primary-light);
+  color: #fff !important;
+  font-weight: 800;
+}
+
 /* Jobs / recruitment card */
 .jobs-card {
   text-align: center;
 }
 
-.jobs-card-icon {
-  width: 56px;
-  height: 56px;
-  margin: 0 auto 20px;
-  border-radius: 50%;
-  background: linear-gradient(160deg, var(--color-primary-light), var(--color-primary-dark));
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 10px 22px rgba(151, 0, 34, 0.28);
-}
-
-.jobs-card-icon svg {
-  width: 26px;
-  height: 26px;
-}
-
 .jobs-card h3 {
-  font-size: 18px;
-  margin: 0 0 10px;
-}
-
-.jobs-card p {
-  font-size: 14px;
-  color: var(--color-text-mute);
-  line-height: 1.7;
-  margin: 0 0 22px;
+  font-size: 29px;
+  margin: 0 0 18px;
 }
 
 .jobs-card .btn {
@@ -723,6 +909,19 @@ ul {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* 클릭하면 유튜브로 나가는 대신, 카드 자리에서 바로 재생되도록 채워 넣는 iframe */
+.video-embed-iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video-card.is-playing::after {
+  display: none;
 }
 
 .video-card::after {
@@ -812,17 +1011,11 @@ ul {
   width: auto;
 }
 
-.footer-brand .name {
-  font-weight: 700;
-  color: #fff;
-  font-size: 15px;
-}
-
 .footer-links {
   display: flex;
   gap: 22px;
   flex-wrap: wrap;
-  font-size: 15px;
+  font-size: 24px;
   font-weight: 600;
 }
 
@@ -836,7 +1029,7 @@ ul {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 16px;
-  font-size: 14.5px;
+  font-size: 23.5px;
 }
 
 .footer-bottom .info p {
@@ -851,7 +1044,7 @@ ul {
   border-radius: 999px;
   padding: 9px 18px;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 20.5px;
   color: #fff;
   height: fit-content;
 }
@@ -859,7 +1052,7 @@ ul {
 .copyright {
   padding: 16px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 12px;
+  font-size: 19.5px;
   color: rgba(255, 255, 255, 0.55);
 }
 
@@ -889,14 +1082,14 @@ ul {
 
 .crumb-sep {
   color: var(--color-border);
-  font-size: 15px;
+  font-size: 18px;
 }
 
 .crumb-item {
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 16px;
+  font-size: 19px;
   font-weight: 700;
   color: var(--color-text-mute);
   transition: color 0.15s ease;
@@ -924,16 +1117,16 @@ a.crumb-item:hover {
 
 .page-title-block {
   background: #fff;
-  padding: 72px 0 48px;
+  padding: 56px 0 40px;
   text-align: center;
 }
 
 .page-title-block h1 {
-  font-size: 42px;
+  font-size: 52px;
   font-weight: 800;
   color: var(--color-text);
   margin: 0;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
 }
 
 .content-grid {
@@ -944,7 +1137,7 @@ a.crumb-item:hover {
 }
 
 .content-card h3 {
-  font-size: 17px;
+  font-size: 27px;
   margin: 0 0 10px;
   display: flex;
   align-items: center;
@@ -957,7 +1150,7 @@ a.crumb-item:hover {
   border-radius: 50%;
   background: var(--color-primary);
   color: #fff;
-  font-size: 12px;
+  font-size: 19.5px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -965,7 +1158,7 @@ a.crumb-item:hover {
 }
 
 .content-card p {
-  font-size: 14px;
+  font-size: 22.5px;
   color: var(--color-text-mute);
   margin: 0;
 }
@@ -974,7 +1167,7 @@ a.crumb-item:hover {
   margin-top: 12px;
   padding-top: 12px;
   border-top: 1px dashed var(--color-border);
-  font-size: 12.5px;
+  font-size: 20px;
   color: var(--color-accent);
   font-weight: 700;
 }
@@ -985,7 +1178,7 @@ a.crumb-item:hover {
 
 .detail-section {
   padding: 0 0 104px;
-  max-width: 960px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -999,7 +1192,7 @@ a.crumb-item:hover {
 }
 
 .detail-section h2 {
-  font-size: 30px;
+  font-size: 48px;
   font-weight: 800;
   margin: 0 0 12px;
   display: flex;
@@ -1013,7 +1206,7 @@ a.crumb-item:hover {
   border-radius: 50%;
   background: linear-gradient(160deg, var(--color-primary-light), var(--color-primary-dark));
   color: #fff;
-  font-size: 16px;
+  font-size: 25.5px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1022,141 +1215,1999 @@ a.crumb-item:hover {
 }
 
 .detail-kicker {
-  font-size: 17px;
+  font-size: 27px;
   font-weight: 800;
   color: var(--color-primary);
   margin: 0 0 32px 58px;
 }
 
 .lede {
-  font-size: 17px;
-  line-height: 1.9;
+  font-size: 23px;
+  line-height: 1.85;
   color: var(--color-text);
   margin: 0 0 36px;
+  font-weight: 500;
+  word-break: keep-all;
 }
 
-.quote-block {
+/* 안암병원 간호부서장 인사말 페이지처럼, 박스/카드로 감싸지 않고 사진과 글이
+   그대로 페이지 위에 시원하게 놓이는 레이아웃 (그림자 없는 사진, 여백만으로 구분) */
+.greeting-layout {
   display: flex;
-  gap: 32px;
+  gap: 60px;
   align-items: flex-start;
-  background: var(--color-bg-alt);
-  border-radius: 18px;
-  padding: 44px;
-  margin-bottom: 36px;
 }
 
-.quote-portrait {
-  width: 108px;
-  height: 108px;
-  border-radius: 50%;
-  background: linear-gradient(160deg, var(--color-primary-light), var(--color-primary-dark));
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 15px;
-  text-align: center;
+.greeting-portrait {
+  width: 390px;
   flex-shrink: 0;
-  box-shadow: 0 10px 24px rgba(151, 0, 34, 0.25);
 }
 
-.quote-block blockquote {
-  margin: 0 0 16px;
-  font-size: 17px;
+.portrait-photo {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.portrait-caption {
+  margin: 16px 0 0;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: center;
+}
+
+.greeting-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.greeting-body p {
+  margin: 0 0 24px;
+  font-size: 18px;
   line-height: 1.95;
+  color: var(--color-text);
+  word-break: keep-all;
+}
+
+.greeting-body p:last-child {
+  margin-bottom: 0;
+}
+
+.greeting-body .hl {
+  color: var(--color-primary-dark);
+  font-weight: 700;
+}
+
+.greeting-pledge-lead {
+  margin-top: 32px !important;
+  margin-bottom: 14px !important;
+  font-size: 19px !important;
+  font-weight: 800;
+  color: var(--color-primary-dark);
+}
+
+.greeting-pledge {
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.greeting-pledge li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 12px;
+  font-size: 18px;
+  line-height: 1.85;
   color: var(--color-text);
 }
 
-.quote-block .signee {
-  font-weight: 700;
-  font-size: 15px;
-  color: var(--color-text-mute);
+.greeting-pledge li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-primary);
 }
 
-/* Core value 2x2 grid */
-.value-grid {
+.greeting-closing {
+  font-size: 18.5px !important;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-top: 20px !important;
+}
+
+/* 보수교육 · 공지 인포그래픽 (education-ce.html) */
+.ce-courses {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  margin-bottom: 40px;
+  margin: 8px 0 40px;
 }
 
-.value-card {
-  border-radius: 16px;
-  padding: 36px 30px;
-  color: #fff;
-  box-shadow: 0 12px 28px rgba(20, 8, 14, 0.16);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.ce-course {
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 28px;
 }
 
-.value-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 18px 36px rgba(20, 8, 14, 0.22);
+.ce-course-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
 }
 
-.value-card .letter {
-  font-size: 46px;
-  font-weight: 800;
+.ce-course-num {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 35px;
+  font-weight: 700;
+  color: var(--color-gold);
   line-height: 1;
-  margin-bottom: 14px;
 }
 
-.value-card .label {
+.ce-course-term {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-primary);
+  background: rgba(151, 0, 34, 0.08);
+  padding: 5px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.ce-course-title {
+  font-size: 22.5px;
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+.ce-course-desc {
+  font-size: 17px;
+  color: var(--color-text-mute);
+  line-height: 1.65;
+}
+
+/* 임상역량단계 인포그래픽 (education-level.html) — CN1~CN4로 올라가는 성장 사다리 */
+.cn-ladder {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  margin: 8px 0 44px;
+}
+
+.cn-step {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 16px;
+}
+
+.cn-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 34px;
+  right: -9px;
+  width: 12px;
+  height: 12px;
+  border-top: 3px solid var(--color-border);
+  border-right: 3px solid var(--color-border);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.cn-badge {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 22px;
+  color: #fff;
+  margin-bottom: 18px;
+  flex-shrink: 0;
+}
+
+.cn-step[data-level="1"] .cn-badge { background: #d8b676; }
+.cn-step[data-level="2"] .cn-badge { background: #c1793f; }
+.cn-step[data-level="3"] .cn-badge { background: var(--color-primary-light); }
+.cn-step[data-level="4"] .cn-badge { background: var(--color-primary-dark); }
+
+.cn-range {
+  font-size: 18.5px;
+  font-weight: 750;
+  color: var(--color-text-mute);
+}
+
+.cn-title {
+  font-size: 24px;
+  font-weight: 850;
+  color: var(--color-text);
+  margin: 4px 0 10px;
+  line-height: 1.4;
+}
+
+.cn-desc {
+  font-size: 18px;
+  color: var(--color-text-mute);
+  line-height: 1.65;
+}
+
+.cn-substages {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  width: 100%;
+  text-align: left;
+}
+
+.cn-substages li {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.cn-substages li:first-child {
+  padding-top: 0;
+}
+
+.cn-substages .cn-range {
   font-size: 17px;
   font-weight: 700;
 }
 
-.value-card:nth-child(1) { background: linear-gradient(160deg, #b8213f, #6b0019); }
-.value-card:nth-child(2) { background: linear-gradient(160deg, #d68a55, #a5551f); }
-.value-card:nth-child(3) { background: linear-gradient(160deg, #3d8c8a, #1c4a49); }
-.value-card:nth-child(4) { background: linear-gradient(160deg, #4d72ac, #2c4066); }
+.cn-substages .cn-title {
+  font-size: 19px;
+  font-weight: 800;
+  margin: 2px 0 0;
+}
 
-/* Vision ACTS list */
-.vision-list {
+/* ==========================================================================
+   임상역량단계 바운싱 볼 & 오름차순 계단 쇼케이스 (education-level.html)
+   ========================================================================== */
+.competency-showcase-container {
+  background: #ffffff;
+  border: 1.5px solid #ece4e2;
+  border-radius: 24px;
+  box-shadow: 0 16px 44px rgba(38, 34, 35, 0.08);
+  padding: 36px 40px 48px;
+  margin: 24px 0 52px;
+  position: relative;
+  overflow: hidden;
+  scroll-margin-top: 110px;
+}
+
+/* 상단 컨트롤 툴바 */
+.competency-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 24px;
+  margin-bottom: 28px;
+  border-bottom: 1.5px dashed #ebe1de;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.stage-tag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, #680017 100%);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  border-radius: 999px;
+  box-shadow: 0 3px 10px rgba(151, 0, 34, 0.25);
+}
+
+.tour-status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fbf5f3;
+  border: 1px solid #ebd7d1;
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 16px;
+  font-weight: 750;
+  color: #5c4e50;
+  transition: all 0.25s ease;
+}
+
+.tour-status-indicator.is-playing {
+  background: #eef8f6;
+  border-color: #b3e3dc;
+  color: #1b6a60;
+}
+
+.tour-status-indicator .status-pulse-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #2a9d8f;
+  box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.25);
+  animation: pulseDot 1.4s infinite;
+}
+
+.tour-status-indicator.is-paused .status-pulse-dot {
+  background: #970022;
+  box-shadow: none;
+  animation: none;
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ladder-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border-radius: 999px;
+  font-size: 17.5px;
+  font-weight: 750;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.ladder-btn.btn-autoplay {
+  background: #fdf5f3;
+  color: var(--color-primary);
+  border-color: #ecd5ce;
+}
+
+.ladder-btn.btn-autoplay:hover {
+  background: var(--color-primary);
+  color: #ffffff;
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(151, 0, 34, 0.22);
+}
+
+.ladder-btn.btn-autoplay.playing {
+  background: #2a9d8f;
+  color: #ffffff;
+  border-color: #2a9d8f;
+  box-shadow: 0 4px 14px rgba(42, 157, 143, 0.35);
+}
+
+.ladder-btn.btn-autoplay.playing:hover {
+  background: #228377;
+  border-color: #228377;
+}
+
+.ladder-btn.btn-jump-next {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #b8213f 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(151, 0, 34, 0.25);
+}
+
+.ladder-btn.btn-jump-next:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(151, 0, 34, 0.32);
+}
+
+.ladder-btn:active {
+  transform: translateY(1px);
+}
+
+/* 계단 탭 네비게이션 */
+.competency-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 36px;
+}
+
+.comp-tab {
+  background: #faf6f5;
+  border: 2px solid #ede4e1;
+  border-radius: 16px;
+  padding: 14px 16px;
+  text-align: left;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-bottom: 40px;
+  gap: 3px;
+  transition: all 0.22s ease;
+  position: relative;
 }
 
-.vision-list li {
+.comp-tab:hover {
+  border-color: #d1b5ae;
+  background: #ffffff;
+  transform: translateY(-2px);
+}
+
+.comp-tab.active {
+  background: #ffffff;
+  border-color: var(--color-primary);
+  box-shadow: 0 8px 24px rgba(151, 0, 34, 0.12);
+  transform: translateY(-3px);
+}
+
+.comp-tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 20%;
+  right: 20%;
+  height: 4px;
+  background: var(--color-primary);
+  border-radius: 4px 4px 0 0;
+}
+
+.tab-num {
+  font-size: 16.5px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: #8c8284;
+  transition: color 0.2s ease;
+}
+
+.comp-tab.active .tab-num {
+  color: var(--color-primary);
+}
+
+.tab-name {
+  font-size: 20px;
+  font-weight: 850;
+  color: #2b2526;
+  letter-spacing: -0.02em;
+}
+
+.tab-sub {
+  font-size: 15.5px;
+  font-weight: 650;
+  color: #7d7274;
+}
+
+/* 바운싱 볼 & 계단 스테이지 래퍼 */
+.stair-stage-wrapper {
+  background: linear-gradient(180deg, #fdf9f8 0%, #f6eeec 100%);
+  border: 1.5px solid #ece0dc;
+  border-radius: 20px;
+  padding: 40px 30px 0;
+  margin-bottom: 36px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 2px 10px rgba(38, 34, 35, 0.03);
+}
+
+.stair-stage-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.9) 0%, transparent 80%);
+  pointer-events: none;
+}
+
+/* 계단 스테이지 (높이 290px 고정 캔버스) */
+.stair-stage {
+  position: relative;
+  height: 290px;
+  width: 100%;
+}
+
+/* 바닥 기준선 */
+.stair-ground-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #dfd2ce;
+  border-radius: 2px;
+}
+
+/* 4단계 오름차순 계단 포디엄 (Step 1 ~ 4) — 미니멀 모던 스타일 */
+.stair-podium {
+  position: absolute;
+  bottom: 0;
+  width: 21.5%;
+  border-radius: 12px 12px 0 0;
   display: flex;
-  gap: 20px;
-  align-items: flex-start;
-  padding: 22px 26px;
-  border: 1px solid var(--color-border);
-  border-radius: 14px;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+  user-select: none;
+  background: #ffffff;
+  border: 1.5px solid #e8deda;
+  border-bottom: none;
+  box-shadow: 0 4px 14px rgba(38, 34, 35, 0.05);
 }
 
-.vision-list li:hover {
-  border-color: var(--color-primary-light);
-  box-shadow: 0 8px 20px rgba(38, 34, 35, 0.08);
+.stair-podium:hover {
+  transform: translateY(-3px);
+  border-color: #2a9d8f;
+  box-shadow: 0 8px 20px rgba(42, 157, 143, 0.15);
 }
 
-.vision-list .glyph {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: linear-gradient(160deg, var(--color-primary-light), var(--color-primary-dark));
-  color: #fff;
-  font-weight: 800;
+.stair-podium.podium-1 {
+  left: 2%;
+  height: 80px;
+}
+
+.stair-podium.podium-2 {
+  left: 27%;
+  height: 135px;
+}
+
+.stair-podium.podium-3 {
+  left: 52%;
+  height: 190px;
+}
+
+.stair-podium.podium-4 {
+  left: 77%;
+  height: 245px;
+}
+
+/* Uiverse 원본 계단 스텝 바 (.loader:after 감성) */
+.step-bar {
+  height: 7px;
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+  background: #e2d9d6;
+  transition: all 0.25s ease;
+}
+
+.stair-podium.active .step-bar {
+  background: #2a9d8f;
+  box-shadow: 0 0 10px rgba(42, 157, 143, 0.65);
+}
+
+/* 계단 발판 상단면 (Podium Surface) */
+.podium-surface {
+  padding: 6px 12px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f2ece9;
+}
+
+.surface-badge {
   font-size: 17px;
+  font-weight: 900;
+  color: #970022;
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+}
+
+.stair-podium.active .surface-badge {
+  color: #2a9d8f;
+}
+
+.surface-label {
+  font-size: 15.5px;
+  font-weight: 750;
+  color: #3b3234;
+}
+
+/* 계단 기둥 몸체 */
+.podium-pillar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 8px;
+}
+
+.pillar-years {
+  font-size: 15px;
+  font-weight: 750;
+  color: #736769;
+  background: #f6eeec;
+  padding: 3px 12px;
+  border-radius: 999px;
+  letter-spacing: -0.01em;
+  transition: all 0.2s ease;
+}
+
+.stair-podium.active .pillar-years {
+  background: #e5f6f3;
+  color: #186056;
+  font-weight: 800;
+}
+
+/* 활성화된 계단 발판 강조 */
+.stair-podium.active {
+  border-color: #2a9d8f;
+  background: #fcfeff;
+  box-shadow: 0 0 0 2px rgba(42, 157, 143, 0.35), 0 12px 28px rgba(42, 157, 143, 0.16);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   바운싱 볼 액터 (Uiverse.io 30px #2a9d8f & 자연스러운 물리 탄성 엔진)
+   ========================================================================== */
+.bouncing-ball-actor {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  z-index: 25;
+  pointer-events: none;
+  /* 실시간 중력 포물선 물리 엔진이 위치를 제어하므로 CSS 트랜지션 간섭 없음 */
+  transition: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Uiverse.io 원본 공: width: 30px; height: 30px; border-radius: 50%; background: #2a9d8f; */
+.uiverse-ball {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #2a9d8f;
+  box-shadow: 0 4px 14px rgba(42, 157, 143, 0.45);
+  transform-origin: bottom center;
+  will-change: transform;
+}
+
+/* 계단 체류 시 잔잔하고 안정적인 호흡 바운스 */
+.bouncing-ball-actor:not(.is-jumping) .uiverse-ball {
+  animation: uiverse-idle-bounce 0.65s ease-in-out infinite alternate;
+}
+
+/* 착지 그림자: 발판 표면에 머무르며 공의 체공 높이에 따라 동적으로 크기/농도 조절 */
+.uiverse-shadow {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 6px;
+  background: rgba(38, 34, 35, 0.2);
+  border-radius: 50%;
+  filter: blur(2px);
+  pointer-events: none;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+.bouncing-ball-actor:not(.is-jumping) .uiverse-shadow {
+  animation: uiverse-idle-shadow 0.65s ease-in-out infinite alternate;
+}
+
+@keyframes uiverse-idle-bounce {
+  0% {
+    transform: scale(1.1, 0.9) translateY(0);
+  }
+  40% {
+    transform: scale(0.93, 1.08) translateY(-8px);
+  }
+  70% {
+    transform: scale(1, 1) translateY(-14px);
+  }
+  100% {
+    transform: scale(1, 1) translateY(-16px);
+  }
+}
+
+@keyframes uiverse-idle-shadow {
+  0% {
+    transform: translateX(-50%) scale(1.1);
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateX(-50%) scale(0.65);
+    opacity: 0.14;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bouncing-ball-actor,
+  .uiverse-ball,
+  .uiverse-shadow {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ==========================================================================
+   임상역량 단계별 상세 뷰어
+   ========================================================================== */
+.stage-content-viewer {
+  margin-top: 28px;
+}
+
+.stage-detail-panel {
+  display: none;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  background: #ffffff;
+  border: 1.5px solid #ece4e2;
+  border-radius: 20px;
+  padding: 32px 36px 36px;
+  box-shadow: 0 10px 30px rgba(38, 34, 35, 0.05);
+  position: relative;
+}
+
+.stage-detail-panel.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 패널 상단 헤더 */
+.stage-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 22px;
+  border-bottom: 1.5px solid #f0e6e4;
+  margin-bottom: 26px;
+}
+
+.stage-header-title-box {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.stage-panel-badge {
+  font-size: 20px;
+  font-weight: 900;
+  color: #ffffff;
+  padding: 6px 18px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.stage-detail-panel[data-step="1"] .stage-panel-badge { background: #c49f57; }
+.stage-detail-panel[data-step="2"] .stage-panel-badge { background: #a8622c; }
+.stage-detail-panel[data-step="3"] .stage-panel-badge { background: #9e1230; }
+.stage-detail-panel[data-step="4"] .stage-panel-badge { background: #540012; }
+
+.stage-panel-title {
+  font-size: 30px;
+  font-weight: 850;
+  color: #262223;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.stage-period-pill {
+  font-size: 17.5px;
+  font-weight: 750;
+  color: #6d6264;
+  background: #f4eeee;
+  padding: 5px 14px;
+  border-radius: 999px;
+}
+
+.stage-role-motto {
+  font-size: 19px;
+  font-weight: 750;
+  color: var(--color-primary);
+  background: rgba(151, 0, 34, 0.06);
+  padding: 7px 18px;
+  border-radius: 12px;
+  border-left: 3px solid var(--color-primary);
+}
+
+/* 3열 카드 그리드 레이아웃 */
+.stage-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.stage-col-card {
+  background: #fdfaf9;
+  border: 1px solid #ebe2df;
+  border-radius: 16px;
+  padding: 24px 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+.stage-col-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1.5px dashed #ebdcd8;
+}
+
+.col-icon-box {
+  font-size: 22px;
+}
+
+.col-head-title {
+  font-size: 21px;
+  font-weight: 800;
+  color: #2b2526;
+  margin: 0;
+}
+
+/* 상세 불릿 목록 */
+.stage-item-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.stage-item-list li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 18.5px;
+  line-height: 1.6;
+  color: #443c3e;
+  font-weight: 550;
+  word-break: keep-all;
+}
+
+.stage-item-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  color: var(--color-primary);
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.stage-item-list li strong {
+  color: #262223;
+  font-weight: 800;
+}
+
+/* CN2 3개 세부 트랙 전용 미니 카드 */
+.substage-track-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.substage-item {
+  background: #ffffff;
+  border: 1px solid #eedfdc;
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.substage-badge-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.substage-badge {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #a8622c;
+  background: #fbf0e8;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.substage-name {
+  font-size: 17px;
+  font-weight: 800;
+  color: #2c2526;
+}
+
+.substage-desc {
+  font-size: 15.5px;
+  color: #635859;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* ==========================================================================
+   하단 전체 단계 한눈에 비교하기 (Competency Grid Summary)
+   ========================================================================== */
+.competency-summary-section {
+  margin-top: 52px;
+  padding-top: 36px;
+  border-top: 2px solid #ede4e2;
+}
+
+.summary-section-title {
+  font-size: 32px;
+  font-weight: 850;
+  color: #262223;
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+}
+
+.summary-section-desc {
+  font-size: 19.5px;
+  color: var(--color-text-mute);
+  margin: 0 0 28px;
+}
+
+.summary-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.summary-card {
+  background: #ffffff;
+  border: 1.5px solid #ece2e0;
+  border-radius: 18px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-primary);
+  box-shadow: 0 10px 24px rgba(151, 0, 34, 0.1);
+}
+
+.summary-card.active {
+  border-color: var(--color-primary);
+  background: #fffcfb;
+  box-shadow: 0 0 0 2px var(--color-primary), 0 10px 24px rgba(151, 0, 34, 0.12);
+}
+
+.summary-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.summary-card-badge {
+  font-size: 17px;
+  font-weight: 900;
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+.summary-card[data-step="1"] .summary-card-badge { background: #c49f57; }
+.summary-card[data-step="2"] .summary-card-badge { background: #a8622c; }
+.summary-card[data-step="3"] .summary-card-badge { background: #9e1230; }
+.summary-card[data-step="4"] .summary-card-badge { background: #540012; }
+
+.summary-card-years {
+  font-size: 15px;
+  font-weight: 750;
+  color: #7a6e70;
+}
+
+.summary-card-title {
+  font-size: 22px;
+  font-weight: 850;
+  color: #2b2526;
+  margin: 0 0 8px;
+}
+
+.summary-card-desc {
+  font-size: 16.5px;
+  line-height: 1.55;
+  color: #594e50;
+  margin: 0;
+  flex: 1;
+}
+
+/* 반응형 모바일 대응 */
+@media (max-width: 1024px) {
+  .competency-showcase-container {
+    padding: 28px 24px 36px;
+  }
+  .stage-grid {
+    grid-template-columns: 1fr;
+  }
+  .summary-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .competency-showcase-container {
+    padding: 20px 16px 28px;
+    border-radius: 16px;
+  }
+  .competency-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .toolbar-right {
+    justify-content: stretch;
+  }
+  .ladder-btn {
+    flex: 1;
+    justify-content: center;
+    font-size: 16px;
+  }
+  .competency-tabs {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .stair-stage-wrapper {
+    padding: 24px 12px 0;
+  }
+  .stair-stage {
+    height: 240px;
+  }
+  .stair-podium.podium-1 { height: 60px; }
+  .stair-podium.podium-2 { height: 105px; }
+  .stair-podium.podium-3 { height: 150px; }
+  .stair-podium.podium-4 { height: 195px; }
+  .surface-label { display: none; }
+  .surface-badge { font-size: 16px; margin: 0 auto; }
+  .pillar-years { font-size: 13px; padding: 2px 6px; }
+  .bouncing-ball-actor { width: 30px; height: 30px; }
+  .stage-detail-panel { padding: 22px 18px; }
+  .stage-panel-title { font-size: 24px; }
+  .summary-cards-grid { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   교육체계 Overview 인포그래픽 시스템 (education-overview.html)
+   ========================================================================== */
+
+/* 1. K-NURSE NEXT 브랜드 히어로 카드 */
+.knurse-brand-hero {
+  background: #ffffff;
+  border: 1.5px solid #ecdcdc;
+  border-left: 6px solid var(--color-primary);
+  border-radius: 16px;
+  padding: 34px 38px;
+  box-shadow: 0 6px 22px rgba(38, 34, 35, 0.04);
+  margin-bottom: 48px;
+}
+
+.brand-hero-badge {
+  display: inline-block;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.brand-hero-title {
+  font-size: 30px;
+  font-weight: 850;
+  color: var(--color-primary-dark);
+  margin: 0 0 14px;
+  letter-spacing: -0.01em;
+}
+
+.brand-hero-desc {
+  font-size: 18px;
+  line-height: 1.85;
+  color: #332d2f;
+  margin: 0 0 20px;
+  word-break: keep-all;
+}
+
+.brand-slogan-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: #fdf2f4;
+  border: 1.5px solid #f6cfd5;
+  border-radius: 30px;
+  padding: 9px 22px;
+  margin-bottom: 26px;
+}
+
+.brand-slogan-wrap .slogan-label {
+  font-size: 12px;
+  font-weight: 800;
+  color: #ffffff;
+  background: var(--color-primary);
+  padding: 3px 9px;
+  border-radius: 20px;
+  letter-spacing: 0.06em;
+}
+
+.brand-slogan-wrap .slogan-text {
+  font-size: 17.5px;
+  font-weight: 800;
+  color: var(--color-primary-dark);
+}
+
+.brand-keypoints {
+  border-top: 1px solid #f0e6e4;
+  padding-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.brand-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.brand-point .point-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #f6e8ea;
+  color: var(--color-primary);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  margin-top: 2px;
 }
 
-.vision-list span.txt {
-  font-size: 16px;
-  line-height: 1.7;
-  padding-top: 8px;
+.brand-point .point-text {
+  font-size: 16.5px;
+  line-height: 1.75;
+  color: #524b4d;
+  word-break: keep-all;
 }
 
-.vision-list span.txt b {
+.brand-point .point-text b {
+  color: #262223;
+}
+
+/* 서브 섹션 헤더 */
+.section-subhead-box {
+  margin: 40px 0 16px;
+}
+
+.section-subhead {
+  font-size: 24px;
+  font-weight: 850;
+  color: var(--color-text);
+  margin: 4px 0 0;
+  letter-spacing: -0.02em;
+}
+
+/* 2. 4대 교육목표 카드 그리드 */
+.edu-goals-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 52px;
+}
+
+.edu-goal-card {
+  background: #ffffff;
+  border: 1.5px solid #ece4e2;
+  border-radius: 14px;
+  padding: 24px 22px;
+  box-shadow: 0 4px 16px rgba(38, 34, 35, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.edu-goal-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--color-primary);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.edu-goal-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(151, 0, 34, 0.09);
+  border-color: #e0b4bc;
+}
+
+.edu-goal-card:hover::before {
+  opacity: 1;
+}
+
+.edu-goal-num {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--color-gold);
+  line-height: 1;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.edu-goal-title {
+  font-size: 20px;
+  font-weight: 850;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+.edu-goal-desc {
+  font-size: 15.5px;
+  color: var(--color-text-mute);
+  line-height: 1.65;
+  word-break: keep-all;
+}
+
+/* 3. 2 PLANE Education Model 다이어그램 인포그래픽 */
+.two-plane-infographic {
+  background: #ffffff;
+  border: 1.5px solid #ecdcdc;
+  border-radius: 20px;
+  padding: 36px 32px;
+  box-shadow: 0 8px 26px rgba(38, 34, 35, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.plane-col {
+  display: flex;
+  align-items: center;
+}
+
+.plane-base-col {
+  flex-shrink: 0;
+  width: 220px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.plane-box {
+  background: #fdfbfb;
+  border: 1.5px solid #e7dedd;
+  border-radius: 14px;
+  padding: 24px 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.plane-box.base-box {
+  background: linear-gradient(180deg, #ffffff 0%, #fcf7f6 100%);
+  border: 2px solid #ecdcdc;
+  box-shadow: 0 4px 14px rgba(38, 34, 35, 0.04);
+}
+
+.plane-box .box-tag {
+  display: inline-block;
+  font-size: 12.5px;
+  font-weight: 700;
   color: var(--color-primary);
+  background: #faeaec;
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.plane-box .box-title {
+  font-size: 22px;
+  font-weight: 850;
+  color: var(--color-text);
+  margin: 0 0 10px;
+  line-height: 1.35;
+}
+
+.base-badge {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--color-primary-dark);
+  background: #f7dbe0;
+  border: 1px solid #ecc2ca;
+  padding: 5px 12px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.plane-box .box-note {
+  font-size: 13.5px;
+  color: var(--color-text-mute);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.plane-split-arrows {
+  width: 36px;
+  height: 100px;
+  flex-shrink: 0;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.plane-tracks-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.plane-track {
+  background: #fdfdfd;
+  border: 1.5px solid #e8e2e0;
+  border-radius: 14px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  position: relative;
+}
+
+.plane-track.track-leadership {
+  border-left: 5px solid #970022;
+  background: linear-gradient(90deg, rgba(151, 0, 34, 0.03) 0%, #ffffff 100%);
+}
+
+.plane-track.track-specialty {
+  border-left: 5px solid #2b6f6e;
+  background: linear-gradient(90deg, rgba(43, 111, 110, 0.03) 0%, #ffffff 100%);
+}
+
+.track-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.track-plane-badge {
+  font-size: 12px;
+  font-weight: 800;
+  color: #ffffff;
+  padding: 3px 9px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+}
+
+.track-plane-badge.crimson { background: #970022; }
+.track-plane-badge.teal { background: #2b6f6e; }
+
+.track-plane-name {
+  font-size: 17px;
+  font-weight: 850;
+  color: var(--color-text);
+}
+
+.track-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.track-pills .pill {
+  font-size: 13.5px;
+  font-weight: 600;
+  background: #f1eeee;
+  color: #3f393b;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.specialty-areas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: 100%;
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px dashed #ece4e2;
+}
+
+.area-chip {
+  font-size: 13px;
+  font-weight: 600;
+  background: #eaf3f3;
+  color: #1e5958;
+  padding: 3px 9px;
+  border-radius: 4px;
+  border: 1px solid #d1e5e4;
+}
+
+.track-arrow-right {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-text-mute);
+  margin: 0 4px;
+  margin-left: auto;
+}
+
+.track-target {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 10px;
+  min-width: 110px;
+}
+
+.track-target.crimson-target {
+  background: #fbf0f2;
+  border: 1.5px solid #f2c7ce;
+}
+
+.track-target.crimson-target .target-badge {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #970022;
+}
+
+.track-target.crimson-target .target-name {
+  font-size: 16px;
+  font-weight: 900;
+  color: #7b001c;
+}
+
+.track-target.teal-target {
+  background: #eef6f6;
+  border: 1.5px solid #c9e2e1;
+}
+
+.track-target.teal-target .target-badge {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #2b6f6e;
+}
+
+.track-target.teal-target .target-name {
+  font-size: 16px;
+  font-weight: 900;
+  color: #1b5251;
+}
+
+/* 중심 코어 동력 */
+.plane-engine-core {
+  background: linear-gradient(135deg, #443c3e 0%, #2b2527 100%);
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 14px 22px;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(38, 34, 35, 0.15);
+}
+
+.plane-engine-core .core-tag {
+  font-size: 12px;
+  font-weight: 700;
+  color: #dfb273;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.plane-engine-core .core-heading {
+  font-size: 16.5px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+/* 우측 지향점 */
+.plane-dest-col {
+  flex-shrink: 0;
+  width: 190px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.plane-dest-arrow {
+  width: 30px;
+  height: 60px;
+  flex-shrink: 0;
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.dest-box {
+  background: linear-gradient(180deg, #ffffff 0%, #f5f8fc 100%);
+  border: 2px solid #c7d8ed;
+  box-shadow: 0 6px 18px rgba(43, 91, 140, 0.08);
+}
+
+.dest-box .box-tag {
+  color: #205493;
+  background: #e2edfa;
+}
+
+.dest-box .box-title {
+  color: #164275;
+  font-size: 21px;
+}
+
+.dest-box .box-desc {
+  font-size: 13px;
+  color: #557ba8;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+/* 4. 모델 해설 카드 */
+.model-narrative-card {
+  background: #fdfbfb;
+  border: 1px solid #ebdcdc;
+  border-radius: 14px;
+  padding: 26px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.model-narrative-card p {
+  margin: 0;
+  font-size: 16.5px;
+  line-height: 1.85;
+  color: #494244;
+  word-break: keep-all;
+}
+
+.model-narrative-card b {
+  color: #262223;
+}
+
+/* ==========================================================================
+   미션과 비전 (ACTS 2028) 메디컬 인포그래픽 시스템
+   ========================================================================== */
+
+/* 100주년 헤리티지 배너 */
+.heritage-infographic-banner {
+  background: #fbf9f8;
+  border-radius: 20px;
+  border: 1px solid #ede3e1;
+  border-left: 6px solid #86151c;
+  padding: 34px 38px;
+  margin-bottom: 36px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+.heritage-timeline-strip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.heritage-badge {
+  background: #2b2728;
+  color: #ffffff;
+  font-size: 16.5px;
+  font-weight: 800;
+  padding: 5px 14px;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+}
+
+.heritage-badge.highlight {
+  background: #86151c;
+  color: #ffffff;
+}
+
+.heritage-badge.gold {
+  background: #a27521;
+  color: #ffffff;
+}
+
+.heritage-timeline-arrow {
+  display: flex;
+  align-items: center;
+  color: #a09795;
+}
+
+.heritage-timeline-arrow svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  fill: none;
+}
+
+.heritage-lead-title {
+  font-size: 28.5px;
+  font-weight: 850;
+  color: #1e1e1e;
+  margin: 0 0 12px;
+  letter-spacing: -0.015em;
+}
+
+.heritage-lead-desc {
+  font-size: 21px;
+  line-height: 1.8;
+  color: #444;
+  margin: 0;
+  word-break: keep-all;
+}
+
+/* 최상위 MISSION 비주얼 히어로 */
+.mission-hero-card {
+  background: linear-gradient(135deg, #7d1636 0%, #4a0c1f 100%);
+  border-radius: 24px;
+  padding: 52px 48px;
+  color: #ffffff;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 16px 42px rgba(125, 22, 54, 0.24);
+  margin-bottom: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.mission-hero-card::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 300px;
+  background: radial-gradient(ellipse at center, rgba(255, 215, 0, 0.15), transparent 70%);
+  pointer-events: none;
+}
+
+.mission-badge-tag {
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #ffd166;
+  font-size: 17.5px;
+  font-weight: 800;
+  padding: 6px 20px;
+  border-radius: 999px;
+  margin-bottom: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.06em;
+}
+
+.mission-hero-slogan {
+  font-size: 37.5px;
+  font-weight: 900;
+  line-height: 1.45;
+  color: #ffffff;
+  margin: 0 0 16px;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.mission-hero-sub {
+  font-size: 22px;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 820px;
+  margin: 0 auto;
+  word-break: keep-all;
+}
+
+/* 인포그래픽 플로우 인디케이터 */
+.infographic-flow-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin: 44px 0 36px;
+}
+
+.flow-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #c7a19c, transparent);
+}
+
+.flow-badge {
+  text-align: center;
+}
+
+.flow-badge span {
+  display: block;
+  font-size: 15.5px;
+  font-weight: 800;
+  color: #86151c;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.flow-badge h4 {
+  font-size: 26.5px;
+  font-weight: 850;
+  color: #1e1e1e;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* ACTS 4대 통합 필러 그리드 */
+.acts-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.pillar-card {
+  background: #ffffff;
+  border: 1.5px solid #ece4e2;
+  border-radius: 22px;
+  padding: 30px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 4px 18px rgba(38, 34, 35, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  position: relative;
+}
+
+.pillar-card:hover {
+  transform: translateY(-6px);
+  border-color: #86151c;
+  box-shadow: 0 14px 34px rgba(134, 21, 28, 0.12);
+}
+
+.pillar-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.pillar-letter-seal {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #86151c 0%, #5a0d14 100%);
+  color: #ffffff;
+  font-size: 35px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(134, 21, 28, 0.28);
+  margin-bottom: 12px;
+  border: 2px solid #ffffff;
+}
+
+.pillar-category {
+  font-size: 15px;
+  font-weight: 800;
+  color: #86151c;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+  display: block;
+}
+
+.pillar-name {
+  font-size: 23px;
+  font-weight: 850;
+  color: #1e1e1e;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.pillar-card-icon-wrap {
+  width: 78px;
+  height: 78px;
+  border-radius: 20px;
+  background: #fdf6f5;
+  color: #86151c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 18px 0;
+  border: 1px solid #f9dedb;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.pillar-card:hover .pillar-card-icon-wrap {
+  transform: scale(1.06);
+  background: #fbeee8;
+}
+
+/* Vision Box inside Pillar */
+.pillar-vision-box {
+  background: #faf7f6;
+  border-radius: 16px;
+  padding: 20px 16px;
+  width: 100%;
+  margin-bottom: 8px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid #f0e6e4;
+}
+
+.box-role-tag {
+  font-size: 14.5px;
+  font-weight: 850;
+  padding: 4px 12px;
+  border-radius: 6px;
+  align-self: center;
+  margin-bottom: 10px;
+  letter-spacing: 0.05em;
+  display: inline-block;
+}
+
+.box-role-tag.vision {
+  background: #86151c;
+  color: #ffffff;
+}
+
+.box-role-tag.value {
+  background: #2b2728;
+  color: #ffd166;
+}
+
+.pillar-vision-box .box-text {
+  font-size: 19.5px;
+  line-height: 1.65;
+  color: #2b2728;
+  margin: 0;
+  word-break: keep-all;
+}
+
+.pillar-vision-box .box-text b {
+  color: #86151c;
+  font-weight: 850;
+}
+
+.pillar-flow-bridge {
+  color: #86151c;
+  opacity: 0.55;
+  margin: 6px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Core Value Box inside Pillar */
+.pillar-value-box {
+  background: #ffffff;
+  border: 1.5px solid #eddcd9;
+  border-radius: 16px;
+  padding: 18px 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.value-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.value-en {
+  font-size: 22px;
+  font-weight: 850;
+  color: #86151c;
+}
+
+.value-ko {
+  font-size: 17.5px;
+  font-weight: 800;
+  color: #4a4445;
+}
+
+.value-desc {
+  font-size: 17px;
+  line-height: 1.6;
+  color: #555;
+  margin: 0;
+  word-break: keep-all;
+}
+
+/* 하단 K-Nurse 결의 배너 */
+.acts-summary-banner {
+  background: linear-gradient(135deg, #231f20 0%, #171516 100%);
+  border-radius: 22px;
+  padding: 40px 44px;
+  color: #ffffff;
+  text-align: center;
+  border-bottom: 5px solid #86151c;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.14);
+}
+
+.summary-banner-badge {
+  display: inline-block;
+  color: #ffd166;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin-bottom: 10px;
+}
+
+.summary-banner-title {
+  font-size: 31px;
+  font-weight: 850;
+  color: #ffffff;
+  margin: 0 0 14px;
+  letter-spacing: -0.01em;
+}
+
+.summary-banner-text {
+  font-size: 21px;
+  line-height: 1.8;
+  color: #d6cfd0;
+  max-width: 900px;
+  margin: 0 auto;
+  word-break: keep-all;
+}
+
+.summary-banner-text strong {
+  color: #ffffff;
+}
+
+@media (max-width: 1100px) {
+  .acts-pillars-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .acts-pillars-grid {
+    grid-template-columns: 1fr;
+  }
+  .heritage-infographic-banner {
+    padding: 24px 20px;
+  }
+  .mission-hero-card {
+    padding: 36px 22px;
+  }
+  .mission-hero-slogan {
+    font-size: 28.5px;
+  }
+  .acts-summary-banner {
+    padding: 28px 20px;
+  }
+  .summary-banner-title {
+    font-size: 25.5px;
+  }
+  .summary-banner-text {
+    font-size: 18.5px;
+  }
 }
 
 /* Org chart */
@@ -1170,10 +3221,31 @@ a.crumb-item:hover {
   background: linear-gradient(160deg, var(--color-primary-light), var(--color-primary-dark));
   color: #fff;
   font-weight: 700;
-  font-size: 17px;
+  font-size: 27px;
   padding: 16px 36px;
   border-radius: 12px;
   box-shadow: 0 10px 22px rgba(151, 0, 34, 0.24);
+}
+
+/* 병원장/간호부장은 원본 조직도처럼 하나로 이어진 기둥(같은 박스, 얇은 구분선만) */
+.org-hq {
+  display: inline-flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 22px rgba(151, 0, 34, 0.24);
+}
+
+.org-hq-tier {
+  background: linear-gradient(160deg, var(--color-primary-light), var(--color-primary-dark));
+  color: #fff;
+  font-weight: 700;
+  font-size: 27px;
+  padding: 14px 36px;
+}
+
+.org-hq-tier + .org-hq-tier {
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .org-connector {
@@ -1221,7 +3293,7 @@ a.crumb-item:hover {
   background: linear-gradient(160deg, #5a7cae, #2c4066);
   color: #fff;
   font-weight: 700;
-  font-size: 15.5px;
+  font-size: 25px;
   padding: 16px 12px;
   border-radius: 10px;
   width: 100%;
@@ -1234,11 +3306,17 @@ a.crumb-item:hover {
   box-shadow: 0 8px 16px rgba(198, 154, 88, 0.3);
 }
 
+/* 원본 조직도에서 제위원회는 6개 팀과 같은 가로줄에서 갈라져 나오되, 연결선이 짧아
+   다른 팀보다 살짝 위쪽에 떠 있는 것처럼 보인다 — 짧은 연결선으로 그 느낌을 살린다 */
+.org-branch-committee::before {
+  height: 12px;
+}
+
 .org-units {
   border: 1px solid var(--color-border);
   border-top: none;
   border-radius: 0 0 10px 10px;
-  font-size: 13.5px;
+  font-size: 22px;
   color: var(--color-text-mute);
   padding: 14px 12px;
   line-height: 1.75;
@@ -1272,7 +3350,7 @@ a.crumb-item:hover {
 }
 
 .team-card .team-head .name {
-  font-size: 14px;
+  font-size: 22.5px;
   font-weight: 700;
   opacity: 0.85;
   margin-bottom: 6px;
@@ -1280,7 +3358,7 @@ a.crumb-item:hover {
 }
 
 .team-card .team-head .tagline {
-  font-size: 19px;
+  font-size: 30.5px;
   font-weight: 700;
   line-height: 1.45;
 }
@@ -1290,14 +3368,14 @@ a.crumb-item:hover {
 }
 
 .team-card .team-body p {
-  font-size: 15px;
+  font-size: 24px;
   color: var(--color-text-mute);
   line-height: 1.8;
   margin: 0 0 18px;
 }
 
 .team-card .duties {
-  font-size: 14px;
+  font-size: 22.5px;
   color: var(--color-text);
   line-height: 1.6;
   display: flex;
@@ -1311,62 +3389,11 @@ a.crumb-item:hover {
   font-weight: 800;
 }
 
-/* Chevron flow (2 PLANE education model) */
-.chevron-flow {
-  display: flex;
-  margin: 12px 0 40px;
-  filter: drop-shadow(0 10px 24px rgba(20, 8, 14, 0.14));
-}
-
-.chevron-step {
-  flex: 1;
-  padding: 40px 48px 40px 68px;
-  clip-path: polygon(0 0, calc(100% - 32px) 0, 100% 50%, calc(100% - 32px) 100%, 0 100%, 32px 50%);
-  color: #fff;
-}
-
-.chevron-step:first-child {
-  margin-left: 0;
-  padding-left: 40px;
-}
-
-.chevron-step + .chevron-step {
-  margin-left: -32px;
-}
-
-.chevron-step.side {
-  background: linear-gradient(160deg, #9a9fa8, #6b707a);
-  flex: 0.85;
-}
-
-.chevron-step.center {
-  background: linear-gradient(160deg, var(--color-primary-light), var(--color-primary-dark));
-  flex: 1.6;
-  z-index: 1;
-}
-
-.chevron-step h4 {
-  font-size: 18px;
-  margin: 0 0 14px;
-  font-weight: 800;
-  line-height: 1.4;
-}
-
-.chevron-step ul {
-  font-size: 14px;
-  line-height: 1.9;
-  opacity: 0.95;
-}
-
-.chevron-step ul li::before {
-  content: "· ";
-}
-
 /* Clean comparison table */
 .comp-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 15px;
+  font-size: 24px;
   margin-bottom: 28px;
   box-shadow: 0 4px 16px rgba(38, 34, 35, 0.05);
 }
@@ -1374,7 +3401,7 @@ a.crumb-item:hover {
 .comp-table th,
 .comp-table td {
   border: 1px solid var(--color-border);
-  padding: 16px 20px;
+  padding: 20px 24px;
   text-align: left;
   vertical-align: top;
 }
@@ -1383,7 +3410,7 @@ a.crumb-item:hover {
   background: var(--color-bg-alt);
   font-weight: 700;
   color: var(--color-text);
-  font-size: 15px;
+  font-size: 24px;
 }
 
 .comp-table td {
@@ -1391,12 +3418,26 @@ a.crumb-item:hover {
   line-height: 1.7;
 }
 
+.comp-table td.align-middle {
+  vertical-align: middle;
+}
+
+/* 첫 칼럼은 어느 페이지든 배지(chip)/번호 하나만 담는 용도라, 여러 줄(rowspan)에
+   걸쳐 있을 때 왼쪽에 어중간하게 붙어 보이지 않도록 가운데 정렬한다. */
+.comp-table td:first-child {
+  text-align: center;
+}
+
+.comp-table td.nowrap {
+  white-space: nowrap;
+}
+
 .comp-table .chip {
   display: inline-block;
   background: linear-gradient(160deg, var(--color-primary-light), var(--color-primary-dark));
   color: #fff;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 20.5px;
   padding: 5px 13px;
   border-radius: 999px;
 }
@@ -1417,7 +3458,7 @@ a.crumb-item:hover {
   background: linear-gradient(160deg, var(--color-primary-light), var(--color-primary-dark));
   color: #fff;
   font-weight: 800;
-  font-size: 17px;
+  font-size: 27px;
   line-height: 1.4;
   margin-bottom: 32px;
   box-shadow: 0 16px 32px rgba(151, 0, 34, 0.28);
@@ -1434,7 +3475,7 @@ a.crumb-item:hover {
   border-top: 4px solid var(--color-accent);
   border-radius: 14px;
   padding: 24px 18px;
-  font-size: 14px;
+  font-size: 22.5px;
   box-shadow: 0 4px 16px rgba(38, 34, 35, 0.05);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -1451,7 +3492,7 @@ a.crumb-item:hover {
   background: var(--color-bg-alt);
   color: var(--color-primary-dark);
   font-weight: 800;
-  font-size: 15px;
+  font-size: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1460,14 +3501,14 @@ a.crumb-item:hover {
 
 .hub-spoke .title {
   font-weight: 700;
-  font-size: 15px;
+  font-size: 24px;
   margin-bottom: 8px;
 }
 
 .hub-spoke .desc {
   color: var(--color-text-mute);
   line-height: 1.6;
-  font-size: 13px;
+  font-size: 20.5px;
 }
 
 /* Numbered step flow (신입간호사 교육 5단계) */
@@ -1494,7 +3535,7 @@ a.crumb-item:hover {
   background: linear-gradient(160deg, var(--color-primary-light), var(--color-primary-dark));
   color: #fff;
   font-weight: 800;
-  font-size: 15px;
+  font-size: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1504,13 +3545,13 @@ a.crumb-item:hover {
 
 .step-flow-item .title {
   font-weight: 700;
-  font-size: 15.5px;
+  font-size: 25px;
   margin-bottom: 8px;
   line-height: 1.45;
 }
 
 .step-flow-item .desc {
-  font-size: 13.5px;
+  font-size: 22px;
   color: var(--color-text-mute);
   line-height: 1.6;
 }
@@ -1539,13 +3580,13 @@ a.crumb-item:hover {
   border-radius: 14px;
   padding: 30px 26px;
   color: #fff;
-  font-size: 14px;
+  font-size: 22.5px;
   line-height: 1.8;
   box-shadow: 0 10px 22px rgba(20, 8, 14, 0.14);
 }
 
 .growth-col h4 {
-  font-size: 17px;
+  font-size: 27px;
   margin: 0 0 16px;
   font-weight: 800;
 }
@@ -1563,7 +3604,7 @@ a.crumb-item:hover {
   border-left: 5px solid var(--color-primary);
   border-radius: 0 14px 14px 0;
   padding: 24px 28px;
-  font-size: 14.5px;
+  font-size: 23.5px;
   line-height: 1.8;
   color: var(--color-text-mute);
   margin-bottom: 10px;
@@ -1579,7 +3620,7 @@ a.crumb-item:hover {
 }
 
 .year-group h3 {
-  font-size: 22px;
+  font-size: 35px;
   font-weight: 800;
   color: var(--color-primary);
   margin: 0 0 20px;
@@ -1592,7 +3633,7 @@ a.crumb-item:hover {
 }
 
 .year-group li {
-  font-size: 16px;
+  font-size: 25.5px;
   line-height: 1.7;
   padding-left: 26px;
   position: relative;
@@ -1604,7 +3645,7 @@ a.crumb-item:hover {
   position: absolute;
   left: 0;
   top: 2px;
-  font-size: 11px;
+  font-size: 17.5px;
   color: var(--color-text);
 }
 
@@ -1621,7 +3662,7 @@ a.crumb-item:hover {
   background: linear-gradient(160deg, #2b7fd9, #1a56c4);
   color: #fff;
   font-weight: 800;
-  font-size: 20px;
+  font-size: 31.5px;
   padding: 10px 32px;
   border-radius: 999px;
   margin: 0 0 20px;
@@ -1639,7 +3680,7 @@ a.crumb-item:hover {
 .qi-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14.5px;
+  font-size: 23.5px;
   border: 1px solid #1a56c4;
 }
 
@@ -1647,29 +3688,35 @@ a.crumb-item:hover {
   background: linear-gradient(160deg, #2b7fd9, #1a56c4);
   color: #fff;
   font-weight: 800;
-  padding: 14px 16px;
+  padding: 17px 18px;
   text-align: center;
   border: 1px solid #1a56c4;
 }
 
 .qi-table td {
-  padding: 13px 16px;
+  padding: 16px 18px;
   text-align: center;
   border: 1px solid #b9d3f2;
   color: var(--color-text);
   line-height: 1.6;
+  white-space: nowrap;
 }
 
 .qi-table td:nth-child(1),
 .qi-table td:nth-child(2) {
   font-weight: 700;
   color: #1a56c4;
-  width: 64px;
+  width: 88px;
+}
+
+.qi-table td:nth-child(4) {
+  text-align: left;
+  white-space: normal;
 }
 
 .qi-table td:nth-child(3) {
   font-weight: 700;
-  width: 210px;
+  white-space: nowrap;
 }
 
 .qi-table tr:nth-child(even) td {
@@ -1685,14 +3732,14 @@ a.crumb-item:hover {
 }
 
 .link-card p {
-  font-size: 16px;
+  font-size: 25.5px;
   color: var(--color-text-mute);
   line-height: 1.85;
   margin: 0 0 22px;
 }
 
 .link-card .tags {
-  font-size: 13px;
+  font-size: 20.5px;
   color: var(--color-accent);
   font-weight: 700;
   margin-top: 18px;
@@ -1743,7 +3790,7 @@ a.crumb-item:hover {
   position: absolute;
   top: 12px;
   left: 14px;
-  font-size: 11px;
+  font-size: 17.5px;
   font-weight: 700;
   letter-spacing: 0.04em;
   color: rgba(255, 255, 255, 0.85);
@@ -1756,7 +3803,7 @@ a.crumb-item:hover {
   position: absolute;
   bottom: 12px;
   right: 14px;
-  font-size: 12px;
+  font-size: 19.5px;
   font-weight: 700;
   color: #fff;
   background: rgba(0, 0, 0, 0.6);
@@ -1770,13 +3817,13 @@ a.crumb-item:hover {
 
 .channel-card .title {
   font-weight: 700;
-  font-size: 16px;
+  font-size: 25.5px;
   margin-bottom: 8px;
   line-height: 1.5;
 }
 
 .channel-card .meta {
-  font-size: 13px;
+  font-size: 20.5px;
   color: var(--color-text-mute);
 }
 
@@ -1837,14 +3884,14 @@ a.crumb-item:hover {
 }
 
 .hub-card .hub-title {
-  font-size: 21px;
+  font-size: 33.5px;
   font-weight: 800;
   color: var(--color-text);
   margin-bottom: 14px;
 }
 
 .hub-card .hub-desc {
-  font-size: 15.5px;
+  font-size: 25px;
   line-height: 1.75;
   color: var(--color-text-mute);
 }
@@ -1853,7 +3900,7 @@ a.crumb-item:hover {
   max-width: 760px;
   margin: 0 auto 8px;
   text-align: center;
-  font-size: 17px;
+  font-size: 27px;
   line-height: 1.85;
   color: var(--color-text);
 }
@@ -1867,7 +3914,7 @@ a.crumb-item:hover {
   align-items: center;
   gap: 16px;
   font-weight: 800;
-  font-size: 22px;
+  font-size: 35px;
   color: var(--color-primary);
   margin-bottom: 36px;
 }
@@ -1883,7 +3930,7 @@ a.crumb-item:hover {
 
 .team-tagline {
   text-align: center;
-  font-size: 32px;
+  font-size: 51px;
   font-weight: 800;
   color: #2c4066;
   line-height: 1.5;
@@ -1907,19 +3954,19 @@ a.crumb-item:hover {
 .team-intro-box .label {
   font-weight: 800;
   color: var(--color-primary);
-  font-size: 16px;
+  font-size: 25.5px;
   margin-bottom: 16px;
 }
 
 .team-intro-box p {
-  font-size: 16px;
+  font-size: 25.5px;
   line-height: 1.95;
   color: var(--color-text);
   margin: 0;
 }
 
 .duties-heading {
-  font-size: 21px;
+  font-size: 33.5px;
   font-weight: 800;
   color: #2c4066;
   margin: 0 0 28px;
@@ -1940,7 +3987,7 @@ a.crumb-item:hover {
 }
 
 .duties-cols li {
-  font-size: 16px;
+  font-size: 25.5px;
   line-height: 1.6;
   color: var(--color-text);
   position: relative;
@@ -1957,27 +4004,74 @@ a.crumb-item:hover {
 /* ---------- Mobile ---------- */
 @media (max-width: 960px) {
   .team-tagline {
-    font-size: 24px;
+    font-size: 38px;
   }
 
-  .value-grid,
   .team-grid,
   .hub-spokes,
   .growth-columns,
   .channel-grid,
   .hub-grid,
-  .duties-cols {
+  .duties-cols,
+  .ce-courses {
     grid-template-columns: 1fr;
   }
 
-  .chevron-flow {
+  .cn-ladder {
     flex-direction: column;
   }
 
-  .chevron-step {
-    clip-path: none;
-    margin-left: 0 !important;
-    border-radius: var(--radius);
+  .cn-step {
+    text-align: left;
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 18px;
+    padding: 20px 0;
+  }
+
+  .cn-step + .cn-step {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .cn-step:not(:last-child)::after {
+    display: none;
+  }
+
+  .cn-badge {
+    margin-bottom: 0;
+  }
+
+  .edu-goals-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .two-plane-infographic {
+    flex-direction: column;
+    padding: 24px 18px;
+    gap: 16px;
+  }
+
+  .plane-base-col,
+  .plane-dest-col {
+    width: 100%;
+  }
+
+  .plane-split-arrows,
+  .plane-dest-arrow {
+    display: none;
+  }
+
+  .plane-track {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .track-arrow-right {
+    display: none;
+  }
+
+  .track-target {
+    width: 100%;
   }
 
   .step-flow {
@@ -2004,9 +4098,14 @@ a.crumb-item:hover {
     width: 220px;
   }
 
-  .quote-block {
+  .greeting-layout {
     flex-direction: column;
-    text-align: left;
+    gap: 24px;
+  }
+
+  .greeting-portrait {
+    width: 200px;
+    margin: 0 auto;
   }
 
   .gnb {
@@ -2048,12 +4147,22 @@ a.crumb-item:hover {
     visibility: visible;
     display: none;
     box-shadow: none;
-    border: none;
     background: var(--color-bg-alt);
+    padding: 8px 0;
+  }
+
+  /* 데스크톱 메가메뉴용 칼럼 구분선/여백은 모바일 아코디언에서는 필요 없으므로 해제 */
+  .gnb > li:not(:first-child) .submenu {
+    border-left: none;
+    padding-left: 0;
   }
 
   .gnb > li.open .submenu {
     display: block;
+  }
+
+  .mega-backdrop {
+    display: none;
   }
 
   .nav-toggle {
@@ -2070,7 +4179,7 @@ a.crumb-item:hover {
   }
 
   .brand-dept {
-    font-size: 18px;
+    font-size: 22px;
   }
 
   .quick-menu-inner {
@@ -2091,7 +4200,7 @@ a.crumb-item:hover {
   }
 
   .hero h1 {
-    font-size: 30px;
+    font-size: 48px;
   }
 }
 
@@ -2101,4 +4210,3484 @@ a.crumb-item:hover {
   .channel-grid.cols-4 {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  /* 데스크톱 메뉴 간격(104px)은 이 정도로 좁은 화면에서는 항목들이 넘칠 수 있어
+     화면 폭이 넉넉한 구간에서만 크게 벌어지고, 이 중간 구간에서는 줄여서 유지한다. */
+  .gnb {
+    gap: 28px;
+  }
+
+  .gnb > li > a {
+    font-size: 19px;
+    padding: 0 10px;
+  }
 }
+
+/* ==========================================================================
+   연구·QI 활동 3D 우주 은하 마인드맵 (research-mindmap.html)
+   ========================================================================== */
+
+.mindmap-intro {
+  margin: 0 0 20px;
+  color: var(--color-text-mute);
+  font-size: 24px;
+  line-height: 1.6;
+}
+
+.view-toggle {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+.btn-color-mode-switch {
+  display: inline-block;
+  position: relative;
+}
+
+.btn-color-mode-switch-inner {
+  display: block;
+  position: relative;
+  width: 340px;
+  height: 58px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 26px;
+  background: rgba(224, 224, 224, 0.16);
+  color: rgba(255, 255, 255, 0.82);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-color-mode-switch-inner::before,
+.btn-color-mode-switch-inner::after {
+  position: absolute;
+  top: 15px;
+  z-index: 1;
+  width: 166px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 22px;
+  text-align: center;
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+.btn-color-mode-switch-inner::before {
+  content: attr(data-on);
+  right: 4px;
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.btn-color-mode-switch-inner::after {
+  content: attr(data-off);
+  left: 4px;
+  color: #241b2e;
+}
+
+.btn-color-mode-switch-inner::marker {
+  display: none;
+}
+
+.btn-color-mode-switch-inner {
+  box-shadow: inset 0 0 14px rgba(17, 17, 17, 0.26);
+}
+
+.btn-color-mode-switch-inner::selection {
+  background: transparent;
+}
+
+.btn-color-mode-switch input[type="checkbox"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.btn-color-mode-switch::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 166px;
+  height: 48px;
+  border-radius: 26px;
+  background: #fff;
+  box-shadow: 0 0 8px -2px #111;
+  pointer-events: none;
+  transition: left 0.3s ease, background 0.3s ease;
+}
+
+.btn-color-mode-switch:has(input:checked)::after {
+  left: 170px;
+  background: #3c3c3c;
+}
+
+.btn-color-mode-switch:has(input:checked) .btn-color-mode-switch-inner::before {
+  color: #fff;
+}
+
+.btn-color-mode-switch:has(input:checked) .btn-color-mode-switch-inner::after {
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.research-list-view {
+  padding-top: 4px;
+}
+
+.mindmap-stage {
+  position: relative;
+  height: 80vh;
+  min-height: 560px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 50%, #160a16 0%, #0a0815 48%, #04050b 100%);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mindmap-stage canvas {
+  display: block;
+  filter: brightness(1.12) contrast(1.06) saturate(1.25);
+}
+
+.mindmap-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(6, 8, 16, 0.85);
+  z-index: 5;
+}
+
+.loader {
+  position: relative;
+  display: flex;
+  gap: 0.3em;
+  align-items: center;
+  font-size: 28px;
+}
+
+.loader::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2em;
+  filter: blur(45px);
+  background-color: #e299ff;
+  background-image: radial-gradient(at 52% 57%, hsla(11, 83%, 72%, 1) 0, transparent 50%),
+    radial-gradient(at 37% 57%, hsla(175, 78%, 66%, 1) 0, transparent 50%);
+}
+
+.loader__circle {
+  --size__loader: 0.6em;
+  position: relative;
+  width: var(--size__loader);
+  height: var(--size__loader);
+  border-radius: 50%;
+  background-color: #b499ff;
+  animation: loader__circle__jumping 2s infinite;
+}
+
+.loader__circle:nth-child(2n) {
+  background-color: #e499ff;
+  animation-delay: 300ms;
+}
+
+.loader__circle:nth-child(3n) {
+  animation-delay: 600ms;
+}
+
+@keyframes loader__circle__jumping {
+  0%, 100% { transform: translateY(0) scale(1); }
+  25% { transform: translateY(-15px) scale(0.5); }
+  50% { transform: translateY(0) scale(1); }
+  75% { transform: translateY(5px) scale(0.9); }
+}
+
+/* 상단 좌측: 통계 & 카테고리 필터 HUD */
+.mindmap-stats-hud {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 3;
+  pointer-events: auto;
+}
+
+.hud-legend-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.hud-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 13px;
+  background: rgba(16, 20, 36, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 19.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hud-chip:hover {
+  background: rgba(30, 40, 68, 0.85);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+.hud-chip.active {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.hud-chip .dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.hud-chip .dot.gold {
+  background: #f5c26b;
+  box-shadow: 0 0 8px #f5c26b;
+}
+
+.hud-chip .dot.crimson {
+  background: #ff3366;
+  box-shadow: 0 0 8px #ff3366;
+}
+
+/* 상단 우측: 옵시디언 조작 HUD */
+.mindmap-controls-hud {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: flex;
+  gap: 8px;
+  z-index: 3;
+}
+
+.ctrl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: rgba(14, 18, 32, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 999px;
+  color: #f2e9df;
+  font-size: 19.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.ctrl-btn:hover {
+  background: rgba(28, 36, 60, 0.9);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+}
+
+.ctrl-btn svg {
+  color: #f5c26b;
+}
+
+/* 하단 힌트 바 */
+.mindmap-hint {
+  position: absolute;
+  bottom: 16px;
+  left: 18px;
+  padding: 6px 14px;
+  background: rgba(10, 14, 26, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 19.5px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* 우측 상세 정보 패널 (Glassmorphism HUD Drawer) */
+.mindmap-detail {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 560px;
+  max-width: calc(100% - 36px);
+  background: rgba(12, 16, 28, 0.94);
+  border: 1px solid rgba(245, 194, 107, 0.4);
+  backdrop-filter: blur(18px);
+  border-radius: 18px;
+  padding: 22px 22px 20px;
+  color: #f2e9df;
+  display: none;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+  z-index: 4;
+  animation: slideInDetail 0.25s ease-out;
+}
+
+@keyframes slideInDetail {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.mindmap-detail.open {
+  display: block;
+}
+
+.mindmap-detail .close-btn {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: #f2e9df;
+  font-size: 35px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.65;
+  padding: 4px;
+  transition: opacity 0.15s;
+}
+
+.mindmap-detail .close-btn:hover {
+  opacity: 1;
+}
+
+.mindmap-detail-badges {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.mindmap-detail .badge {
+  display: inline-block;
+  font-size: 17.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.mindmap-detail .badge.cat-research {
+  background: rgba(245, 194, 107, 0.25);
+  border: 1px solid rgba(245, 194, 107, 0.6);
+  color: #ffd88a;
+}
+
+.mindmap-detail .badge.cat-qi {
+  background: rgba(255, 51, 102, 0.25);
+  border: 1px solid rgba(255, 51, 102, 0.6);
+  color: #ff99b3;
+}
+
+.mindmap-detail .badge.year-badge {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.mindmap-detail h4 {
+  margin: 0 0 10px;
+  font-size: 29px;
+  line-height: 1.55;
+  color: #ffffff;
+}
+
+.mindmap-detail .dept-info {
+  margin: 0 0 14px;
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mindmap-detail a.detail-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #f5c26b;
+  text-decoration: none;
+  padding: 6px 12px;
+  border: 1px solid rgba(245, 194, 107, 0.35);
+  border-radius: 8px;
+  transition: all 0.18s ease;
+}
+
+.mindmap-detail a.detail-link:hover {
+  background: rgba(245, 194, 107, 0.15);
+  border-color: #f5c26b;
+  text-decoration: none;
+}
+
+@media (max-width: 960px) {
+  .mindmap-stage {
+    height: 70vh;
+    min-height: 460px;
+  }
+
+  .mindmap-stats-hud {
+    top: 12px;
+    left: 12px;
+    max-width: calc(100% - 130px);
+  }
+
+  .hud-legend-chips {
+    display: none;
+  }
+
+  .mindmap-controls-hud {
+    top: 12px;
+    right: 12px;
+  }
+
+  .mindmap-detail {
+    width: calc(100% - 24px);
+    top: auto;
+    bottom: 12px;
+    right: 12px;
+  }
+}
+
+/* ==========================================================================
+   Welfare & Benefits (고려대학교의료원 생애주기별 복지제도)
+   ========================================================================== */
+
+.welfare-main-block {
+  margin-top: 56px;
+  padding-top: 56px;
+  border-top: 2px dashed var(--color-border);
+}
+
+.welfare-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.welfare-header h2 {
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--color-text);
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+}
+
+.welfare-header p {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-text-mute);
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ---------- Career Journey Roadmap Widget ---------- */
+.roadmap-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 0 56px;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  padding: 32px 32px 28px;
+  box-shadow: 0 8px 28px rgba(38, 34, 35, 0.06);
+  position: relative;
+}
+
+.roadmap-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.roadmap-title {
+  font-size: 26.5px;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.roadmap-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.roadmap-play-btn {
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 10px 22px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.roadmap-play-btn:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+.roadmap-step-btn {
+  background: #fff;
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 17.5px;
+  font-weight: 750;
+  padding: 8px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease, transform 0.15s ease;
+}
+
+.roadmap-step-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.roadmap-step-btn.active {
+  background: #902209;
+  border-color: #902209;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(144, 34, 9, 0.35);
+}
+
+/* ==========================================================================
+   생애주기별 복지제도 7단계 S자형 인포그래픽 로드맵 (생애주기별복지제도.jpg 100% 재현)
+   ========================================================================== */
+.lifecycle-roadmap-board {
+  background: #fdfaf6;
+  border: 2px solid #ecd8cb;
+  border-radius: 28px;
+  padding: 34px 38px;
+  box-shadow: 0 10px 32px rgba(138, 77, 44, 0.08);
+  margin: 28px 0 44px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 메인 S자형 생애주기 스테이지 */
+.lifecycle-stage {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 10px 0;
+}
+
+/* 각 행 컨테이너 (그리드 레이아웃) */
+.lifecycle-row {
+  display: grid;
+  align-items: stretch;
+  gap: 22px;
+  position: relative;
+  z-index: 2;
+}
+
+.lifecycle-row.row-top {
+  grid-template-columns: 1.18fr 1fr 1fr 1.05fr;
+}
+
+.lifecycle-row.row-middle {
+  grid-template-columns: 1fr 1.25fr 1fr;
+}
+
+.lifecycle-row.row-bottom {
+  grid-template-columns: 1.35fr 2fr;
+  align-items: center;
+}
+
+/* 인트로 타이틀 카드 (생애주기별복지제도.jpg 좌측 상단 스타일) */
+.lifecycle-intro-card {
+  background: #f8eee4;
+  border: 2px solid #ead3c2;
+  border-radius: 22px;
+  padding: 26px 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(168, 88, 60, 0.06);
+}
+
+.intro-sub {
+  font-size: 17px;
+  font-weight: 800;
+  color: #b55232;
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+
+.intro-title {
+  margin: 0 0 12px;
+  font-size: 35px;
+  font-weight: 900;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.intro-title .title-coral {
+  color: #c9442a;
+  margin-right: 6px;
+}
+
+.intro-title .title-navy {
+  color: #2b527b;
+}
+
+.intro-desc {
+  margin: 0;
+  font-size: 18.5px;
+  line-height: 1.65;
+  color: #554844;
+  font-weight: 550;
+  letter-spacing: -0.01em;
+}
+
+/* 각 스텝 노드 카드 */
+.lifecycle-step-card {
+  background: #ffffff;
+  border: 2px solid #ead8cc;
+  border-radius: 22px;
+  padding: 22px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.lifecycle-step-card:hover {
+  transform: translateY(-4px);
+  border-color: #b55232;
+  box-shadow: 0 10px 24px rgba(181, 82, 50, 0.16);
+}
+
+.lifecycle-step-card.active {
+  border-color: #902209;
+  box-shadow: 0 0 0 3px rgba(144, 34, 9, 0.2), 0 12px 30px rgba(144, 34, 9, 0.22);
+  transform: translateY(-4px);
+}
+
+/* 일러스트 영역 */
+.card-illus-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 155px;
+  margin-bottom: 14px;
+  position: relative;
+}
+
+.card-illus-wrap img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08));
+  transition: transform 0.25s ease;
+}
+
+.lifecycle-step-card:hover .card-illus-wrap img {
+  transform: scale(1.06);
+}
+
+.card-illus-wrap.wide-illus {
+  height: 140px;
+}
+
+/* 스텝 헤더 (배지 + 타이틀) */
+.card-header-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid #f2e7df;
+}
+
+.step-flower-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #a8583c;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 900;
+  box-shadow: 0 2px 8px rgba(168, 88, 60, 0.35);
+  flex-shrink: 0;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.lifecycle-step-card.active .step-flower-badge {
+  background: #902209;
+  box-shadow: 0 0 12px rgba(144, 34, 9, 0.65);
+  transform: scale(1.1);
+}
+
+.card-title-text {
+  font-size: 25px;
+  font-weight: 800;
+  color: #2b2220;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* 불릿 리스트 */
+.card-bullet-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.card-bullet-list li {
+  position: relative;
+  padding-left: 14px;
+  font-size: 19px;
+  line-height: 1.6;
+  color: #3b3230;
+  font-weight: 550;
+  letter-spacing: -0.01em;
+}
+
+.card-bullet-list li::before {
+  content: "▪";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  color: #a8583c;
+  font-size: 15px;
+}
+
+/* S자형 U턴 연결 배너 (S-curve Turn Guides) */
+.s-connector-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 22px;
+  background: #f5e4d5;
+  border: 1.5px solid #ead0be;
+  border-radius: 999px;
+  color: #8c4c34;
+  font-size: 17.5px;
+  font-weight: 800;
+  margin: -10px auto;
+  z-index: 3;
+  box-shadow: 0 2px 8px rgba(140, 76, 52, 0.08);
+}
+
+.s-connector-pill svg {
+  color: #a8583c;
+}
+
+/* 하단 주석 */
+.lifecycle-footnote {
+  padding: 16px 24px;
+  color: #72625f;
+  font-size: 19px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  background: #f7ede4;
+  border-radius: 16px;
+  border: 1px solid #ebd3c2;
+}
+
+.lifecycle-footnote p {
+  margin: 0;
+}
+
+/* Pixel Baby Tiger Runner on Lifecycle Roadmap */
+.tiger-runner {
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 10;
+  background-image: url("../assets/pixel_tiger_sprite.svg");
+  background-repeat: no-repeat;
+  background-size: 144px 48px;
+  background-position: 0 0;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
+  transition: all 0.3s ease;
+}
+
+/* Leisurely walking animation (steady 2-step cycling) */
+.tiger-runner.is-running {
+  animation: tigerRunCycle 0.36s infinite steps(2);
+}
+
+@keyframes tigerRunCycle {
+  from {
+    background-position: -48px 0;
+  }
+  to {
+    background-position: -144px 0;
+  }
+}
+
+/* Jump animation */
+.tiger-runner.is-jumping {
+  transform: translateY(-28px) scale(1.15);
+  transition: transform 0.28s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+/* Reverse direction */
+.tiger-runner.face-left {
+  transform: scaleX(-1);
+}
+
+.tiger-runner.face-left.is-jumping {
+  transform: scaleX(-1) translateY(-28px) scale(1.15);
+}
+
+/* ---------- Active Roadmap Stage Spotlight Panel ---------- */
+.roadmap-active-panel {
+  background: #fdfaf9;
+  border: 1.5px solid #ece2e0;
+  border-radius: 18px;
+  padding: 22px 28px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 18px;
+  box-shadow: 0 2px 10px rgba(144, 34, 9, 0.04);
+  transition: border-color 0.25s ease;
+}
+
+.roadmap-active-panel:hover {
+  border-color: #d9bfba;
+}
+
+.panel-left {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1 1 500px;
+}
+
+.panel-stage-indicator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.panel-step-tag {
+  background: #902209;
+  color: #ffffff;
+  font-size: 20.5px;
+  font-weight: 800;
+  padding: 6px 16px;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+}
+
+.panel-step-title {
+  margin: 0;
+  font-size: 31px;
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+.panel-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.benefit-chip {
+  background: #ffffff;
+  border: 1.5px solid #e5d8d6;
+  color: #3e3234;
+  font-size: 20px;
+  font-weight: 750;
+  padding: 9px 20px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+
+.benefit-chip:hover {
+  border-color: #902209;
+  color: #902209;
+}
+
+.panel-right {
+  display: flex;
+  align-items: center;
+}
+
+.btn-scroll-to-sec {
+  background: #ffffff;
+  border: 2px solid #902209;
+  color: #902209;
+  font-family: inherit;
+  font-size: 20.5px;
+  font-weight: 800;
+  padding: 13px 26px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-scroll-to-sec:hover {
+  background: #902209;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.btn-scroll-to-sec svg {
+  transition: transform 0.2s ease;
+}
+
+.btn-scroll-to-sec:hover svg {
+  transform: translateY(2px);
+}
+
+/* 미디어 쿼리: 반응형 최적화 */
+@media (max-width: 1100px) {
+  .lifecycle-row.row-top {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .lifecycle-row.row-middle {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .lifecycle-row.row-bottom {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .lifecycle-roadmap-board {
+    padding: 24px 18px;
+  }
+  .lifecycle-row.row-top,
+  .lifecycle-row.row-middle,
+  .lifecycle-row.row-bottom {
+    grid-template-columns: 1fr;
+  }
+  .card-bullet-list li {
+    font-size: 17.5px;
+  }
+  .card-title-text {
+    font-size: 22px;
+  }
+  .intro-title {
+    font-size: 28px;
+  }
+}
+
+/* ========================================================================== 
+   Site-wide type, width and responsive polish
+   ========================================================================== */
+:root {
+  --max-width: min(94vw, 1760px);
+  --font-base: "Pretendard", "Noto Sans KR", -apple-system, BlinkMacSystemFont,
+    "Malgun Gothic", sans-serif;
+}
+
+body {
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--max-width);
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+/* Header: one-line navigation with a little more presence */
+.site-header .wrap {
+  gap: 28px;
+}
+
+.brand-dept {
+  font-size: 24px;
+}
+
+.gnb > li > a {
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+.gnb .submenu a {
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+/* Main display type: keep headings strong but prevent oversized wrapping */
+.section-title {
+  font-size: clamp(32px, 3vw, 48px);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.section-desc {
+  font-size: clamp(17px, 1.35vw, 21px);
+  line-height: 1.65;
+}
+
+.btn {
+  font-size: 16px;
+  line-height: 1.25;
+  padding: 12px 22px;
+}
+
+.hero h1 {
+  font-size: clamp(44px, 5.8vw, 84px);
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+.hero p {
+  font-size: clamp(18px, 1.7vw, 25px);
+  line-height: 1.5;
+}
+
+.hero-eyebrow,
+.hero-pretitle {
+  font-size: clamp(15px, 1.25vw, 19px);
+  line-height: 1.45;
+}
+
+.quick-menu-inner {
+  grid-template-columns: 220px repeat(5, minmax(0, 1fr));
+}
+
+.quick-menu-label .title {
+  font-size: clamp(30px, 2.6vw, 44px);
+}
+
+.quick-menu-pager,
+.quick-item {
+  font-size: clamp(16px, 1.45vw, 21px);
+  line-height: 1.35;
+}
+
+.quick-item {
+  gap: 16px;
+  padding: 34px 14px;
+}
+
+/* Footer is supporting information, so keep it compact and readable */
+.site-footer {
+  margin-top: 64px;
+}
+
+.footer-top {
+  padding: 24px 0;
+  gap: 20px 32px;
+}
+
+.footer-links {
+  gap: 10px 22px;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.footer-bottom {
+  padding: 20px 0 24px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.footer-bottom .info p {
+  margin: 3px 0;
+}
+
+.footer-family {
+  font-size: 14px;
+  padding: 7px 14px;
+}
+
+.copyright {
+  padding: 13px 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Prevent headings and metadata from creating awkward orphaned lines */
+h1, h2, h3, h4, p, li, a, button {
+  text-wrap: pretty;
+}
+
+@media (max-width: 1200px) and (min-width: 961px) {
+  .gnb > li > a {
+    font-size: 18px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .brand-dept {
+    font-size: 21px;
+  }
+
+  .quick-menu-inner {
+    grid-template-columns: 190px repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 960px) {
+  .wrap {
+    max-width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .brand-dept {
+    font-size: 20px;
+  }
+
+  .gnb > li > a {
+    justify-content: flex-start;
+    font-size: 18px;
+  }
+
+  .gnb .submenu a {
+    font-size: 15px;
+    text-align: left;
+  }
+
+  .hero-inner {
+    padding-top: 92px;
+    padding-bottom: 72px;
+  }
+
+  .quick-menu {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .hero h1 {
+    font-size: clamp(34px, 10vw, 52px);
+  }
+
+  .hero-eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+
+  .quick-menu {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .quick-menu-inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .quick-menu-label {
+    padding: 26px 24px;
+  }
+
+  .quick-item {
+    min-height: 150px;
+    padding: 24px 10px;
+  }
+
+  .footer-top,
+  .footer-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .footer-links {
+    gap: 8px 16px;
+  }
+
+  .copyright {
+    font-size: 11px;
+  }
+}
+
+/* ---------- Quick Navigation Sticky Bar ---------- */
+.welfare-quicknav-sticky {
+  position: sticky;
+  top: var(--header-height);
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  padding: 16px 0;
+  margin: 0 0 48px;
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.welfare-quicknav-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  overflow-x: auto;
+  padding: 4px 12px;
+}
+
+.welfare-quicknav-link {
+  font-size: 23px;
+  font-weight: 800;
+  padding: 12px 28px;
+  border-radius: 999px;
+  background: #f7f5f3;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.welfare-quicknav-link:hover {
+  background: #902209;
+  color: #fff;
+  border-color: #902209;
+}
+
+.welfare-quicknav-link.active {
+  background: #902209;
+  color: #fff;
+  border-color: #902209;
+}
+
+/* ---------- Divided Welfare Sections ---------- */
+.welfare-divided-section {
+  scroll-margin-top: calc(var(--header-height) + 70px);
+  margin-bottom: 72px;
+  padding-bottom: 56px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.welfare-divided-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 32px;
+}
+
+.welfare-section-header {
+  margin-bottom: 32px;
+}
+
+.welfare-section-badge-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 31px;
+  font-weight: 850;
+  color: #ffffff;
+  background: #902209;
+  padding: 14px 40px;
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(144, 34, 9, 0.25);
+}
+
+.welfare-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.welfare-card {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 34px 30px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 16px rgba(38, 34, 35, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.welfare-card:hover {
+  border-color: #c9b9b5;
+  box-shadow: 0 8px 24px rgba(38, 34, 35, 0.09);
+  transform: translateY(-2px);
+}
+
+.welfare-card-top {
+  margin-bottom: 20px;
+}
+
+.welfare-card-img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  display: block;
+}
+
+.welfare-card-title {
+  font-size: 28.5px;
+  font-weight: 850;
+  color: var(--color-text);
+  margin: 0 0 14px;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
+
+.welfare-card-desc {
+  font-size: 22px;
+  color: #3b3334;
+  line-height: 1.75;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.welfare-cta-banner {
+  background: linear-gradient(135deg, #2b2728 0%, #1e1b1c 100%);
+  border-radius: 20px;
+  padding: 44px 48px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15);
+  border-left: 6px solid var(--color-primary);
+  margin-top: 48px;
+}
+
+.welfare-cta-text h3 {
+  font-size: 28.5px;
+  font-weight: 850;
+  margin: 0 0 10px;
+  color: #fff;
+}
+
+.welfare-cta-text p {
+  font-size: 20px;
+  color: #b5adaf;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.welfare-cta-actions {
+  display: flex;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.welfare-cta-actions .btn {
+  font-size: 19.5px;
+  font-weight: 750;
+  padding: 13px 26px;
+}
+
+@media (max-width: 1200px) {
+  .welfare-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 860px) {
+  .welfare-cta-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px 24px;
+  }
+  .welfare-cta-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+  .welfare-cta-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 680px) {
+  .welfare-grid {
+    grid-template-columns: 1fr;
+  }
+  .welfare-header h2 {
+    font-size: 28.5px;
+  }
+  .welfare-header p {
+    font-size: 18.5px;
+  }
+  .roadmap-container {
+    padding: 20px 14px;
+    border-radius: 18px;
+  }
+  .roadmap-stage {
+    min-height: 180px;
+    margin: 8px 0 12px;
+  }
+  .walking-character,
+  .walking-nurse {
+    width: 85px;
+    height: 62px;
+  }
+  .nurse-speech-wrap {
+    bottom: 66px;
+    max-width: 220px;
+  }
+  .nurse-speech-bubble {
+    font-size: 12.5px;
+    padding: 5px 9px;
+    border-radius: 12px;
+    gap: 4px;
+  }
+  .roadmap-active-panel {
+    padding: 14px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .panel-right, .btn-scroll-to-sec {
+    width: 100%;
+    justify-content: center;
+  }
+  .roadmap-controls {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .welfare-quicknav-list {
+    justify-content: flex-start;
+  }
+}
+
+/* ==========================================================================
+   채용정보 (채용정보1 & 채용정보2) 스타일
+   ========================================================================== */
+.jobs-block {
+  margin-bottom: 56px;
+}
+
+.jobs-subheading-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 16px;
+}
+
+.jobs-ring-bullet {
+  width: 14px;
+  height: 14px;
+  border: 3.5px solid #86151c;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.jobs-subheading {
+  font-size: 28.5px;
+  font-weight: 850;
+  color: #1e1e1e;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.jobs-desc-lead {
+  font-size: 21.5px;
+  line-height: 1.8;
+  color: #444;
+  margin: 0 0 36px;
+  padding-left: 24px;
+}
+
+/* 채용정보1: 3단계 원형 다이어그램 */
+.jobs-process-circles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin: 36px 0 44px;
+  flex-wrap: wrap;
+}
+
+.process-circle-card {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  border: 1.5px solid #dcd7d5;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+}
+
+.process-circle-card:hover {
+  transform: translateY(-4px);
+  border-color: #86151c;
+  box-shadow: 0 8px 26px rgba(134, 21, 28, 0.12);
+}
+
+.process-circle-badge {
+  background: #231f20;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 750;
+  padding: 6px 16px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: -0.01em;
+}
+
+.process-circle-badge .badge-num {
+  background: #ffffff;
+  color: #231f20;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14.5px;
+  font-weight: 900;
+}
+
+.process-circle-icon {
+  width: 68px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2b2728;
+}
+
+.process-circle-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a5696;
+}
+
+.process-circle-arrow svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* 채용정보2: 간호직 5단계 전형 절차 */
+.jobs-nursing-section {
+  margin-top: 64px;
+  padding-top: 48px;
+  border-top: 1.5px solid #ece4e2;
+}
+
+.jobs-nursing-title {
+  font-size: 35px;
+  font-weight: 900;
+  color: #1e1e1e;
+  margin: 0 0 32px;
+  letter-spacing: -0.02em;
+}
+
+.jobs-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.step-card-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.step-card-col.col-wide {
+  grid-column: 1 / 2;
+}
+
+.step-card-box {
+  border-radius: 18px;
+  padding: 38px 20px;
+  text-align: center;
+  min-height: 146px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.step-card-col:hover .step-card-box {
+  transform: translateY(-3px);
+}
+
+.step-card-box.crimson {
+  background: #86151c;
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(134, 21, 28, 0.2);
+}
+
+.step-card-box.light {
+  background: #eef2f5;
+  color: #1e1e1e;
+  border: 1px solid #dce4ea;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+}
+
+.step-card-num {
+  font-size: 21px;
+  font-weight: 800;
+  margin-bottom: 6px;
+  opacity: 0.92;
+}
+
+.step-card-title {
+  font-size: 25.5px;
+  font-weight: 850;
+  line-height: 1.35;
+  margin: 0;
+  letter-spacing: -0.015em;
+}
+
+.step-card-desc-wrap {
+  padding: 20px 4px 0;
+}
+
+.step-card-desc-title {
+  font-size: 23px;
+  font-weight: 850;
+  color: #1e1e1e;
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
+}
+
+.step-card-desc-body {
+  font-size: 19.5px;
+  line-height: 1.7;
+  color: #443e3f;
+  margin: 0;
+  word-break: keep-all;
+}
+
+.jobs-btn-wrap {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 980px) {
+  .jobs-steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .step-card-col.col-wide {
+    grid-column: auto;
+  }
+  .jobs-process-circles {
+    gap: 20px;
+  }
+  .process-circle-card {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media (max-width: 640px) {
+  .jobs-steps-grid {
+    grid-template-columns: 1fr;
+  }
+  .jobs-process-circles {
+    flex-direction: column;
+  }
+  .process-circle-arrow {
+    transform: rotate(90deg);
+  }
+}
+
+
+
+/* ==========================================================================
+   연도별 연구활동 & 연도별 QI활동 — 나눔고딕 프리미엄 리디자인
+   ========================================================================== */
+
+/* 나눔고딕 명시적 폰트 스택 */
+.font-nanum,
+.research-study-page,
+.research-qi-page,
+.res-header-banner,
+.res-filter-tabs,
+.research-study-card,
+.qi-modern-table,
+.qi-mobile-card {
+  font-family: "Nanum Gothic", "나눔고딕", NanumGothic, "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+/* 상단 연구·QI 헤더 배너 */
+.res-header-banner {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #ede3e1;
+  border-left: 6px solid #86151c;
+  padding: 34px 38px;
+  margin-bottom: 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.res-banner-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.res-banner-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fbeee8;
+  color: #86151c;
+  font-size: 15px;
+  font-weight: 800;
+  padding: 6px 16px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+
+.res-banner-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1e1e1e;
+  margin: 0 0 10px;
+  letter-spacing: -0.015em;
+}
+
+.res-banner-desc {
+  font-size: 19px;
+  line-height: 1.75;
+  color: #555;
+  margin: 0 0 24px;
+  word-break: keep-all;
+}
+
+/* 요약 통계 그리드 */
+.res-stats-grid {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.res-stat-card {
+  background: #faf7f6;
+  border: 1px solid #eee4e2;
+  border-radius: 14px;
+  padding: 14px 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 170px;
+}
+
+.res-stat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #ecdcd9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #86151c;
+}
+
+.res-stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.res-stat-num {
+  font-size: 24px;
+  font-weight: 800;
+  color: #86151c;
+  line-height: 1.2;
+}
+
+.res-stat-label {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #666;
+  margin-top: 2px;
+}
+
+/* 연도 탭 필터 */
+.res-filter-tabs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+
+.res-tab-btn {
+  background: #ffffff;
+  border: 1.5px solid #dfd7d5;
+  color: #555;
+  font-size: 17px;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.res-tab-btn:hover {
+  border-color: #86151c;
+  color: #86151c;
+  background: #fdf7f6;
+}
+
+.res-tab-btn.active {
+  background: #86151c;
+  border-color: #86151c;
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(134, 21, 28, 0.28);
+}
+
+.res-tab-btn .tab-badge {
+  background: rgba(0, 0, 0, 0.08);
+  font-size: 13.5px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.res-tab-btn.active .tab-badge {
+  background: rgba(255, 255, 255, 0.24);
+  color: #ffffff;
+}
+
+/* 연도별 그룹 섹션 */
+.res-year-block {
+  margin-bottom: 50px;
+  transition: opacity 0.3s ease;
+}
+
+.res-year-title-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #ede3e1;
+}
+
+.res-year-badge-big {
+  background: #86151c;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 800;
+  padding: 6px 18px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+  box-shadow: 0 4px 12px rgba(134, 21, 28, 0.2);
+}
+
+.res-year-count-label {
+  font-size: 17px;
+  font-weight: 700;
+  color: #666;
+}
+
+/* ==========================================================================
+   연구활동 카드 스트림 (.research-study-card)
+   ========================================================================== */
+.research-cards-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.research-study-card {
+  background: #ffffff;
+  border: 1.5px solid #ece4e2;
+  border-radius: 20px;
+  padding: 28px 34px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  position: relative;
+}
+
+.research-study-card:hover {
+  transform: translateY(-4px);
+  border-color: #86151c;
+  box-shadow: 0 14px 32px rgba(134, 21, 28, 0.1);
+}
+
+.res-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.res-card-badges {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.res-dept-pill {
+  background: #fbeee8;
+  color: #86151c;
+  border: 1px solid #f6d0c7;
+  font-size: 15.5px;
+  font-weight: 800;
+  padding: 5px 14px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.res-year-pill {
+  background: #2b2728;
+  color: #ffd166;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 8px;
+}
+
+.res-paper-idx {
+  font-size: 15px;
+  font-weight: 800;
+  color: #a09795;
+  letter-spacing: 0.05em;
+}
+
+.res-card-title {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.62;
+  color: #1a1a1a;
+  margin: 0 0 18px;
+  word-break: keep-all;
+  letter-spacing: -0.01em;
+}
+
+.res-card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid #f3ebe9;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.res-tags-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.res-chip {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: #f4efee;
+  color: #555;
+}
+
+.res-chip.ebp {
+  background: #eef4fb;
+  color: #1b5399;
+}
+
+.res-chip.featured {
+  background: #fdf0ed;
+  color: #b8213f;
+  font-weight: 800;
+}
+
+.res-card-status {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #86151c;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ==========================================================================
+   QI 활동 현대적 데이터 테이블 (.qi-modern-table)
+   ========================================================================== */
+.qi-table-box {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #ecdcd9;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.qi-modern-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.qi-modern-table thead th {
+  background: linear-gradient(135deg, #7d1636 0%, #520e23 100%);
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 800;
+  padding: 18px 22px;
+  letter-spacing: 0.02em;
+  border: none;
+}
+
+.qi-modern-table thead th.th-no {
+  width: 85px;
+  text-align: center;
+}
+
+.qi-modern-table thead th.th-dept {
+  width: 250px;
+}
+
+.qi-modern-table thead th.th-topic {
+  /* Remaining space */
+}
+
+.qi-modern-table tbody tr {
+  border-bottom: 1px solid #f0e6e4;
+  transition: background 0.15s ease;
+}
+
+.qi-modern-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.qi-modern-table tbody tr:nth-child(even) {
+  background: #faf8f8;
+}
+
+.qi-modern-table tbody tr:hover {
+  background: #fdf5f4;
+}
+
+.qi-modern-table tbody td {
+  padding: 18px 22px;
+  font-size: 18.5px;
+  line-height: 1.6;
+  color: #2b2728;
+  vertical-align: middle;
+}
+
+.qi-modern-table tbody td.td-no {
+  text-align: center;
+}
+
+.qi-no-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #fdf2ef;
+  color: #86151c;
+  font-size: 16px;
+  font-weight: 800;
+  border: 1px solid #f9d8d1;
+}
+
+.qi-dept-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 17px;
+  font-weight: 750;
+  color: #333;
+}
+
+.qi-dept-badge svg {
+  color: #86151c;
+  flex-shrink: 0;
+}
+
+.qi-topic-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.qi-topic-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e1e1e;
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
+.qi-tag-cqi {
+  background: #2b2728;
+  color: #ffd166;
+  font-size: 13.5px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+.qi-tag-featured {
+  background: #86151c;
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+/* 반응형 처리 */
+@media (max-width: 860px) {
+  .qi-modern-table thead {
+    display: none;
+  }
+  .qi-modern-table,
+  .qi-modern-table tbody,
+  .qi-modern-table tr,
+  .qi-modern-table td {
+    display: block;
+    width: 100%;
+  }
+  .qi-modern-table tbody tr {
+    padding: 18px 18px;
+    border-bottom: 1.5px solid #ece4e2;
+  }
+  .qi-modern-table tbody td {
+    padding: 6px 0;
+  }
+  .qi-modern-table tbody td.td-no {
+    text-align: left;
+    margin-bottom: 4px;
+  }
+  .qi-topic-title {
+    font-size: 18.5px;
+  }
+  .research-study-card {
+    padding: 22px 20px;
+  }
+  .res-card-title {
+    font-size: 19.5px;
+  }
+}
+
+/* ==========================================================================
+   커뮤니티 영상 순차 자동재생 & 오디오 컨트롤러 스타일
+   ========================================================================== */
+.video-seq-toolbar {
+  background: linear-gradient(135deg, #fbf7f6 0%, #f5ecea 100%);
+  border: 1.5px solid #ecd8d5;
+  border-radius: 18px;
+  padding: 16px 24px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  box-shadow: 0 4px 16px rgba(144, 34, 9, 0.05);
+}
+
+.seq-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.seq-badge {
+  background: #902209;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+  padding: 5px 14px;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.seq-badge::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff7895;
+  animation: pulseLive 1.5s infinite;
+}
+
+@keyframes pulseLive {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  50% { transform: scale(1.4); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.8; }
+}
+
+.seq-info {
+  font-size: 20px;
+  font-weight: 750;
+  color: var(--color-text);
+}
+
+.seq-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-seq-nav {
+  background: #ffffff;
+  border: 1.5px solid #d9bfba;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 750;
+  padding: 8px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-seq-nav:hover {
+  background: #902209;
+  border-color: #902209;
+  color: #fff;
+}
+
+.btn-seq-audio {
+  background: #902209;
+  border: 1.5px solid #902209;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 18.5px;
+  font-weight: 800;
+  padding: 9px 22px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(144, 34, 9, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-seq-audio:hover {
+  background: #b12d10;
+  border-color: #b12d10;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(144, 34, 9, 0.35);
+}
+
+.btn-seq-audio.sound-active {
+  background: #2a7d4f;
+  border-color: #2a7d4f;
+  box-shadow: 0 4px 12px rgba(42, 125, 79, 0.25);
+}
+
+/* 비디오 순차 카드 */
+.video-seq-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 2px solid #ede4e2;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.video-seq-card:hover {
+  transform: translateY(-4px);
+  border-color: #c9b4b0;
+  box-shadow: 0 12px 28px rgba(144, 34, 9, 0.12);
+}
+
+.video-seq-card.is-active {
+  border-color: #902209;
+  box-shadow: 0 10px 32px rgba(144, 34, 9, 0.22);
+}
+
+.video-player-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #151314;
+  overflow: hidden;
+  border-radius: 18px 18px 0 0;
+}
+
+/* 썸네일 프리뷰 컨테이너 (비활성/대기 중일 때 상시 선명 노출) */
+.video-thumb-preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 5;
+  display: block;
+  opacity: 1;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.video-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.video-thumb-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.05) 40%, rgba(0, 0, 0, 0.7) 100%);
+  pointer-events: none;
+}
+
+.channel-play-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.channel-play-btn {
+  width: 64px;
+  height: 64px;
+  background: rgba(144, 34, 9, 0.94);
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45), 0 0 0 4px rgba(255, 255, 255, 0.3);
+  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.channel-play-btn svg {
+  margin-left: 3px;
+}
+
+.video-seq-card:hover .video-thumb-img {
+  transform: scale(1.06);
+}
+
+.video-seq-card:hover .channel-play-btn {
+  transform: scale(1.15);
+  background: #b52506;
+  box-shadow: 0 10px 28px rgba(144, 34, 9, 0.65), 0 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.video-card-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 15px;
+  font-weight: 800;
+  padding: 5px 12px;
+  border-radius: 999px;
+  color: #fff;
+  letter-spacing: -0.01em;
+  backdrop-filter: blur(6px);
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.waiting-badge {
+  background: rgba(22, 19, 20, 0.82);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+}
+
+.channel-thumb-duration {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  font-size: 16px;
+  font-weight: 800;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.75);
+  padding: 3px 9px;
+  border-radius: 6px;
+  letter-spacing: 0.02em;
+  z-index: 6;
+}
+
+/* 활성 상태 vs 대기 상태 썸네일 노출 제어 */
+.video-seq-card.is-active .video-thumb-preview {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.video-seq-card.is-waiting .video-thumb-preview {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* 비디오 플레이어 슬롯 영역 */
+.video-player-slot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 2;
+}
+
+.video-player-slot iframe,
+.video-player-slot .video-embed-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video-seq-card.is-active .video-player-slot {
+  z-index: 6;
+}
+
+.video-overlay-controls {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.video-seq-card.is-waiting .video-overlay-controls {
+  display: none !important;
+}
+
+.video-seq-card.is-active .video-overlay-controls {
+  display: flex !important;
+}
+
+.video-now-playing-tag {
+  background: rgba(144, 34, 9, 0.94);
+  color: #fff;
+  font-size: 16.5px;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 999px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  backdrop-filter: blur(4px);
+}
+
+.btn-audio-toggle {
+  pointer-events: auto;
+  background: rgba(20, 18, 19, 0.88);
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 16.5px;
+  font-weight: 750;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  backdrop-filter: blur(6px);
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.btn-audio-toggle:hover {
+  background: #902209;
+  border-color: #fff;
+  transform: scale(1.05);
+}
+
+.btn-audio-toggle.sound-active {
+  background: rgba(42, 125, 79, 0.92);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.channel-actions {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #f0e6e4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.external-yt-link {
+  font-size: 18px;
+  font-weight: 750;
+  color: #902209;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.15s ease;
+}
+
+.external-yt-link:hover {
+  color: #5c1404;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   복지제도 로드맵 게임화 (점프, 복지 코인, 스코어보드)
+   ========================================================================== */
+.roadmap-game-hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #2b1d1f 0%, #3d2427 100%);
+  color: #fff;
+  padding: 14px 22px;
+  border-radius: 14px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 14px;
+  box-shadow: 0 4px 16px rgba(43, 29, 31, 0.2);
+}
+
+.game-hud-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.coin-scoreboard {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 21px;
+  font-weight: 850;
+  color: #ffe175;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.coin-score-pill {
+  background: rgba(255, 225, 117, 0.18);
+  border: 1px solid #ffe175;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 20px;
+  color: #fff;
+  font-weight: 850;
+}
+
+.tiger-level-tag {
+  background: #902209;
+  border: 1px solid #ff7895;
+  color: #fff;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 18.5px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.game-hud-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-game-jump {
+  background: linear-gradient(180deg, #ffbb33 0%, #e69500 100%);
+  color: #2b1d1f;
+  border: 2px solid #fff;
+  font-family: inherit;
+  font-size: 19px;
+  font-weight: 900;
+  padding: 8px 22px;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 187, 51, 0.4);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-game-jump:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 187, 51, 0.55);
+}
+
+.btn-game-jump:active {
+  transform: translateY(1px);
+}
+
+.btn-game-reset {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  font-family: inherit;
+  font-size: 17.5px;
+  font-weight: 750;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-game-reset:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* 트랙 위 복지 골드 코인 */
+.welfare-coin {
+  position: absolute;
+  bottom: 84px;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 32px;
+  z-index: 6;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.3s ease;
+  animation: coinFloat 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes coinFloat {
+  0% { transform: translateX(-50%) translateY(0); }
+  100% { transform: translateX(-50%) translateY(-10px); }
+}
+
+.coin-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff9a6 0%, #ffc400 45%, #c78800 100%);
+  border: 2px solid #fff;
+  box-shadow: 0 0 12px rgba(255, 196, 0, 0.7), inset 0 0 4px rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 900;
+  color: #7d4d00;
+  animation: coinSpin 2.4s linear infinite;
+}
+
+@keyframes coinSpin {
+  0% { transform: scaleX(1); }
+  50% { transform: scaleX(0.15); }
+  100% { transform: scaleX(1); }
+}
+
+.coin-label {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14.5px;
+  font-weight: 850;
+  color: #902209;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid #f0d2ce;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* 코인 획득 시 팝 이펙트 */
+.welfare-coin.collected {
+  animation: coinCollectPop 0.5s forwards ease-out;
+  pointer-events: none;
+}
+
+@keyframes coinCollectPop {
+  0% { transform: translateX(-50%) scale(1); opacity: 1; }
+  50% { transform: translateX(-50%) translateY(-26px) scale(1.6); opacity: 0.9; }
+  100% { transform: translateX(-50%) translateY(-44px) scale(0); opacity: 0; }
+}
+
+/* 점수 플로팅 텍스트 */
+.coin-float-text {
+  position: absolute;
+  bottom: 100px;
+  font-size: 21px;
+  font-weight: 900;
+  color: #ff9900;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  z-index: 20;
+  animation: floatUpFade 0.9s forwards ease-out;
+}
+
+@keyframes floatUpFade {
+  0% { transform: translate(-50%, 0) scale(0.8); opacity: 0; }
+  20% { transform: translate(-50%, -10px) scale(1.2); opacity: 1; }
+  100% { transform: translate(-50%, -45px) scale(1); opacity: 0; }
+}
+
+/* 호랑이 점프 애니메이션 (부드러운 포물선 도약) */
+.tiger-runner.is-jumping {
+  animation: tigerJumpArc 0.65s cubic-bezier(0.22, 0.61, 0.36, 1) !important;
+}
+
+@keyframes tigerJumpArc {
+  0% { bottom: 50px; }
+  45% { bottom: 105px; }
+  100% { bottom: 50px; }
+}
+
+/* 점프 먼지 이펙트 */
+.tiger-dust {
+  position: absolute;
+  bottom: 48px;
+  width: 18px;
+  height: 10px;
+  background: #d9bfba;
+  border-radius: 50%;
+  opacity: 0.8;
+  z-index: 8;
+  animation: dustPuff 0.4s forwards ease-out;
+}
+
+@keyframes dustPuff {
+  0% { transform: scale(0.6); opacity: 0.8; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* 완주 축하 알림 배너 */
+.roadmap-congrats-banner {
+  background: linear-gradient(135deg, #fff7db 0%, #ffedd5 100%);
+  border: 2px solid #ffd573;
+  border-radius: 16px;
+  padding: 16px 24px;
+  margin-top: 14px;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: 0 4px 18px rgba(255, 187, 51, 0.25);
+  animation: bannerSlideIn 0.4s ease-out;
+}
+
+@keyframes bannerSlideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.congrats-text {
+  font-size: 21px;
+  font-weight: 850;
+  color: #7d4d00;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ==========================================================================
+   복지제도 4대 섹션 카드 UI 전면 세련화 (22개 카드)
+   ========================================================================== */
+.welfare-divided-section {
+  scroll-margin-top: calc(var(--header-height) + 70px);
+  margin-bottom: 84px;
+  padding-bottom: 64px;
+  border-bottom: 1.5px solid #ece4e2;
+}
+
+/* 세련된 섹션 헤더 배너 */
+.welfare-section-header-modern {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 34px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f2dedb;
+}
+
+.welfare-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.welfare-step-num {
+  font-size: 19px;
+  font-weight: 900;
+  color: #ffffff;
+  background: #902209;
+  padding: 6px 16px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+  box-shadow: 0 3px 10px rgba(144, 34, 9, 0.25);
+}
+
+.welfare-header-title-group h3 {
+  font-size: 33px;
+  font-weight: 900;
+  color: var(--color-text);
+  margin: 0 0 4px;
+  letter-spacing: -0.015em;
+}
+
+.welfare-header-eng {
+  font-size: 18px;
+  font-weight: 700;
+  color: #902209;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.welfare-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.welfare-count-badge {
+  background: #ffffff;
+  border: 1.5px solid #e2cfcc;
+  color: #554446;
+  font-size: 18px;
+  font-weight: 800;
+  padding: 7px 18px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+/* 세련된 3열 복지 카드 그리드 */
+.welfare-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+@media (max-width: 1040px) {
+  .welfare-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .welfare-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 고도화된 복지 카드 */
+.welfare-card {
+  position: relative;
+  background: #ffffff;
+  border: 1.5px solid #ece4e2;
+  border-top: 4px solid #902209;
+  border-radius: 22px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 6px 22px rgba(144, 34, 9, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.welfare-card:hover {
+  transform: translateY(-6px);
+  border-color: #d9bfba;
+  border-top-color: #902209;
+  box-shadow: 0 16px 36px rgba(144, 34, 9, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* 카드 상단: 아이콘 스퀘어클 박스 + 카테고리 태그 뱃지 */
+.welfare-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.welfare-card-icon-box {
+  width: 70px;
+  height: 70px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #fff5f3 0%, #fae8e6 100%);
+  border: 1.5px solid #f2dedb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(144, 34, 9, 0.06);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.welfare-card:hover .welfare-card-icon-box {
+  transform: scale(1.06);
+  background: linear-gradient(135deg, #faece9 0%, #f7dcd9 100%);
+}
+
+.welfare-card-img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  display: block;
+}
+
+.welfare-card-category-pill {
+  font-size: 16px;
+  font-weight: 800;
+  color: #902209;
+  background: #fdf5f4;
+  border: 1px solid #ebd4d0;
+  padding: 5px 13px;
+  border-radius: 999px;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+/* 카드 텍스트 */
+.welfare-card-main {
+  flex: 1;
+}
+
+.welfare-card-title {
+  font-size: 26.5px;
+  font-weight: 850;
+  color: var(--color-text);
+  margin: 0 0 12px;
+  line-height: 1.38;
+  letter-spacing: -0.015em;
+}
+
+.welfare-card-desc {
+  font-size: 19.5px;
+  color: #4a4244;
+  line-height: 1.75;
+  margin: 0 0 20px;
+  font-weight: 500;
+  word-break: keep-all;
+}
+
+/* 카드 하단 핵심 혜택 체크포인트 칩 */
+.welfare-card-perks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 16px;
+  border-top: 1px dashed #f0e4e2;
+}
+
+.welfare-perk-chip {
+  font-size: 16px;
+  font-weight: 750;
+  color: #5c4446;
+  background: #f8f6f5;
+  padding: 4px 11px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ==========================================================================
+   생애주기별 복지제도 7단계 S자형 로드맵 보드 (Lifecycle Welfare Roadmap)
+   ========================================================================== */
+.lifecycle-roadmap-board {
+  position: relative;
+  background: linear-gradient(180deg, #fdfbf9 0%, #faf3f0 50%, #fdfbf9 100%);
+  border: 2px solid #ecdcd9;
+  border-radius: 28px;
+  padding: 40px 36px 36px;
+  box-shadow: 0 10px 36px rgba(144, 34, 9, 0.05), 0 2px 8px rgba(0, 0, 0, 0.03);
+  margin-bottom: 50px;
+  overflow: hidden;
+}
+
+/* S자 로드맵 트랙 컨테이너 */
+.lifecycle-track-wrapper {
+  position: relative;
+  margin: 30px 0 20px;
+}
+
+/* 행(Row) 공통 스타일 */
+.lifecycle-row {
+  display: grid;
+  gap: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* 상단 1행: 인트로 + 01 + 02 + 03 (4열) */
+.lifecycle-row.row-top {
+  grid-template-columns: 1.15fr 1fr 1.05fr 1.1fr;
+  align-items: stretch;
+}
+
+/* 중단 2행: 06 + 05 + 04 (3열, 우->좌 역방향) */
+.lifecycle-row.row-middle {
+  grid-template-columns: 1fr 1.25fr 1fr;
+  align-items: stretch;
+  margin-left: 60px;
+}
+
+/* 하단 3행: 07 + 각주/엔딩 */
+.lifecycle-row.row-bottom {
+  grid-template-columns: 1.25fr 2fr;
+  align-items: center;
+  gap: 32px;
+}
+
+/* S자 커넥터 밴드 (우측 하향 U턴, 좌측 하향 U턴) */
+.lifecycle-curve-connector {
+  position: relative;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+
+.lifecycle-curve-connector.turn-right {
+  justify-content: flex-end;
+  padding-right: 60px;
+}
+
+.lifecycle-curve-connector.turn-left {
+  justify-content: flex-start;
+  padding-left: 70px;
+}
+
+.connector-arrow-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 24px;
+  background: linear-gradient(90deg, #fceee9, #f7dcd5);
+  border: 1.5px dashed #d88f82;
+  border-radius: 999px;
+  color: #a32d1e;
+  font-size: 15px;
+  font-weight: 800;
+  box-shadow: 0 4px 12px rgba(163, 45, 30, 0.08);
+}
+
+.connector-arrow-track .pulse-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #a32d1e;
+  box-shadow: 0 0 0 3px rgba(163, 45, 30, 0.2);
+  animation: pulseDot 1.5s infinite;
+}
+
+@keyframes pulseDot {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.7; }
+}
+
+/* 인트로 타이틀 카드 */
+.lifecycle-intro-card {
+  background: linear-gradient(135deg, #fdf6f2 0%, #fbebe5 100%);
+  border: 2px solid #edd4ce;
+  border-radius: 22px;
+  padding: 30px 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(144, 34, 9, 0.04);
+}
+
+.intro-sub {
+  font-size: 16px;
+  font-weight: 800;
+  color: #c04c36;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.intro-main {
+  font-size: 34px;
+  font-weight: 900;
+  color: #2b2728;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin: 0 0 16px;
+}
+
+.intro-desc {
+  font-size: 16.5px;
+  line-height: 1.65;
+  color: #5d4e4b;
+  margin: 0;
+  word-break: keep-all;
+  font-weight: 500;
+}
+
+/* 스텝 카드 공통 */
+.lifecycle-step-card {
+  background: #ffffff;
+  border: 2px solid #ecdcd9;
+  border-radius: 22px;
+  padding: 24px 22px 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+}
+
+.lifecycle-step-card:hover {
+  transform: translateY(-6px);
+  border-color: #a32d1e;
+  box-shadow: 0 14px 30px rgba(163, 45, 30, 0.12);
+}
+
+.lifecycle-step-card.active {
+  border-color: #a32d1e;
+  background: #fffdfc;
+  box-shadow: 0 0 0 3px rgba(163, 45, 30, 0.2), 0 14px 32px rgba(163, 45, 30, 0.14);
+  transform: translateY(-4px);
+}
+
+/* 일러스트 래퍼 */
+.step-illus-box {
+  width: 100%;
+  height: 145px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  position: relative;
+  padding: 4px;
+}
+
+#step-card-1 .step-illus-box {
+  height: 165px; /* 대학원 말풍선 공간 확보 */
+}
+
+.step-illus-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform 0.25s ease;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.07));
+}
+
+.lifecycle-step-card:hover .step-illus-box img,
+.lifecycle-step-card.active .step-illus-box img {
+  transform: scale(1.06);
+}
+
+/* 스텝 타이틀 헤더 (배지 + 스텝명) */
+.step-header-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1.5px dashed #f0dedb;
+}
+
+.step-flower-num {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #dd5943 0%, #bd3e2a 100%);
+  color: #ffffff;
+  font-size: 21px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(189, 62, 42, 0.3);
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+.step-card-title {
+  font-size: 25px;
+  font-weight: 900;
+  color: #2b2728;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+/* 스텝 본문 불릿 목록 */
+.step-item-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.step-item-list li {
+  position: relative;
+  padding-left: 14px;
+  font-size: 17px;
+  line-height: 1.55;
+  color: #4a403f;
+  word-break: keep-all;
+  font-weight: 600;
+}
+
+.step-item-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #a32d1e;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.step-item-list li strong {
+  color: #2b2728;
+  font-weight: 850;
+}
+
+/* Step 07 퇴직 카드 특화 스타일 (가로 확장형) */
+.lifecycle-step-card.card-retirement {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 26px;
+  padding: 24px 28px;
+}
+
+.lifecycle-step-card.card-retirement .step-illus-box {
+  width: 220px;
+  height: 160px;
+  flex-shrink: 0;
+  margin-bottom: 0;
+}
+
+.lifecycle-step-card.card-retirement .retire-content {
+  flex: 1;
+}
+
+/* 하단 각주 박스 */
+.lifecycle-footnote-box {
+  background: #fdf5f2;
+  border: 1px dashed #e6c8c1;
+  border-radius: 16px;
+  padding: 22px 26px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.footnote-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.footnote-text {
+  font-size: 17.5px;
+  font-weight: 700;
+  color: #7a3e35;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* 호랑이 말풍선 & 미니 아바타 러너 오버레이 */
+.tiger-walker-pin {
+  position: absolute;
+  top: -18px;
+  right: 20px;
+  background: #ffffff;
+  border: 2px solid #a32d1e;
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 14.5px;
+  font-weight: 850;
+  color: #a32d1e;
+  box-shadow: 0 4px 14px rgba(163, 45, 30, 0.25);
+  display: none;
+  align-items: center;
+  gap: 6px;
+  z-index: 10;
+  animation: bouncePin 1s infinite alternate;
+}
+
+.lifecycle-step-card.active .tiger-walker-pin {
+  display: inline-flex;
+}
+
+@keyframes bouncePin {
+  from { transform: translateY(0); }
+  to { transform: translateY(-6px); }
+}
+
+/* 코인 수집 표시 (각 카드 우측 상단 획득 코인) */
+.card-coin-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #fff0b8;
+  border: 2px solid #d4a017;
+  color: #8f6500;
+  font-size: 14px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(212, 160, 23, 0.3);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 3;
+}
+
+.card-coin-badge:hover {
+  transform: scale(1.15) rotate(15deg);
+}
+
+.card-coin-badge.collected {
+  background: #d4a017;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(212, 160, 23, 0.6);
+}
+
+/* 반응형 모바일 대응 */
+@media (max-width: 1100px) {
+  .lifecycle-row.row-top {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .lifecycle-row.row-middle {
+    grid-template-columns: repeat(2, 1fr);
+    margin-left: 0;
+  }
+  .lifecycle-row.row-bottom {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .lifecycle-roadmap-board {
+    padding: 24px 18px 20px;
+  }
+  .lifecycle-row.row-top,
+  .lifecycle-row.row-middle,
+  .lifecycle-row.row-bottom {
+    grid-template-columns: 1fr;
+  }
+  .lifecycle-step-card.card-retirement {
+    flex-direction: column;
+  }
+  .lifecycle-step-card.card-retirement .step-illus-box {
+    width: 100%;
+  }
+}
+
+

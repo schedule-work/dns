@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>조직도 · 고려대학교구로병원 간호부</title>
+<title>고려대학교 구로병원 간호부</title>
 <meta name="description" content="고려대학교구로병원 간호부 — 병원장-간호부장-6개팀 조직 체계" />
-<link rel="stylesheet" href="../css/styles.css" />
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="../css/styles.css?v=13" />
 </head>
 <body>
 
@@ -29,17 +31,18 @@
         </li>
         <li><a href="education.html">간호인재 및 교육</a>
           <ul class="submenu">
-            <li><a href="education-talent.html">간호부 인재상</a></li>
+            <li><a href="education-talent.html">직무 인터뷰</a></li>
             <li><a href="education-overview.html">교육체계 Overview</a></li>
             <li><a href="education-level.html">임상역량단계</a></li>
             <li><a href="education-target.html">대상별 교육</a></li>
             <li><a href="education-ce.html">보수교육 · 공지</a></li>
           </ul>
         </li>
-        <li><a href="research.html">연구·질향상</a>
+        <li><a href="research-mindmap.html">연구·QI</a>
           <ul class="submenu">
             <li><a href="research-study.html">연도별 연구활동</a></li>
             <li><a href="research-qi.html">연도별 QI활동</a></li>
+            <li><a href="research-mindmap.html">마인드맵으로 보기</a></li>
           </ul>
         </li>
         <li><a href="life.html">복지 및 채용</a>
@@ -56,6 +59,7 @@
           </ul>
         </li>
       </ul>
+      <div class="mega-backdrop"></div>
     </nav>
 
     <div class="header-tools">
@@ -86,17 +90,19 @@
     <div class="detail-section wide">
       <p class="lede">간호부장 아래 6개 간호팀과 제위원회로 구성되어 있으며, 팀별로 담당 병동과 부서를 운영합니다.</p>
       <div class="org-chart">
-        <div class="org-box">병원장</div>
+        <div class="org-hq">
+          <div class="org-hq-tier">병원장</div>
+          <div class="org-hq-tier">간호부장</div>
+        </div>
         <div class="org-connector"></div>
-        <div class="org-box">간호부장</div>
         <div class="org-row">
-          <div class="org-branch"><div class="org-team committee">제위원회</div></div>
           <div class="org-branch"><div class="org-team">간호교육기획팀</div><div class="org-units">간호기획 · 간호교육 · 꿈마스터</div></div>
           <div class="org-branch"><div class="org-team">병동간호 1팀</div><div class="org-units">내과계병동 · VIP병동 · 보호요원실</div></div>
           <div class="org-branch"><div class="org-team">병동간호 2팀</div><div class="org-units">외과계병동 · 간호간병통합서비스병동</div></div>
           <div class="org-branch"><div class="org-team">특수간호팀</div><div class="org-units">성인중환자실 · 신생아중환자실 · 신생아실 · 수술실 · 마취통증의학과 · 중앙공급실</div></div>
           <div class="org-branch"><div class="org-team">외래간호팀</div><div class="org-units">응급의료센터 · 소화기센터 · 심혈관센터 · 암센터 · 인공신장실 · 외래</div></div>
           <div class="org-branch"><div class="org-team">임상지원간호팀</div><div class="org-units">내과계 임상파트 · 외과계 임상파트</div></div>
+          <div class="org-branch org-branch-committee"><div class="org-team committee">제위원회</div></div>
         </div>
       </div>
     </div>
@@ -107,7 +113,6 @@
   <div class="wrap footer-top">
     <div class="footer-brand">
       <img class="footer-logo" src="../assets/logo-guro-footer.svg" alt="고려대학교구로병원" />
-      <span class="name">간호부</span>
     </div>
     <div class="footer-links">
       <a href="#">인터넷이용약관</a>
@@ -124,10 +129,10 @@
     </div>
   </div>
   <div class="wrap copyright">
-    Copyright&copy; <span data-year></span> Korea University Guro Hospital, Department of Nursing. All Rights Reserved.
+    Copyright&copy; <span data-year></span> Korea University Guro Hospital, Department of Nursing Service. All Rights Reserved.
   </div>
 </footer>
 
-<script src="../js/main.js"></script>
+<script src="../js/main.js?v=13"></script>
 </body>
 </html>

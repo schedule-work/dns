@@ -18,13 +18,47 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  document.querySelectorAll("[data-year]").forEach((el) => {
+  document.querySelectorAll(".copyright [data-year], footer [data-year]").forEach((el) => {
     el.textContent = new Date().getFullYear();
   });
 
   initBlurText();
   initCalendar();
+  initVideoEmbeds();
 });
+
+// 유튜브로 이동하는 대신, 썸네일을 누른 그 자리에서 바로 재생되도록 iframe으로 바꿔치기.
+// (.video-card 자신이 썸네일 영역이고, .channel-card는 안에 .channel-thumb라는 별도
+// 썸네일 영역 + 그 아래 제목/설명 영역이 따로 있어서 썸네일 쪽만 바꿔준다)
+function initVideoEmbeds() {
+  document.querySelectorAll("a.video-card, a.channel-card").forEach((card) => {
+    const match = (card.getAttribute("href") || "").match(/[?&]v=([^&]+)/);
+    if (!match) return;
+    const videoId = match[1];
+    const mediaEl = card.querySelector(".channel-thumb") || card;
+
+    card.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (mediaEl.querySelector("iframe")) return;
+
+      mediaEl.innerHTML = "";
+      mediaEl.classList.add("is-playing");
+
+      const iframe = document.createElement("iframe");
+      iframe.className = "video-embed-iframe";
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+      iframe.title = "YouTube video player";
+      iframe.setAttribute("frameborder", "0");
+      iframe.setAttribute(
+        "allow",
+        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      );
+      iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+      iframe.allowFullscreen = true;
+      mediaEl.appendChild(iframe);
+    });
+  });
+}
 
 // 대한민국 공휴일 (고정 + 음력 기반 연도별 환산일). 2027년 이후 음력 환산일은 추후 확정치로 갱신 필요.
 const KR_HOLIDAYS = {
@@ -105,13 +139,13 @@ function initCalendar() {
       const dateStr = `${y}-${pad(m + 1)}-${pad(d)}`;
       const dow = new Date(y, m, d).getDay();
       const holiday = KR_HOLIDAYS[dateStr];
-      const classes = [];
+      const classes = ["day"];
       if (dow === 0 || holiday) classes.push("sun");
       if (dow === 6) classes.push("sat");
       if (holiday) classes.push("holiday");
       if (dateStr === todayStr) classes.push("today");
       const title = holiday ? ` title="${holiday}"` : "";
-      html += `<span class="${classes.join(" ")}"${title}>${d}</span>`;
+      html += `<span class="${classes.join(" ")}" data-date="${dateStr}"${title}>${d}</span>`;
     }
 
     grid.innerHTML = html;
@@ -123,6 +157,16 @@ function initCalendar() {
       cursor.setMonth(cursor.getMonth() + parseInt(btn.dataset.dir, 10));
       render();
     });
+  });
+
+  // 날짜를 눌러보고 싶다는 요청에 따른 가벼운 선택 표시(실제 일정 데이터와는 연결되지 않음).
+  // 매달 다시 그려지는 span 각각이 아니라 바뀌지 않는 grid에 위임 이벤트로 한 번만 건다.
+  grid.addEventListener("click", (e) => {
+    const cell = e.target.closest("span.day");
+    if (!cell) return;
+    const prev = grid.querySelector("span.day.selected");
+    if (prev && prev !== cell) prev.classList.remove("selected");
+    cell.classList.toggle("selected");
   });
 
   render();

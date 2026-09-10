@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>복지제도 · 고려대학교구로병원 간호부</title>
+<title>고려대학교 구로병원 간호부</title>
 <meta name="description" content="고려대학교구로병원 간호부 — 간호사의 근무안정과 일 · 생활균형 지원" />
-<link rel="stylesheet" href="../css/styles.css" />
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="../css/styles.css?v=13" />
 </head>
 <body>
 
@@ -29,17 +31,18 @@
         </li>
         <li><a href="education.html">간호인재 및 교육</a>
           <ul class="submenu">
-            <li><a href="education-talent.html">간호부 인재상</a></li>
+            <li><a href="education-talent.html">직무 인터뷰</a></li>
             <li><a href="education-overview.html">교육체계 Overview</a></li>
             <li><a href="education-level.html">임상역량단계</a></li>
             <li><a href="education-target.html">대상별 교육</a></li>
             <li><a href="education-ce.html">보수교육 · 공지</a></li>
           </ul>
         </li>
-        <li><a href="research.html">연구·질향상</a>
+        <li><a href="research-mindmap.html">연구·QI</a>
           <ul class="submenu">
             <li><a href="research-study.html">연도별 연구활동</a></li>
             <li><a href="research-qi.html">연도별 QI활동</a></li>
+            <li><a href="research-mindmap.html">마인드맵으로 보기</a></li>
           </ul>
         </li>
         <li class="active"><a href="life.html">복지 및 채용</a>
@@ -56,6 +59,7 @@
           </ul>
         </li>
       </ul>
+      <div class="mega-backdrop"></div>
     </nav>
 
     <div class="header-tools">
@@ -83,14 +87,791 @@
 
 <main>
   <section class="wrap page-section tight">
-    <div class="detail-section">
-      <div class="link-card">
-        <p>구로병원 간호부는 직원들이 안정적인 환경에서 근무할 수 있도록 다양한 복리후생 제도를 운영하고 있습니다. 근무환경 개선과 생활 편의 지원을 통해 직원 만족도와 업무 몰입도를 높이고, 지속 가능한 근무 기반을 마련하고자 합니다. 아래 영상과 고려대학교 의료원 복지 가이드북을 통해 제공되는 다양한 복리후생을 확인하실 수 있습니다.</p>
-        <a class="video-card video-card-lg" href="https://www.youtube.com/watch?v=4RZrGJgIj1o" target="_blank" rel="noopener noreferrer">
-          <img class="video-thumb" src="https://img.youtube.com/vi/4RZrGJgIj1o/sddefault.jpg" alt="복지제도 안내 영상" loading="lazy" />
-          <span class="video-play"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20"/></svg></span>
-        </a>
+    <div class="detail-section wide">
+      
+      <!-- 간호부 복지제도 소개 안내 문구 -->
+      <div style="margin-bottom: 36px;">
+        <p class="lede" style="margin: 0;">
+          구로병원 간호부는 직원들이 안정적인 환경에서 근무할 수 있도록 입사부터 은퇴까지 생애주기별 다양한 맞춤형 복리후생 제도를 지원하고 있습니다.
+        </p>
       </div>
+
+      <!-- 생애주기별 복지제도 메인 블록 -->
+      <div class="welfare-main-block">
+
+        <!-- 생애주기별 로드맵 (생애주기별복지제도 7단계 S자형 여정 & 아기호랑이 미니게임) -->
+        <div class="roadmap-container">
+          <!-- 복지제도 게임 HUD & 조작 바 -->
+          <div class="roadmap-game-hud">
+            <div class="game-hud-left">
+              <div class="coin-scoreboard">
+                <span>🪙 복지 코인</span>
+                <span class="coin-score-pill" id="coin-score-display">0 / 6</span>
+              </div>
+              <span class="tiger-level-tag" id="tiger-level-tag">레벨: 신규간호사 🐯</span>
+            </div>
+            <div class="game-hud-right">
+              <button type="button" class="btn-game-jump" id="btn-tiger-jump" title="스페이스바(Space) 또는 클릭하여 점프!">
+                <span>🎮</span> 점프하기 (Space)
+              </button>
+              <button type="button" class="btn-game-reset" id="btn-coin-reset" title="코인 리셋 및 처음부터 달리기">
+                다시 달리기 🔄
+              </button>
+            </div>
+          </div>
+
+          <div class="roadmap-top-bar">
+            <h3 class="roadmap-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+              생애주기별 복지제도 로드맵
+            </h3>
+            <div class="roadmap-controls">
+              <button id="roadmap-play" class="roadmap-play-btn" type="button" aria-label="여정 자동재생">
+                <span id="play-icon">▶</span>
+                <span id="play-text">여정 자동재생</span>
+              </button>
+              <button class="roadmap-step-btn active" type="button" data-step="0">01. 입사</button>
+              <button class="roadmap-step-btn" type="button" data-step="1">02. 대학원</button>
+              <button class="roadmap-step-btn" type="button" data-step="2">03. 진료비 감면</button>
+              <button class="roadmap-step-btn" type="button" data-step="3">04. 결혼</button>
+              <button class="roadmap-step-btn" type="button" data-step="4">05. 출산/육아</button>
+              <button class="roadmap-step-btn" type="button" data-step="5">06. 자녀육아</button>
+              <button class="roadmap-step-btn" type="button" data-step="6">07. 퇴직</button>
+            </div>
+          </div>
+
+          <!-- 생애주기별 복지제도 7단계 S자형 인포그래픽 보드 -->
+          <div class="lifecycle-roadmap-board" id="lifecycle-roadmap-board">
+            <div class="lifecycle-track-wrapper">
+
+              <!-- [Row 1: 좌측 인트로 + 01 입사 + 02 대학원 + 03 진료비 감면] -->
+              <div class="lifecycle-row row-top">
+                <!-- 인트로 타이틀 카드 -->
+                <div class="lifecycle-intro-card">
+                  <span class="intro-sub">고려대학교의료원의 맞춤형 지원서비스</span>
+                  <h2 class="intro-main">생애주기별<br>복지제도</h2>
+                  <p class="intro-desc">
+                    교직원들의 행복한 오늘과<br>
+                    든든한 내일을 보장하는<br>
+                    생애주기별 복지제도를<br>
+                    알려드립니다.
+                  </p>
+                </div>
+
+                <!-- 01 입사 -->
+                <div class="lifecycle-step-card active" data-step="0" id="step-card-0">
+                  <div class="card-coin-badge" id="card-coin-0" title="클릭하여 웰컴 코인 획득!">🪙 1</div>
+                  <div class="tiger-walker-pin">🐯 아기호랑이</div>
+                  <div class="step-illus-box">
+                    <img src="../assets/benefits/lifecycle/step01_onboarding_trans.png" alt="01 입사 일러스트" />
+                  </div>
+                  <div class="step-header-wrap">
+                    <div class="step-flower-num">01</div>
+                    <h4 class="step-card-title">입사</h4>
+                  </div>
+                  <ul class="step-item-list">
+                    <li>Welcome Kit</li>
+                    <li>사학연금(의무가입)</li>
+                    <li>교직원공제회(선택)</li>
+                  </ul>
+                </div>
+
+                <!-- 02 대학원 -->
+                <div class="lifecycle-step-card" data-step="1" id="step-card-1">
+                  <div class="card-coin-badge" id="card-coin-1" title="클릭하여 배움 코인 획득!">🪙 2</div>
+                  <div class="tiger-walker-pin">🐯 아기호랑이</div>
+                  <div class="step-illus-box">
+                    <img src="../assets/benefits/lifecycle/step02_gradschool_trans.png" alt="02 대학원 일러스트" />
+                  </div>
+                  <div class="step-header-wrap">
+                    <div class="step-flower-num">02</div>
+                    <h4 class="step-card-title">대학원</h4>
+                  </div>
+                  <ul class="step-item-list">
+                    <li>고려대학교 특수/전문대학원(야간) 수업료의 <strong>90% 지원</strong></li>
+                  </ul>
+                </div>
+
+                <!-- 03 진료비 감면 -->
+                <div class="lifecycle-step-card" data-step="2" id="step-card-2">
+                  <div class="card-coin-badge" id="card-coin-2" title="클릭하여 건강 코인 획득!">🪙 3</div>
+                  <div class="tiger-walker-pin">🐯 아기호랑이</div>
+                  <div class="step-illus-box">
+                    <img src="../assets/benefits/lifecycle/step03_medical_trans.png" alt="03 진료비 감면 일러스트" />
+                  </div>
+                  <div class="step-header-wrap">
+                    <div class="step-flower-num">03</div>
+                    <h4 class="step-card-title">진료비 감면</h4>
+                  </div>
+                  <ul class="step-item-list">
+                    <li><strong>대상 :</strong> 본인 및 가족</li>
+                    <li><strong>감면범위 :</strong> 진찰료 100%, 그 외 정해진 내용에 따라 감면 (형제자매도 일부 감면)</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- 우측 하향 커브 밴드 -->
+              <div class="lifecycle-curve-connector turn-right">
+                <div class="connector-arrow-track">
+                  <span class="pulse-dot"></span>
+                  <span>Next Life Stage ➔ <strong>04. 결혼</strong>으로 이어집니다 ⤵</span>
+                </div>
+              </div>
+
+              <!-- [Row 2: 06 자녀육아 ➔ 05 출산/육아 ➔ 04 결혼 (우측에서 좌측으로 흐름)] -->
+              <div class="lifecycle-row row-middle">
+                <!-- 06 자녀육아 -->
+                <div class="lifecycle-step-card" data-step="5" id="step-card-5">
+                  <div class="card-coin-badge" id="card-coin-5" title="클릭하여 자녀육아 코인 획득!">🪙 6</div>
+                  <div class="tiger-walker-pin">🐯 아기호랑이</div>
+                  <div class="step-illus-box">
+                    <img src="../assets/benefits/lifecycle/step06_parenting_trans.png" alt="06 자녀육아 일러스트" />
+                  </div>
+                  <div class="step-header-wrap">
+                    <div class="step-flower-num">06</div>
+                    <h4 class="step-card-title">자녀육아</h4>
+                  </div>
+                  <ul class="step-item-list">
+                    <li>원내 어린이집 운영</li>
+                    <li>초등학교 입학 / 수능응원 선물 지급</li>
+                    <li>자녀 학비 지원</li>
+                  </ul>
+                </div>
+
+                <!-- 05 출산/육아 -->
+                <div class="lifecycle-step-card" data-step="4" id="step-card-4">
+                  <div class="card-coin-badge" id="card-coin-4" title="클릭하여 출산육아 코인 획득!">🪙 5</div>
+                  <div class="tiger-walker-pin">🐯 아기호랑이</div>
+                  <div class="step-illus-box">
+                    <img src="../assets/benefits/lifecycle/step05_childbirth_trans.png" alt="05 출산/육아 일러스트" />
+                  </div>
+                  <div class="step-header-wrap">
+                    <div class="step-flower-num">05</div>
+                    <h4 class="step-card-title">출산/육아</h4>
+                  </div>
+                  <ul class="step-item-list">
+                    <li>출산휴가(배우자 출산휴가 포함) 및 육아휴직 제도 운영</li>
+                    <li>출산축하금 지급</li>
+                    <li>육아휴직 수당 지급(사학연금 가입자의 경우 고용보험 지급 대상이 아니더라도 별도 기준에 따라 지급)</li>
+                  </ul>
+                </div>
+
+                <!-- 04 결혼 -->
+                <div class="lifecycle-step-card" data-step="3" id="step-card-3">
+                  <div class="card-coin-badge" id="card-coin-3" title="클릭하여 결혼 코인 획득!">🪙 4</div>
+                  <div class="tiger-walker-pin">🐯 아기호랑이</div>
+                  <div class="step-illus-box">
+                    <img src="../assets/benefits/lifecycle/step04_marriage_trans.png" alt="04 결혼 일러스트" />
+                  </div>
+                  <div class="step-header-wrap">
+                    <div class="step-flower-num">04</div>
+                    <h4 class="step-card-title">결혼</h4>
+                  </div>
+                  <ul class="step-item-list">
+                    <li>경조휴가 및 경조금 지급</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- 좌측 하향 커브 밴드 -->
+              <div class="lifecycle-curve-connector turn-left">
+                <div class="connector-arrow-track">
+                  <span class="pulse-dot"></span>
+                  <span>Next Life Stage ➔ <strong>07. 퇴직</strong>으로 이어집니다 ⤵</span>
+                </div>
+              </div>
+
+              <!-- [Row 3: 07 퇴직 + 하단 각주 및 안내 박스] -->
+              <div class="lifecycle-row row-bottom">
+                <!-- 07 퇴직 -->
+                <div class="lifecycle-step-card card-retirement" data-step="6" id="step-card-6">
+                  <div class="tiger-walker-pin">🐯 아기호랑이</div>
+                  <div class="step-illus-box">
+                    <img src="../assets/benefits/lifecycle/step07_retirement_trans.png" alt="07 퇴직 일러스트" />
+                  </div>
+                  <div class="retire-content">
+                    <div class="step-header-wrap">
+                      <div class="step-flower-num">07</div>
+                      <h4 class="step-card-title">퇴직</h4>
+                    </div>
+                    <ul class="step-item-list">
+                      <li>연금지급</li>
+                      <li>정년 및 명예퇴직 후에도 진료비 감면</li>
+                      <li>장례식장 이용 할인</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- 각주 안내문 -->
+                <div class="lifecycle-footnote-box">
+                  <div class="footnote-icon">📌</div>
+                  <p class="footnote-text">
+                    ※ 연금 개시연령 등 일부 항목은 개인별로 상이할 수 있습니다.<br>
+                    ※ 고려대학교 구로병원 간호부는 입사부터 퇴직 이후까지 교직원의 든든한 동반자가 되어드립니다.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- 로드맵 완주 축하 알림 배너 -->
+          <div class="roadmap-congrats-banner" id="roadmap-congrats-banner">
+            <div class="congrats-text">
+              <span>🎉</span>
+              <span><strong>미션 완수!</strong> 생애주기별 6대 복지 코인을 모두 수집하셨습니다! (슈퍼널스 👑 등극, +600 KU Point)</span>
+            </div>
+            <button type="button" class="btn-game-jump" id="btn-banner-replay">다시 달리기 🔄</button>
+          </div>
+
+          <!-- 로드맵 하단: 현재 선택 단계 주요 복지 요약 & 상세 이동 패널 -->
+          <div class="roadmap-active-panel" id="roadmap-active-panel">
+            <div class="panel-left">
+              <div class="panel-stage-indicator">
+                <span class="panel-step-tag" id="panel-step-tag">01단계</span>
+                <h4 class="panel-step-title" id="panel-step-title">입사</h4>
+              </div>
+              <div class="panel-chips" id="panel-chips">
+                <!-- JS 동적 생성 -->
+              </div>
+            </div>
+            <div class="panel-right">
+              <button type="button" class="btn-scroll-to-sec" id="btn-scroll-to-sec">
+                <span id="btn-scroll-text">입사 상세 복지 보기</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 섹션 빠른 이동 내비게이션 바 (흔들림 없는 고정 탭) -->
+        <nav class="welfare-quicknav-sticky" aria-label="생애주기별 복지제도 이동">
+          <div class="welfare-quicknav-list">
+            <button class="welfare-quicknav-link active" type="button" data-target="#sec-onboarding">입사</button>
+            <button class="welfare-quicknav-link" type="button" data-target="#sec-growth">자기계발</button>
+            <button class="welfare-quicknav-link" type="button" data-target="#sec-rewards">휴가 및 수당제도</button>
+            <button class="welfare-quicknav-link" type="button" data-target="#sec-life">자녀 양육 및 기타</button>
+          </div>
+        </nav>
+
+        <!-- [STEP 01: 입사] -->
+        <section class="welfare-divided-section" id="sec-onboarding">
+          <div class="welfare-section-header-modern">
+            <div class="welfare-header-left">
+              <span class="welfare-step-num">STEP 01</span>
+              <div class="welfare-header-title-group">
+                <h3>입사 <span class="welfare-header-eng">Onboarding & Care</span></h3>
+                <p style="margin:0;font-size:18px;color:#665;">의료원 가족의 첫 발걸음을 축하하며 든든한 생활 및 근무 안정 기반을 제공합니다.</p>
+              </div>
+            </div>
+            <div class="welfare-header-right">
+              <span class="welfare-count-badge">총 4개 혜택 지원</span>
+            </div>
+          </div>
+
+          <div class="welfare-grid">
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/축하선물.png" alt="웰컴키트" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">온보딩 케어</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">웰컴키트</h4>
+                  <p class="welfare-card-desc">의료원 가족이 됨을 환영하는 의미의 정성 가득한 웰컴 패키지를 증정합니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 신규 입사자 전원</span>
+                <span class="welfare-perk-chip">✓ 웰컴 기프트 증정</span>
+              </div>
+            </div>
+
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/자격증, 학습비.png" alt="사학연금" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">노후·재정안정</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">사학연금</h4>
+                  <p class="welfare-card-desc">교직원의 경제적 생활 안정과 퇴직 후 복리 향상을 위한 법정 사학연금 혜택을 제공합니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 법정 사학연금 가입</span>
+                <span class="welfare-perk-chip">✓ 미래 생활 안정</span>
+              </div>
+            </div>
+
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/건강검진.png" alt="가족진료비감면" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">의료 복지</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">가족진료비감면(건강증진센터 포함)</h4>
+                  <p class="welfare-card-desc">교직원 본인뿐만 아니라 직계 가족까지 의료원 진료비 감면 및 종합건강검진 혜택을 지원합니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 본인 및 직계가족</span>
+                <span class="welfare-perk-chip">✓ 건강증진센터 포함</span>
+              </div>
+            </div>
+
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/임직원표시.png" alt="한국교직원공제회" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">금융·생활</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">한국교직원공제회</h4>
+                  <p class="welfare-card-desc">교직원 복지를 위한 특별 금융·생활 서비스 제도로 선택적 가입을 통해 다채로운 혜택을 누립니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 선택적 가입</span>
+                <span class="welfare-perk-chip">✓ 생활자금 및 공제급여</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- [STEP 02: 자기계발] -->
+        <section class="welfare-divided-section" id="sec-growth">
+          <div class="welfare-section-header-modern">
+            <div class="welfare-header-left">
+              <span class="welfare-step-num">STEP 02</span>
+              <div class="welfare-header-title-group">
+                <h3>자기계발 <span class="welfare-header-eng">Growth & Education</span></h3>
+                <p style="margin:0;font-size:18px;color:#665;">임상 전문성 향상과 학위 취득, 지속 가능한 커리어 성장을 아낌없이 지원합니다.</p>
+              </div>
+            </div>
+            <div class="welfare-header-right">
+              <span class="welfare-count-badge">총 6개 혜택 지원</span>
+            </div>
+          </div>
+
+          <div class="welfare-grid">
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/휴가및 연차보상.png" alt="자기계발수당" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">역량 지원</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">자기계발수당</h4>
+                  <p class="welfare-card-desc">개인 역량 개발 목표 달성을 실질적으로 지원하기 위한 정기 자기계발 수당을 지급합니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 역량개발 목표 달성</span>
+                <span class="welfare-perk-chip">✓ 수당 지급 지원</span>
+              </div>
+            </div>
+
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/자녀교육비.png" alt="대학원 학비 지원" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">석사 과정</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">본교 특수 및 전문대학원 학비 지원</h4>
+                  <p class="welfare-card-desc">고려대학교 특수·전문대학원 진학 시 학비 보조금을 통해 석사학위를 취득할 수 있는 기회를 제공합니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 고려대학교 대학원</span>
+                <span class="welfare-perk-chip">✓ 학비 보조금 지원</span>
+              </div>
+            </div>
+
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/컴퓨터.png" alt="사이버캠퍼스/엘스비어" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">온라인 학습</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">사이버캠퍼스/엘스비어</h4>
+                  <p class="welfare-card-desc">언제 어디서든 PC와 모바일로 최신 임상 가이드라인과 전문 지식을 학습할 수 있는 온라인 플랫폼을 제공합니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 24시간 온라인 플랫폼</span>
+                <span class="welfare-perk-chip">✓ 임상 솔루션 제공</span>
+              </div>
+            </div>
+
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/자녀교육비.png" alt="고려사이버대학 학비지원" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">학위 취득</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">고려사이버대학 학비지원</h4>
+                  <p class="welfare-card-desc">교직원 본인 및 직계 가족의 지속적인 배움을 위해 고려사이버대학교 수업료 감면을 지원합니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 교직원 및 가족 혜택</span>
+                <span class="welfare-perk-chip">✓ 수업료 감면 지원</span>
+              </div>
+            </div>
+
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/책.png" alt="도서관이용" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">학술 자원</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">도서관이용</h4>
+                  <p class="welfare-card-desc">고려대학교 중앙도서관 및 의학도서관의 방대한 국내외 학술 데이터베이스와 연구 자료를 자유롭게 이용할 수 있습니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 고려대학교 도서관</span>
+                <span class="welfare-perk-chip">✓ 학술 데이터베이스 열람</span>
+              </div>
+            </div>
+
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/휴가및 연차보상.png" alt="보수교육비 및 어학교육비" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">글로벌 역량</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">보수교육비 및 어학교육비 지원</h4>
+                  <p class="welfare-card-desc">전문 간호사 면허 자격 유지와 글로벌 역량 강화를 위한 필수 보수교육 및 외국어 어학 학습 기회를 지원합니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 필수 보수교육 지원</span>
+                <span class="welfare-perk-chip">✓ 어학교육 수강 지원</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- [STEP 03: 휴가 및 수당제도] -->
+        <section class="welfare-divided-section" id="sec-rewards">
+          <div class="welfare-section-header-modern">
+            <div class="welfare-header-left">
+              <span class="welfare-step-num">STEP 03</span>
+              <div class="welfare-header-title-group">
+                <h3>휴가 및 수당제도 <span class="welfare-header-eng">Leave & Rewards</span></h3>
+                <p style="margin:0;font-size:18px;color:#665;">노고에 보답하는 정기 수당과 마음 편히 쉴 수 있는 풍요로운 휴식 기회를 제공합니다.</p>
+              </div>
+            </div>
+            <div class="welfare-header-right">
+              <span class="welfare-count-badge">총 6개 혜택 지원</span>
+            </div>
+          </div>
+
+          <div class="welfare-grid">
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/경조사.png" alt="경조사 지원" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">경조금·휴가</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">경조사 지원</h4>
+                  <p class="welfare-card-desc">기쁜 일과 슬픈 일을 함께 나누기 위해 경조사 발생 시 경조금과 유급 경조휴가를 아낌없이 지원합니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 경조금 지원</span>
+                <span class="welfare-perk-chip">✓ 특별 유급휴가</span>
+              </div>
+            </div>
+
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/icon_event_linealcolor.png" alt="장례용품 지급" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">상조 지원</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">장례용품, 근조기, 근조화 지급</h4>
+                  <p class="welfare-card-desc">가족의 안타까운 슬픔을 위로하기 위해 장례용품 일체와 근조기, 근조화를 신속히 배송 지원합니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 고급 장례용품 지원</span>
+                <span class="welfare-perk-chip">✓ 근조기·근조화 배송</span>
+              </div>
+            </div>
+
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/휴가및 연차보상.png" alt="명절수당" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">정기 수당</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">명절수당</h4>
+                  <p class="welfare-card-desc">민족 대명절인 설날 및 추석 명절에 교직원의 풍성한 연휴를 위한 정기 명절수당을 지급합니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 설 및 추석 명절</span>
+                <span class="welfare-perk-chip">✓ 정기 수당 지급</span>
+              </div>
+            </div>
+
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/축하선물.png" alt="명절 및 생일 선물" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">맞춤형 선물</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">명절 및 생일 선물</h4>
+                  <p class="welfare-card-desc">온라인 복지 플랫폼을 통해 각자의 취향과 필요에 맞춘 명절 및 생일 축하 선물을 직접 선택할 수 있습니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 온라인 복지몰 선택</span>
+                <span class="welfare-perk-chip">✓ 생일 축하 선물</span>
+              </div>
+            </div>
+
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/휴가및 연차보상.png" alt="가정의달 및 하계 휴가 수당" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">특별 수당</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">가정의달 수당 및 하계 휴가 수당</h4>
+                  <p class="welfare-card-desc">가족과 함께하는 5월 가정의달과 시원한 여름 7월 하계 휴가를 응원하는 특별 수당을 매년 지급합니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 5월 가정의달 수당</span>
+                <span class="welfare-perk-chip">✓ 7월 하계 휴가비</span>
+              </div>
+            </div>
+
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/휴양시설.png" alt="휴양시설" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">제휴 리조트</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">휴양시설</h4>
+                  <p class="welfare-card-desc">고려대학교 수련원(대천, 낙산) 및 소노호텔&리조트, 한화리조트 등 국내 최고급 제휴 리조트 회원가 할인을 제공합니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 고대 수련원(대천/낙산)</span>
+                <span class="welfare-perk-chip">✓ 소노·한화리조트 제휴</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- [STEP 04: 자녀 양육 및 기타] -->
+        <section class="welfare-divided-section" id="sec-life">
+          <div class="welfare-section-header-modern">
+            <div class="welfare-header-left">
+              <span class="welfare-step-num">STEP 04</span>
+              <div class="welfare-header-title-group">
+                <h3>자녀 양육 및 기타 <span class="welfare-header-eng">Life & Well-being</span></h3>
+                <p style="margin:0;font-size:18px;color:#665;">일과 가정이 조화롭게 공존하는 따뜻한 일터와 장기근속 보람을 지원합니다.</p>
+              </div>
+            </div>
+            <div class="welfare-header-right">
+              <span class="welfare-count-badge">총 6개 혜택 지원</span>
+            </div>
+          </div>
+
+          <div class="welfare-grid">
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/사내어린이집.png" alt="자녀 양육 지원" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">육아·교육</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">자녀 양육 지원</h4>
+                  <p class="welfare-card-desc">육아휴직 제도화, 직장 어린이집 운영, 초등학교 입학 축하 선물 및 자녀 학비 지원 등 안심 양육 환경을 마련합니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 직장어린이집 운영</span>
+                <span class="welfare-perk-chip">✓ 입학 축하금 및 학비</span>
+              </div>
+            </div>
+
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/상담.png" alt="마음 복지" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">심리 케어</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">마음 복지</h4>
+                  <p class="welfare-card-desc">원내 고충상담소 및 심리상담소 운영을 통해 교직원의 정서적 안정과 스트레스 완화를 위한 1:1 전문 상담을 지원합니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 원내 전용 상담 창구</span>
+                <span class="welfare-perk-chip">✓ 전문 심리상담 지원</span>
+              </div>
+            </div>
+
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/시계(장기근속).png" alt="장기근속 혜택" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">리프레시</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">장기근속 혜택</h4>
+                  <p class="welfare-card-desc">장기근속 교직원을 위한 직급수당, 안식 휴직, 포상 격려금, 생애주기별 전성기 교육 프로그램 등을 폭넓게 제공합니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 장기근속 휴직·격려금</span>
+                <span class="welfare-perk-chip">✓ 전성기 교육 지원</span>
+              </div>
+            </div>
+
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/사내동호회.png" alt="동아리활동 지원" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">원내 활력</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">동아리활동 지원</h4>
+                  <p class="welfare-card-desc">문화, 예술, 스포츠 등 다양한 사내 동아리 활동 지원금을 통해 동료와의 친목과 삶의 활력을 응원합니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 사내 동아리 지원금</span>
+                <span class="welfare-perk-chip">✓ 문화·스포츠 활동</span>
+              </div>
+            </div>
+
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/티켓.png" alt="건강검진 포인트" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">건강 관리</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">건강검진 포인트</h4>
+                  <p class="welfare-card-desc">매월 적치되는 복지포인트를 통해 본인 및 가족 건강검진 시 정밀 검사항목에 유연하게 활용할 수 있습니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 매월 복지포인트 적치</span>
+                <span class="welfare-perk-chip">✓ 가족 검진 사용 가능</span>
+              </div>
+            </div>
+
+            <div class="welfare-card">
+              <div>
+                <div class="welfare-card-header">
+                  <div class="welfare-card-icon-box">
+                    <img class="welfare-card-img" src="../assets/benefits/책.png" alt="기타 제휴" loading="lazy" />
+                  </div>
+                  <span class="welfare-card-category-pill">라이프 제휴</span>
+                </div>
+                <div class="welfare-card-main">
+                  <h4 class="welfare-card-title">기타 제휴</h4>
+                  <p class="welfare-card-desc">교직원의 스마트한 일상을 위한 금융, 쇼핑, 문화, 레저 등 다양한 브랜드 제휴 복지 할인 혜택을 지원합니다.</p>
+                </div>
+              </div>
+              <div class="welfare-card-perks">
+                <span class="welfare-perk-chip">✓ 다양한 라이프 제휴</span>
+                <span class="welfare-perk-chip">✓ 임직원 우대 할인</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 간호부 복지제도 안내 영상 (하단 배치) -->
+        <div class="link-card" id="welfare-bottom-video" style="margin-top: 64px; margin-bottom: 48px;">
+          <h3 style="font-size: 26px; font-weight: 850; color: var(--color-text); margin: 0 0 16px;">
+            고려대학교의료원 복지 가이드 영상
+          </h3>
+          <p class="lede" style="font-size: 22px; line-height: 1.8; margin-bottom: 24px;">
+            구로병원 간호부는 근무환경 개선과 생활 편의 지원을 통해 직원 만족도와 업무 몰입도를 높이고, 지속 가능한 근무 기반을 마련하고자 합니다. 아래 영상과 고려대학교 의료원 복지 가이드북을 통해 제공되는 다양한 복리후생을 확인하실 수 있습니다.
+          </p>
+          <a class="video-card video-card-lg" href="https://www.youtube.com/watch?v=4RZrGJgIj1o" target="_blank" rel="noopener noreferrer" title="복지제도 안내 영상 보기">
+            <img class="video-thumb" src="https://img.youtube.com/vi/4RZrGJgIj1o/sddefault.jpg" alt="복지제도 안내 영상" loading="lazy" />
+            <span class="video-play"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20"/></svg></span>
+          </a>
+        </div>
+
+        <!-- 채용 및 복지 문의 CTA 배너 -->
+        <div class="welfare-cta-banner">
+          <div class="welfare-cta-text">
+            <h3>고려대학교구로병원 간호부와 함께 성장하세요</h3>
+            <p>더 자세한 채용 절차와 기숙사 안내는 아래 바로가기 메뉴를 통해 확인하실 수 있습니다.</p>
+          </div>
+          <div class="welfare-cta-actions">
+            <a class="btn btn-primary" href="life-jobs.html">채용정보 보기</a>
+            <a class="btn btn-secondary" href="life-residence.html">레지던스(기숙사) 안내</a>
+          </div>
+        </div>
+
+      </div><!-- /.welfare-main-block -->
+
     </div>
   </section>
 </main>
@@ -99,7 +880,6 @@
   <div class="wrap footer-top">
     <div class="footer-brand">
       <img class="footer-logo" src="../assets/logo-guro-footer.svg" alt="고려대학교구로병원" />
-      <span class="name">간호부</span>
     </div>
     <div class="footer-links">
       <a href="#">인터넷이용약관</a>
@@ -116,10 +896,438 @@
     </div>
   </div>
   <div class="wrap copyright">
-    Copyright&copy; <span data-year></span> Korea University Guro Hospital, Department of Nursing. All Rights Reserved.
+    Copyright&copy; <span data-year></span> Korea University Guro Hospital, Department of Nursing Service. All Rights Reserved.
   </div>
 </footer>
 
-<script src="../js/main.js"></script>
+<script src="../js/main.js?v=13"></script>
+<script>
+  // =========================================================================
+  // 생애주기별 로드맵 7단계 여정 & 아기호랑이 미니게임 인터랙션 스크립트
+  // =========================================================================
+  document.addEventListener("DOMContentLoaded", function () {
+    const stepsData = [
+      {
+        step: 0,
+        title: "01. 입사",
+        tag: "STEP 01",
+        targetId: "#sec-onboarding",
+        cardId: "step-card-0",
+        coinId: "card-coin-0",
+        chips: [
+          "Welcome Kit 제공",
+          "사학연금(의무가입)",
+          "교직원공제회(선택)",
+          "가족진료비 감면",
+          "신규간호사 온보딩 프로그램"
+        ]
+      },
+      {
+        step: 1,
+        title: "02. 대학원",
+        tag: "STEP 02",
+        targetId: "#sec-growth",
+        cardId: "step-card-1",
+        coinId: "card-coin-1",
+        chips: [
+          "고려대학교 특수/전문대학원(야간) 수업료 90% 지원",
+          "사이버캠퍼스/엘스비어 교육",
+          "고려사이버대학 학비지원",
+          "임상간호 보수교육비 지원"
+        ]
+      },
+      {
+        step: 2,
+        title: "03. 진료비 감면",
+        tag: "STEP 03",
+        targetId: "#sec-onboarding",
+        cardId: "step-card-2",
+        coinId: "card-coin-2",
+        chips: [
+          "본인 및 가족 진찰료 100% 감면",
+          "진료비 정해진 내용에 따라 감면",
+          "형제자매 일부 감면 혜택",
+          "건강증진센터 검진 지원"
+        ]
+      },
+      {
+        step: 3,
+        title: "04. 결혼",
+        tag: "STEP 04",
+        targetId: "#sec-rewards",
+        cardId: "step-card-3",
+        coinId: "card-coin-3",
+        chips: [
+          "결혼 경조휴가 및 경조금 지급",
+          "화환 및 축하 선물 지원",
+          "휴양시설 및 제휴 혜택"
+        ]
+      },
+      {
+        step: 4,
+        title: "05. 출산/육아",
+        tag: "STEP 05",
+        targetId: "#sec-life",
+        cardId: "step-card-4",
+        coinId: "card-coin-4",
+        chips: [
+          "출산휴가(배우자 출산휴가 포함) 운영",
+          "육아휴직 제도 운영",
+          "출산축하금 지급",
+          "육아휴직 수당 별도 기준 지급"
+        ]
+      },
+      {
+        step: 5,
+        title: "06. 자녀육아",
+        tag: "STEP 06",
+        targetId: "#sec-life",
+        cardId: "step-card-5",
+        coinId: "card-coin-5",
+        chips: [
+          "원내 직장 어린이집 운영",
+          "초등학교 입학 선물 지급",
+          "수능응원 선물 지급",
+          "자녀 학비(학자금) 지원"
+        ]
+      },
+      {
+        step: 6,
+        title: "07. 퇴직",
+        tag: "STEP 07",
+        targetId: "#sec-life",
+        cardId: "step-card-6",
+        coinId: null,
+        chips: [
+          "사학연금 등 든든한 연금 지급",
+          "정년 및 명예퇴직 후에도 진료비 감면",
+          "고려대의료원 장례식장 이용 할인",
+          "장기근속 공로 포상"
+        ]
+      }
+    ];
+
+    let currentStep = 0;
+    let autoPlayTimer = null;
+    let isPlaying = false;
+    let collectedCount = 0;
+
+    const coinsData = [
+      { id: "card-coin-0", collected: false, name: "웰컴 코인" },
+      { id: "card-coin-1", collected: false, name: "배움 코인" },
+      { id: "card-coin-2", collected: false, name: "건강 코인" },
+      { id: "card-coin-3", collected: false, name: "결혼 코인" },
+      { id: "card-coin-4", collected: false, name: "가족 코인" },
+      { id: "card-coin-5", collected: false, name: "육아 코인" }
+    ];
+
+    const stepBtns = document.querySelectorAll(".roadmap-step-btn");
+    const stepCards = document.querySelectorAll(".lifecycle-step-card");
+    const playBtn = document.getElementById("roadmap-play");
+    const playIcon = document.getElementById("play-icon");
+    const playText = document.getElementById("play-text");
+    const quickNavBtns = document.querySelectorAll(".welfare-quicknav-link");
+    const panelStepTag = document.getElementById("panel-step-tag");
+    const panelStepTitle = document.getElementById("panel-step-title");
+    const panelChips = document.getElementById("panel-chips");
+    const btnScrollToSec = document.getElementById("btn-scroll-to-sec");
+    const btnScrollText = document.getElementById("btn-scroll-text");
+    const coinScoreDisplay = document.getElementById("coin-score-display");
+    const tigerLevelTag = document.getElementById("tiger-level-tag");
+    const btnTigerJump = document.getElementById("btn-tiger-jump");
+    const btnCoinReset = document.getElementById("btn-coin-reset");
+    const congratsBanner = document.getElementById("roadmap-congrats-banner");
+    const btnBannerReplay = document.getElementById("btn-banner-replay");
+
+    // 로드맵 하단 활성 패널 정보 갱신
+    function updateActivePanel(target) {
+      if (panelStepTag) panelStepTag.textContent = target.tag;
+      if (panelStepTitle) panelStepTitle.textContent = target.title;
+      if (btnScrollText) btnScrollText.textContent = `${target.title} 상세 복지 전체보기`;
+      if (panelChips) {
+        panelChips.innerHTML = target.chips
+          .map(chip => `<span class="benefit-chip">${chip}</span>`)
+          .join("");
+      }
+    }
+
+    // 호랑이 점프 애니메이션 발동
+    function triggerTigerJump() {
+      const activeCard = document.getElementById(`step-card-${currentStep}`);
+      if (activeCard) {
+        const walker = activeCard.querySelector(".tiger-walker-pin");
+        if (walker) {
+          walker.style.transform = "scale(1.3) translateY(-14px)";
+          setTimeout(() => {
+            walker.style.transform = "";
+          }, 350);
+        }
+
+        // 플로팅 이펙트 생성
+        const spark = document.createElement("div");
+        spark.style.position = "absolute";
+        spark.style.top = "-10px";
+        spark.style.right = "20px";
+        spark.style.fontSize = "20px";
+        spark.style.pointerEvents = "none";
+        spark.style.zIndex = "10";
+        spark.style.animation = "bouncePin 0.6s ease forwards";
+        spark.textContent = "✨ 쩜프!";
+        activeCard.appendChild(spark);
+        setTimeout(() => spark.remove(), 600);
+      }
+
+      // 현재 스텝에 아직 안 먹은 코인이 있다면 자동 획득
+      if (currentStep < 6) {
+        collectCoin(currentStep);
+      }
+    }
+
+    // 코인 획득 처리 및 스코어보드 갱신
+    function collectCoin(coinIndex) {
+      if (coinIndex < 0 || coinIndex >= coinsData.length) return;
+      const coinObj = coinsData[coinIndex];
+      if (!coinObj || coinObj.collected) return;
+
+      coinObj.collected = true;
+      collectedCount++;
+
+      const coinEl = document.getElementById(coinObj.id);
+      if (coinEl) {
+        coinEl.classList.add("collected");
+        coinEl.textContent = "★";
+      }
+
+      // 획득 축하 플로팅 텍스트
+      const currentCard = document.getElementById(`step-card-${coinIndex}`);
+      if (currentCard) {
+        const floatText = document.createElement("div");
+        floatText.style.position = "absolute";
+        floatText.style.top = "10px";
+        floatText.style.right = "50px";
+        floatText.style.background = "#86151c";
+        floatText.style.color = "#ffffff";
+        floatText.style.padding = "4px 10px";
+        floatText.style.borderRadius = "999px";
+        floatText.style.fontSize = "13px";
+        floatText.style.fontWeight = "800";
+        floatText.style.boxShadow = "0 3px 10px rgba(134,21,28,0.3)";
+        floatText.style.zIndex = "10";
+        floatText.style.animation = "bouncePin 0.8s ease forwards";
+        floatText.textContent = `+100 KU Point! (${coinObj.name})`;
+        currentCard.appendChild(floatText);
+        setTimeout(() => floatText.remove(), 900);
+      }
+
+      // 스코어보드 및 레벨 업데이트
+      if (coinScoreDisplay) {
+        coinScoreDisplay.textContent = `${collectedCount} / 6`;
+      }
+
+      if (tigerLevelTag) {
+        if (collectedCount <= 1) tigerLevelTag.textContent = "레벨: 신규간호사 🐯";
+        else if (collectedCount <= 3) tigerLevelTag.textContent = "레벨: 열정간호사 ⚡";
+        else if (collectedCount <= 5) tigerLevelTag.textContent = "레벨: 프로널스 🌟";
+        else if (collectedCount === 6) tigerLevelTag.textContent = "레벨: 슈퍼널스 👑";
+      }
+
+      // 6개 코인 모두 수집 시 축하 배너 노출
+      if (collectedCount === 6 && congratsBanner) {
+        congratsBanner.style.display = "flex";
+      }
+    }
+
+    // 코인 리셋 및 게임 초기화
+    function resetCoins() {
+      collectedCount = 0;
+      coinsData.forEach((c, idx) => {
+        c.collected = false;
+        const el = document.getElementById(c.id);
+        if (el) {
+          el.classList.remove("collected");
+          el.textContent = `🪙 ${idx + 1}`;
+        }
+      });
+
+      if (coinScoreDisplay) coinScoreDisplay.textContent = "0 / 6";
+      if (tigerLevelTag) tigerLevelTag.textContent = "레벨: 신규간호사 🐯";
+      if (congratsBanner) congratsBanner.style.display = "none";
+      pauseAutoPlay();
+      goToStep(0, false);
+    }
+
+    // 특정 스텝으로 전환
+    function goToStep(idx, shouldScroll) {
+      if (idx < 0 || idx >= stepsData.length) return;
+      currentStep = idx;
+      const target = stepsData[idx];
+
+      // 1. 상단 스텝 버튼 활성화 토글
+      stepBtns.forEach((btn, bIdx) => {
+        btn.classList.toggle("active", bIdx === idx);
+      });
+
+      // 2. 7단계 카드 활성화 토글
+      stepCards.forEach((card) => {
+        const cardStep = parseInt(card.getAttribute("data-step"), 10);
+        card.classList.toggle("active", cardStep === idx);
+      });
+
+      // 3. 로드맵 하단 요약 패널 업데이트
+      updateActivePanel(target);
+
+      // 4. 상세 스크롤 이동 (상세보기 버튼 클릭 또는 퀵내비 클릭 시)
+      if (shouldScroll) {
+        const el = document.querySelector(target.targetId);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    }
+
+    // 초기 상태 렌더링
+    requestAnimationFrame(() => {
+      goToStep(0, false);
+    });
+
+    // 스텝 버튼 클릭
+    stepBtns.forEach(btn => {
+      btn.addEventListener("click", function () {
+        pauseAutoPlay();
+        const step = parseInt(this.getAttribute("data-step"), 10);
+        goToStep(step, false);
+      });
+    });
+
+    // 카드 직접 클릭 인터랙션
+    stepCards.forEach(card => {
+      card.addEventListener("click", function (e) {
+        if (e.target.closest(".card-coin-badge")) return; // 코인 클릭은 별도 처리
+        pauseAutoPlay();
+        const step = parseInt(this.getAttribute("data-step"), 10);
+        goToStep(step, false);
+      });
+    });
+
+    // 코인 배지 직접 클릭 시 수집
+    coinsData.forEach((coin, cIdx) => {
+      const el = document.getElementById(coin.id);
+      if (el) {
+        el.addEventListener("click", function (e) {
+          e.stopPropagation();
+          collectCoin(cIdx);
+        });
+      }
+    });
+
+    // [🎮 점프하기] 버튼 클릭
+    if (btnTigerJump) {
+      btnTigerJump.addEventListener("click", function () {
+        triggerTigerJump();
+      });
+    }
+
+    // 키보드 스페이스바(Space) 또는 방향키 위(↑)로 점프 조작
+    window.addEventListener("keydown", function (e) {
+      const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : "";
+      if (activeTag === "input" || activeTag === "textarea") return;
+
+      if (e.code === "Space" || e.code === "ArrowUp") {
+        e.preventDefault();
+        triggerTigerJump();
+      }
+    });
+
+    // 다시 달리기(코인 리셋) 버튼
+    if (btnCoinReset) {
+      btnCoinReset.addEventListener("click", resetCoins);
+    }
+    if (btnBannerReplay) {
+      btnBannerReplay.addEventListener("click", resetCoins);
+    }
+
+    // 로드맵 하단 패널 [상세 복지 전체보기] 버튼 클릭
+    if (btnScrollToSec) {
+      btnScrollToSec.addEventListener("click", function () {
+        const currentTarget = stepsData[currentStep];
+        if (currentTarget) {
+          const el = document.querySelector(currentTarget.targetId);
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth" });
+          }
+        }
+      });
+    }
+
+    // 고정 퀵내비게이션 버튼 클릭
+    quickNavBtns.forEach((qBtn, idx) => {
+      qBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        pauseAutoPlay();
+        // 퀵내비 4개 섹션과 맵핑 (0->입사, 1->대학원, 2->휴가, 3->자녀육아)
+        const mappedSteps = [0, 1, 3, 5];
+        if (mappedSteps[idx] !== undefined) {
+          goToStep(mappedSteps[idx], true);
+        }
+      });
+    });
+
+    // 여정 자동 재생 (3.5초마다 다음 스텝으로 여유롭게 이동)
+    function startAutoPlay() {
+      isPlaying = true;
+      if (playIcon) playIcon.textContent = "⏸";
+      if (playText) playText.textContent = "일시정지";
+      autoPlayTimer = setInterval(function () {
+        const next = (currentStep + 1) % stepsData.length;
+        goToStep(next, false);
+      }, 3500);
+    }
+
+    function pauseAutoPlay() {
+      isPlaying = false;
+      if (playIcon) playIcon.textContent = "▶";
+      if (playText) playText.textContent = "여정 자동재생";
+      if (autoPlayTimer) {
+        clearInterval(autoPlayTimer);
+        autoPlayTimer = null;
+      }
+    }
+
+    if (playBtn) {
+      playBtn.addEventListener("click", function () {
+        if (isPlaying) {
+          pauseAutoPlay();
+        } else {
+          startAutoPlay();
+        }
+      });
+    }
+
+    // 스크롤 시 활성 탭 감지
+    let isTicking = false;
+    window.addEventListener("scroll", function () {
+      if (!isTicking) {
+        window.requestAnimationFrame(function () {
+          const sections = document.querySelectorAll(".welfare-divided-section");
+          const scrollPos = window.scrollY + 180;
+          let currentIdx = 0;
+
+          sections.forEach(function (sec, sIdx) {
+            if (sec.offsetTop <= scrollPos) {
+              currentIdx = sIdx;
+            }
+          });
+
+          quickNavBtns.forEach(function (btn, bIdx) {
+            btn.classList.toggle("active", bIdx === currentIdx);
+          });
+
+          isTicking = false;
+        });
+        isTicking = true;
+      }
+    });
+  });
+</script>
 </body>
 </html>

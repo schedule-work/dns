@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>홍보영상 · 고려대학교구로병원 간호부</title>
+<title>고려대학교 구로병원 간호부</title>
 <meta name="description" content="고려대학교구로병원 간호부 — 간호부의 비전과 조직문화를 소개하는 영상" />
-<link rel="stylesheet" href="../css/styles.css" />
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="../css/styles.css?v=13" />
 </head>
 <body>
 
@@ -29,17 +31,18 @@
         </li>
         <li><a href="education.html">간호인재 및 교육</a>
           <ul class="submenu">
-            <li><a href="education-talent.html">간호부 인재상</a></li>
+            <li><a href="education-talent.html">직무 인터뷰</a></li>
             <li><a href="education-overview.html">교육체계 Overview</a></li>
             <li><a href="education-level.html">임상역량단계</a></li>
             <li><a href="education-target.html">대상별 교육</a></li>
             <li><a href="education-ce.html">보수교육 · 공지</a></li>
           </ul>
         </li>
-        <li><a href="research.html">연구·질향상</a>
+        <li><a href="research-mindmap.html">연구·QI</a>
           <ul class="submenu">
             <li><a href="research-study.html">연도별 연구활동</a></li>
             <li><a href="research-qi.html">연도별 QI활동</a></li>
+            <li><a href="research-mindmap.html">마인드맵으로 보기</a></li>
           </ul>
         </li>
         <li><a href="life.html">복지 및 채용</a>
@@ -56,6 +59,7 @@
           </ul>
         </li>
       </ul>
+      <div class="mega-backdrop"></div>
     </nav>
 
     <div class="header-tools">
@@ -73,7 +77,6 @@
     <a class="crumb-item" href="community.html">커뮤니티<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><polyline points="6 9 12 15 18 9"/></svg></a>
     <span class="crumb-sep">|</span>
     <span class="crumb-item current">홍보영상</span>
-    <a class="crumb-link" href="#" aria-label="링크 복사"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07L11.5 4.5"/><path d="M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 0 0 7.07 7.07L12.5 19.5"/></svg></a>
   </div>
 </div>
 
@@ -85,31 +88,101 @@
   <section class="wrap page-section tight">
     <div class="detail-section wide">
       <p class="lede">고려대학교 구로병원 간호부는 환자안전과 전문직 가치를 바탕으로, 간호사 한 사람 한 사람이 성장하고 함께 빛나는 조직문화를 만들어가고 있습니다. 임상 현장에서 묵묵히 환자 곁을 지키는 간호사들의 열정과 헌신, 그리고 서로를 지지하며 함께 성장하는 구로 간호부의 이야기를 영상에 담았습니다.</p>
+
+      <!-- 순차 자동재생 & 오디오 제어 툴바 -->
+      <div class="video-seq-toolbar">
+        <div class="seq-status">
+          <span class="seq-badge">순차 자동재생</span>
+          <span class="seq-info" id="seq-current-title">재생 중 (1/2): 간호사와 함께하는 긍정조직문화</span>
+        </div>
+        <div class="seq-actions">
+          <button type="button" class="btn-seq-nav" id="btn-seq-prev" aria-label="이전 영상">◀ 이전 영상</button>
+          <button type="button" class="btn-seq-nav" id="btn-seq-next" aria-label="다음 영상">다음 영상 ▶</button>
+          <button type="button" class="btn-seq-audio" id="btn-seq-audio" aria-label="소리 켜기">
+            <span class="audio-icon">🔇</span>
+            <span class="audio-label">소리 켜기 (무음 중)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 영상 카드 그리드 (좌측부터 순차 자동재생) -->
       <div class="channel-grid">
-        <a class="channel-card" href="https://www.youtube.com/watch?v=NwzxqubxRiY" target="_blank" rel="noopener noreferrer">
-          <div class="channel-thumb">
-            <img class="video-thumb" src="https://img.youtube.com/vi/NwzxqubxRiY/hqdefault.jpg" alt="간호사와 함께하는 긍정조직문화 썸네일" loading="lazy" />
-            <span class="badge">YouTube</span>
-            <span class="video-play"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20"/></svg></span>
+        <!-- 1번 영상 (좌측 첫 번째: 즉시 무음 자동재생) -->
+        <div class="channel-card video-seq-card is-active" data-video-id="NwzxqubxRiY" data-video-index="0">
+          <div class="video-player-container">
+            <!-- 상시 썸네일 프리뷰 (비활성/대기 시 노출) -->
+            <div class="video-thumb-preview">
+              <img class="video-thumb-img" src="../assets/thumbnails/NwzxqubxRiY.jpg" onerror="this.src='https://img.youtube.com/vi/NwzxqubxRiY/hqdefault.jpg'" alt="간호사와 함께하는 긍정조직문화" loading="lazy" />
+              <div class="video-thumb-gradient"></div>
+              <span class="channel-thumb-duration">02:45</span>
+              <div class="channel-play-overlay" aria-hidden="true">
+                <div class="channel-play-btn">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                </div>
+              </div>
+              <div class="video-card-badge waiting-badge">대기 중 (클릭 시 재생)</div>
+            </div>
+            <!-- 비디오 플레이어 슬롯 -->
+            <div class="video-player-slot"></div>
+            <!-- 재생 중 오버레이 컨트롤 -->
+            <div class="video-overlay-controls">
+              <span class="video-now-playing-tag">▶ 지금 재생 중</span>
+              <button type="button" class="btn-audio-toggle sound-muted" aria-label="소리 켜기">
+                <span class="audio-icon">🔇</span>
+                <span class="audio-text">소리 켜기</span>
+              </button>
+            </div>
           </div>
           <div class="channel-body">
             <div class="title">간호사와 함께하는 긍정조직문화</div>
             <div class="meta">긍정문화캠페인 "긍정약속 지키기" · 고대구로병원 간호부</div>
+            <div class="channel-actions">
+              <a class="external-yt-link" href="https://www.youtube.com/watch?v=NwzxqubxRiY" target="_blank" rel="noopener noreferrer">
+                YouTube에서 크게 보기 ↗
+              </a>
+            </div>
           </div>
-        </a>
-        <a class="channel-card" href="https://www.youtube.com/watch?v=G_gRsWbN9QM" target="_blank" rel="noopener noreferrer">
-          <div class="channel-thumb">
-            <img class="video-thumb" src="https://img.youtube.com/vi/G_gRsWbN9QM/hqdefault.jpg" alt="Do together 썸네일" loading="lazy" />
-            <span class="badge">YouTube</span>
-            <span class="video-play"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20"/></svg></span>
+        </div>
+
+        <!-- 2번 영상 (우측 두 번째: 썸네일 상시 노출, 1번 종료 시 자동 순차 재생) -->
+        <div class="channel-card video-seq-card is-waiting" data-video-id="G_gRsWbN9QM" data-video-index="1">
+          <div class="video-player-container">
+            <!-- 상시 썸네일 프리뷰 (비활성/대기 시 상시 노출) -->
+            <div class="video-thumb-preview">
+              <img class="video-thumb-img" src="../assets/thumbnails/G_gRsWbN9QM.jpg" onerror="this.src='https://img.youtube.com/vi/G_gRsWbN9QM/hqdefault.jpg'" alt="Do together" loading="lazy" />
+              <div class="video-thumb-gradient"></div>
+              <span class="channel-thumb-duration">03:12</span>
+              <div class="channel-play-overlay" aria-hidden="true">
+                <div class="channel-play-btn">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                </div>
+              </div>
+              <div class="video-card-badge waiting-badge">다음 재생 대기 (클릭 시 바로 재생)</div>
+            </div>
+            <!-- 비디오 플레이어 슬롯 -->
+            <div class="video-player-slot"></div>
+            <!-- 재생 중 오버레이 컨트롤 -->
+            <div class="video-overlay-controls">
+              <span class="video-now-playing-tag">▶ 지금 재생 중</span>
+              <button type="button" class="btn-audio-toggle sound-muted" aria-label="소리 켜기">
+                <span class="audio-icon">🔇</span>
+                <span class="audio-text">소리 켜기</span>
+              </button>
+            </div>
           </div>
           <div class="channel-body">
             <div class="title">Do together</div>
             <div class="meta">다양한 케이스로 전문성을 키울 수 있는 응급중환자실 소개 · 고대구로병원 간호부</div>
+            <div class="channel-actions">
+              <a class="external-yt-link" href="https://www.youtube.com/watch?v=G_gRsWbN9QM" target="_blank" rel="noopener noreferrer">
+                YouTube에서 크게 보기 ↗
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
       </div>
-      <p class="lede" style="margin-top:24px;font-size:14px;"><a href="https://www.youtube.com/@kuguro_nursing" target="_blank" rel="noopener noreferrer">고대구로병원 간호부 유튜브 채널에서 전체 영상 보기 →</a></p>
+
+      <p class="lede" style="margin-top:32px;font-size:22px;"><a href="https://www.youtube.com/@kuguro_nursing" target="_blank" rel="noopener noreferrer">고대구로병원 간호부 유튜브 채널에서 전체 영상 보기 →</a></p>
     </div>
   </section>
 </main>
@@ -118,7 +191,6 @@
   <div class="wrap footer-top">
     <div class="footer-brand">
       <img class="footer-logo" src="../assets/logo-guro-footer.svg" alt="고려대학교구로병원" />
-      <span class="name">간호부</span>
     </div>
     <div class="footer-links">
       <a href="#">인터넷이용약관</a>
@@ -135,10 +207,11 @@
     </div>
   </div>
   <div class="wrap copyright">
-    Copyright&copy; <span data-year></span> Korea University Guro Hospital, Department of Nursing. All Rights Reserved.
+    Copyright&copy; <span data-year></span> Korea University Guro Hospital, Department of Nursing Service. All Rights Reserved.
   </div>
 </footer>
 
-<script src="../js/main.js"></script>
+<script src="../js/main.js?v=13"></script>
+<script src="../js/video-seq.js"></script>
 </body>
 </html>

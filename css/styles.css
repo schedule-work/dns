@@ -3250,15 +3250,29 @@ a.crumb-item:hover {
 /* 제위원회는 간호부장과 6개 팀 사이의 독립된 단으로, 간호부장 기둥 중심에서
    짧게 내려온 뒤 옆으로 갈라져 나온다. absolute를 쓰지 않는 일반 flex 흐름이라
    화면 폭이 좁아져도 컨테이너 밖으로 밀려나거나 잘리지 않는다 */
-.org-mid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
+/* 간호부장에서 트렁크로 내려가는 세로선은 중간에 끊기지 않고 계속 이어지며,
+   제위원회는 그 세로선 중간 지점에서 옆으로 갈라져 나온다 (grid 3열 구조로
+   가운데 열이 세로선, 오른쪽 열이 제위원회 분기 — absolute 없이도 항상 중앙 정렬) */
+.org-mid-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 2px minmax(0, 1fr);
+  align-items: stretch;
 }
 
-.org-mid-line {
-  width: 28px;
+.org-mid-spine {
+  grid-column: 2;
+  background: var(--org-line);
+}
+
+.org-mid-branch {
+  grid-column: 3;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.org-mid-branch-line {
+  width: 24px;
   height: 2px;
   background: var(--org-line);
   flex-shrink: 0;

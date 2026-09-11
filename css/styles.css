@@ -3318,11 +3318,14 @@ a.crumb-item:hover {
   border: 1px solid var(--color-border);
   border-top: none;
   border-radius: 0 0 10px 10px;
-  font-size: 22px;
+  font-size: 19px;
   color: var(--color-text-mute);
   padding: 14px 12px;
   line-height: 1.75;
   width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 @media (max-width: 640px) {

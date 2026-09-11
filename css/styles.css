@@ -3300,8 +3300,6 @@ a.crumb-item:hover {
   gap: 22px;
   flex-wrap: wrap;
   position: relative;
-  margin-top: 26px;
-  padding-top: 30px;
 }
 
 .org-row::before {

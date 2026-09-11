@@ -3219,7 +3219,6 @@ a.crumb-item:hover {
 /* 병원장/간호부장은 원본 조직도처럼 하나로 이어진 기둥(같은 박스, 얇은 구분선만) */
 .org-top {
   display: flex;
-  align-items: flex-end;
   justify-content: center;
 }
 
@@ -3243,26 +3242,30 @@ a.crumb-item:hover {
   border-top: 1px solid rgba(255, 255, 255, 0.25);
 }
 
-/* 제위원회는 간호부장 옆에서 갈라져 나오며, 6개 팀 행보다 한 단 위에 떠 있다 */
-.org-committee {
+/* 제위원회는 간호부장과 6개 팀 사이의 독립된 단으로, 간호부장 기둥의 중심선에서
+   갈라져 나온다 (같은 줄이 아니라 그 아래 · 팀 행 위쪽에 위치) */
+.org-mid {
   display: flex;
-  align-items: center;
-  margin-left: 14px;
+  justify-content: center;
 }
 
-.org-committee-line {
-  width: 34px;
-  height: 2px;
+.org-mid-stem {
+  position: relative;
+  width: 2px;
+  height: 34px;
   background: var(--color-border);
-  flex-shrink: 0;
 }
 
 .org-team.committee {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translate(14px, -50%);
   background: linear-gradient(160deg, #d8b676, var(--color-gold));
   color: #4a3418;
   font-weight: 600;
   font-size: 22px;
-  padding: 14px 26px;
+  padding: 12px 24px;
   border-radius: 10px;
   white-space: nowrap;
   box-shadow: 0 8px 16px rgba(198, 154, 88, 0.3);
@@ -3276,7 +3279,6 @@ a.crumb-item:hover {
   flex-wrap: wrap;
   position: relative;
   padding-top: 30px;
-  margin-top: 26px;
 }
 
 .org-row::before {
@@ -3314,33 +3316,34 @@ a.crumb-item:hover {
   box-shadow: 0 8px 16px rgba(44, 64, 102, 0.22);
 }
 
+/* 하위 부서는 부서 1개당 한 줄씩 차지 */
 .org-units {
+  list-style: none;
   border: 1px solid var(--color-border);
   border-top: none;
   border-radius: 0 0 10px 10px;
   font-size: 19px;
   color: var(--color-text-mute);
-  padding: 14px 12px;
-  line-height: 1.75;
+  margin: 0;
+  padding: 12px 12px;
   width: 100%;
   box-sizing: border-box;
+}
+
+.org-units li {
+  padding: 3px 0;
   overflow-wrap: break-word;
   word-break: break-all;
 }
 
+.org-units li + li {
+  border-top: 1px dashed var(--color-border);
+}
+
 @media (max-width: 640px) {
-  .org-top {
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .org-committee {
-    margin-left: 0;
-  }
-
-  .org-committee-line {
-    display: none;
+  .org-mid {
+    justify-content: flex-start;
+    padding-left: 50%;
   }
 
   .org-row {

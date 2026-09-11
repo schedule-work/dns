@@ -3304,12 +3304,14 @@ a.crumb-item:hover {
   margin: 0 auto;
 }
 
+/* 트렁크선은 첫/마지막 팀 박스 가장자리가 아니라, 그 팀들의 세로 연결선(각 박스
+   가로 중앙, .org-branch 폭 180px의 절반인 90px 지점)까지만 이어지도록 안쪽으로 들여씀 */
 .org-row::before {
   content: "";
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  left: 90px;
+  right: 90px;
   border-top: 2px solid var(--org-line);
 }
 

@@ -7,7 +7,7 @@
 <meta name="description" content="고려대학교구로병원 간호부 — 정규직 · 임시직 간호사 채용절차와 지원안내" />
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-<link rel="stylesheet" href="../css/styles.css?v=38" />
+<link rel="stylesheet" href="../css/styles.css?v=57" />
 </head>
 <body>
 
@@ -40,9 +40,9 @@
         </li>
         <li><a href="research-mindmap.html">연구·QI</a>
           <ul class="submenu">
-            <li><a href="research-study.html">연도별 연구활동</a></li>
-            <li><a href="research-qi.html">연도별 QI활동</a></li>
-            <li><a href="research-mindmap.html">마인드맵으로 보기</a></li>
+            <li><a href="research-study.html">연구활동</a></li>
+            <li><a href="research-qi.html">QI</a></li>
+            <li><a href="research-mindmap.html">지식 그래프</a></li>
           </ul>
         </li>
         <li class="active"><a href="life.html">복지 및 채용</a>
@@ -106,7 +106,10 @@
           </div>
 
           <!-- 3단계 원형 다이어그램 (채용정보1 디자인 유사 구현) -->
-          <div class="jobs-process-circles">
+          <!-- 조직도와 같은 방식: 좁은 화면에서 원이 겹치거나 잘리지 않도록,
+               재배치 대신 PC 모양 그대로 배율만 줄여서 보여준다 -->
+          <div class="jobs-process-viewport" id="jobs-process-viewport">
+          <div class="jobs-process-circles" id="jobs-process-circles">
             <!-- 1 서류전형 -->
             <div class="process-circle-card">
               <div class="process-circle-badge">
@@ -167,19 +170,23 @@
               </div>
             </div>
           </div>
+          </div>
 
           <div class="jobs-btn-wrap">
-            <a class="btn btn-primary" style="font-size: 19px; font-weight: 800; padding: 15px 38px; border-radius: 999px; box-shadow: 0 4px 14px rgba(144, 34, 9, 0.22);" href="https://kumc.recruiter.co.kr/career/career" target="_blank" rel="noopener noreferrer">
+            <a class="jobs-inline-link" href="https://kumc.recruiter.co.kr/career/career" target="_blank" rel="noopener noreferrer">
               본원 온라인 채용시스템 바로가기 →
             </a>
           </div>
         </div>
 
-        <!-- [채용정보 2] 간호직 5단계 전형 절차 (사이트 디자인에 맞춘 조화로운 재구성) -->
+        <!-- [채용정보 2] 채용 프로세스 5단계 (사이트 디자인에 맞춘 조화로운 재구성) -->
+        <!-- 조직도와 같은 방식: 좁은 화면에서 카드가 겹치거나 잘리지 않도록,
+             재배치 대신 PC 모양 그대로 배율만 줄여서 한 화면에 다 보이게 한다 -->
         <div class="jobs-nursing-section">
-          <h2 class="jobs-nursing-title">간호직</h2>
-          
-          <div class="jobs-steps-grid">
+          <h2 class="jobs-nursing-title">채용 프로세스</h2>
+
+          <div class="jobs-steps-viewport" id="jobs-steps-viewport">
+          <div class="jobs-steps-grid" id="jobs-steps-grid">
             <!-- 01 지원서 접수 -->
             <div class="step-card-col">
               <div class="step-card-box crimson">
@@ -240,16 +247,6 @@
               </div>
             </div>
           </div>
-
-          <!-- 정규직 및 임시직 채용 요약 안내 카드 -->
-          <div style="margin-top: 56px; padding: 30px 34px; background: #faf7f6; border-radius: 18px; border: 1px solid #ede3e1;">
-            <h4 class="section-subhead-inline" style="font-weight: 800; color: #1e1e1e; margin: 0 0 16px;">고려대학교 의료원 간호사 채용 구분</h4>
-            <table class="comp-table" style="margin: 0;">
-              <tbody>
-                <tr><td style="width:140px;"><span class="chip">정규직</span></td><td>상반기 공채 채용 외 기졸업자 채용(필요시)</td></tr>
-                <tr><td><span class="chip">임시직</span></td><td>계약직 및 시간제 간호사 수시 채용(필요시)</td></tr>
-              </tbody>
-            </table>
           </div>
 
         </div>
@@ -283,6 +280,45 @@
   </div>
 </footer>
 
-<script src="../js/main.js?v=14"></script>
+<script src="../js/main.js?v=15"></script>
+<script>
+  // 전형방법 원형 다이어그램 + 채용 프로세스 5단계: 조직도와 동일하게,
+  // 좁은 화면에서도 PC 모양을 그대로 유지한 채 배율만 줄인다
+  // (about-org.html의 .org-chart-scale과 동일한 방식).
+  (function () {
+    function makeScaler(wrapId, chartId) {
+      var wrap = document.getElementById(wrapId);
+      var chart = document.getElementById(chartId);
+      if (!wrap || !chart) return null;
+
+      function fit() {
+        chart.style.transform = "none";
+        var naturalWidth = chart.scrollWidth;
+        var naturalHeight = chart.scrollHeight;
+        var available = wrap.clientWidth;
+        var scale = Math.min(1, available / naturalWidth);
+        chart.style.transform = "scale(" + scale + ")";
+        wrap.style.height = Math.ceil(naturalHeight * scale) + "px";
+      }
+      return fit;
+    }
+
+    var fitters = [
+      makeScaler("jobs-process-viewport", "jobs-process-circles"),
+      makeScaler("jobs-steps-viewport", "jobs-steps-grid")
+    ].filter(Boolean);
+
+    function fitAll() {
+      fitters.forEach(function (fit) { fit(); });
+    }
+
+    window.addEventListener("resize", fitAll);
+    window.addEventListener("load", fitAll);
+    fitAll();
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(fitAll);
+    }
+  })();
+</script>
 </body>
 </html>

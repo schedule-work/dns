@@ -7,7 +7,7 @@
 <meta name="description" content="고려대학교구로병원 간호부 — 병원장-간호부장-6개팀 조직 체계" />
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-<link rel="stylesheet" href="../css/styles.css?v=38" />
+<link rel="stylesheet" href="../css/styles.css?v=57" />
 </head>
 <body>
 
@@ -40,9 +40,9 @@
         </li>
         <li><a href="research-mindmap.html">연구·QI</a>
           <ul class="submenu">
-            <li><a href="research-study.html">연도별 연구활동</a></li>
-            <li><a href="research-qi.html">연도별 QI활동</a></li>
-            <li><a href="research-mindmap.html">마인드맵으로 보기</a></li>
+            <li><a href="research-study.html">연구활동</a></li>
+            <li><a href="research-qi.html">QI</a></li>
+            <li><a href="research-mindmap.html">지식 그래프</a></li>
           </ul>
         </li>
         <li><a href="life.html">복지 및 채용</a>
@@ -88,31 +88,32 @@
 <main>
   <section class="wrap page-section tight">
     <div class="detail-section wide">
-      <p class="lede">간호부장 아래 6개 간호팀과 제위원회로 구성되어 있으며, 팀별로 담당 병동과 부서를 운영합니다.</p>
-      <div class="org-chart">
-        <div class="org-top">
-          <div class="org-hq-tier">병 원 장</div>
-        </div>
-        <div class="org-hq-connector"></div>
-        <div class="org-top">
-          <div class="org-hq-tier">간호부장</div>
-        </div>
-        <div class="org-hq-connector"></div>
-        <div class="org-mid-row">
-          <div class="org-mid-spine"></div>
-          <div class="org-mid-branch">
-            <span class="org-mid-branch-line"></span>
-            <div class="org-team committee">제위원회</div>
+      <div class="org-chart" id="org-chart">
+        <div class="org-chart-scale" id="org-chart-scale">
+          <div class="org-top">
+            <div class="org-hq-tier">병 원 장</div>
           </div>
-        </div>
-        <div class="org-hq-connector"></div>
-        <div class="org-row">
-          <div class="org-branch"><div class="org-team">간호교육기획팀</div><ul class="org-units"><li>간호기획</li><li>간호교육</li><li>꿈마스터</li></ul></div>
-          <div class="org-branch"><div class="org-team">병동간호 1팀</div><ul class="org-units"><li>내과계병동</li><li>VIP병동</li><li>보호요원실</li></ul></div>
-          <div class="org-branch"><div class="org-team">병동간호 2팀</div><ul class="org-units"><li>외과계병동</li><li>간호간병통합서비스병동</li></ul></div>
-          <div class="org-branch"><div class="org-team">특수간호팀</div><ul class="org-units"><li>성인중환자실</li><li>신생아중환자실</li><li>신생아실</li><li>수술실</li><li>마취통증의학과</li><li>중앙공급실</li></ul></div>
-          <div class="org-branch"><div class="org-team">외래간호팀</div><ul class="org-units"><li>응급의료센터</li><li>소화기센터</li><li>심혈관센터</li><li>암센터</li><li>인공신장실</li><li>외래</li></ul></div>
-          <div class="org-branch"><div class="org-team">임상지원간호팀</div><ul class="org-units"><li>내과계 임상파트</li><li>외과계 임상파트</li></ul></div>
+          <div class="org-hq-connector"></div>
+          <div class="org-top">
+            <div class="org-hq-tier">간호부장</div>
+          </div>
+          <div class="org-hq-connector"></div>
+          <div class="org-mid-row">
+            <div class="org-mid-spine"></div>
+            <div class="org-mid-branch">
+              <span class="org-mid-branch-line"></span>
+              <div class="org-team committee">제위원회</div>
+            </div>
+          </div>
+          <div class="org-hq-connector"></div>
+          <div class="org-row">
+            <div class="org-branch"><div class="org-team">간호교육기획팀</div><ul class="org-units"><li>간호기획</li><li>간호교육</li><li>꿈마스터</li></ul></div>
+            <div class="org-branch"><div class="org-team">병동간호 1팀</div><ul class="org-units"><li>내과계병동</li><li>VIP병동</li><li>보호요원실</li></ul></div>
+            <div class="org-branch"><div class="org-team">병동간호 2팀</div><ul class="org-units"><li>외과계병동</li><li>간호간병통합서비스병동</li></ul></div>
+            <div class="org-branch"><div class="org-team">특수간호팀</div><ul class="org-units"><li>성인중환자실</li><li>신생아중환자실</li><li>신생아실</li><li>수술실</li><li>마취통증의학과</li><li>중앙공급실</li></ul></div>
+            <div class="org-branch"><div class="org-team">외래간호팀</div><ul class="org-units"><li>응급의료센터</li><li>소화기센터</li><li>심혈관센터</li><li>암센터</li><li>인공신장실</li><li>외래</li></ul></div>
+            <div class="org-branch"><div class="org-team">임상지원간호팀</div><ul class="org-units"><li>내과계 임상파트</li><li>외과계 임상파트</li></ul></div>
+          </div>
         </div>
       </div>
     </div>
@@ -143,6 +144,34 @@
   </div>
 </footer>
 
-<script src="../js/main.js?v=14"></script>
+<script src="../js/main.js?v=15"></script>
+<script>
+  // 조직도: 좁은 화면에서도 PC와 동일한 트리 모양을 유지한 채 배율만 줄여
+  // 표시한다. .org-chart-scale은 항상 desktop 폭 그대로 렌더링되므로, 실제
+  // 렌더링 폭을 측정해 컨테이너에 맞는 배율을 계산하고 transform: scale로
+  // 시각적으로만 축소한 뒤, 줄어든 실제 높이만큼 바깥 컨테이너 높이를 맞춘다.
+  (function () {
+    var wrap = document.getElementById("org-chart");
+    var chart = document.getElementById("org-chart-scale");
+    if (!wrap || !chart) return;
+
+    function fitOrgChart() {
+      chart.style.transform = "none";
+      var naturalWidth = chart.scrollWidth;
+      var naturalHeight = chart.scrollHeight;
+      var available = wrap.clientWidth;
+      var scale = Math.min(1, available / naturalWidth);
+      chart.style.transform = "scale(" + scale + ")";
+      wrap.style.height = Math.ceil(naturalHeight * scale) + "px";
+    }
+
+    window.addEventListener("resize", fitOrgChart);
+    window.addEventListener("load", fitOrgChart);
+    fitOrgChart();
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(fitOrgChart);
+    }
+  })();
+</script>
 </body>
 </html>

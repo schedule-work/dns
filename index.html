@@ -7,7 +7,7 @@
 <meta name="description" content="고려대학교구로병원 간호부 공식 홈페이지 — 간호부 소개, 간호인재 및 교육, 연구·질향상, 복지 및 채용, 커뮤니티" />
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-<link rel="stylesheet" href="css/styles.css?v=38" />
+<link rel="stylesheet" href="css/styles.css?v=57" />
 </head>
 <body>
 
@@ -40,9 +40,9 @@
         </li>
         <li><a href="pages/research-mindmap.html">연구·QI</a>
           <ul class="submenu">
-            <li><a href="pages/research-study.html">연도별 연구활동</a></li>
-            <li><a href="pages/research-qi.html">연도별 QI활동</a></li>
-            <li><a href="pages/research-mindmap.html">마인드맵으로 보기</a></li>
+            <li><a href="pages/research-study.html">연구활동</a></li>
+            <li><a href="pages/research-qi.html">QI</a></li>
+            <li><a href="pages/research-mindmap.html">지식 그래프</a></li>
           </ul>
         </li>
         <li><a href="pages/life.html">복지 및 채용</a>
@@ -147,20 +147,6 @@
           </a>
         </div>
 
-        <div class="card level-teaser">
-          <div class="card-head">
-            <h3>임상역량단계</h3>
-            <a class="more-link" href="pages/education-level.html">자세히 보기 →</a>
-          </div>
-          <p class="section-desc" style="margin-bottom:0">신입부터 전문가까지, 간호역량이 성장하는 다섯 단계를 소개합니다.</p>
-          <div class="level-rings">
-            <div class="level-ring">Novice<br />(신입)</div>
-            <div class="level-ring">Advanced<br />Beginner</div>
-            <div class="level-ring">Competent</div>
-            <div class="level-ring">Proficient</div>
-            <div class="level-ring">Expert</div>
-          </div>
-        </div>
       </div>
 
       <aside class="side-col">
@@ -175,6 +161,7 @@
             </button>
           </div>
           <div class="mini-cal-grid" id="mini-calendar"></div>
+          <div class="cal-preview" id="cal-preview" aria-live="polite"></div>
         </div>
 
         <div class="card side-widget jobs-card">
@@ -233,6 +220,6 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=14"></script>
+<script src="js/main.js?v=19"></script>
 </body>
 </html>

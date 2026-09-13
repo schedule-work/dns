@@ -4,10 +4,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>고려대학교 구로병원 간호부</title>
-<meta name="description" content="고려대학교구로병원 간호부 — 연도별 연구활동과 QI활동을 하나의 네트워크로 연결한 3D 마인드맵입니다." />
+<meta name="description" content="고려대학교구로병원 간호부 — 연구활동과 QI활동을 하나의 네트워크로 연결한 3D 지식 그래프입니다." />
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-<link rel="stylesheet" href="../css/styles.css?v=38" />
+<link rel="stylesheet" href="../css/styles.css?v=57" />
 </head>
 <body>
 
@@ -40,9 +40,9 @@
         </li>
         <li class="active"><a href="research-mindmap.html">연구·QI</a>
           <ul class="submenu">
-            <li><a href="research-study.html">연도별 연구활동</a></li>
-            <li><a href="research-qi.html">연도별 QI활동</a></li>
-            <li><a href="research-mindmap.html">마인드맵으로 보기</a></li>
+            <li><a href="research-study.html">연구활동</a></li>
+            <li><a href="research-qi.html">QI</a></li>
+            <li><a href="research-mindmap.html">지식 그래프</a></li>
           </ul>
         </li>
         <li><a href="life.html">복지 및 채용</a>
@@ -87,14 +87,14 @@
   <section class="wrap page-section tight">
     <div class="view-toggle" role="tablist" aria-label="연구·QI 보기 방식">
       <div class="btn-color-mode-switch">
-        <input type="checkbox" id="view-mode-switch" aria-label="마인드맵 보기와 목록 보기 전환" />
-        <label class="btn-color-mode-switch-inner" for="view-mode-switch" data-on="목록으로 보기" data-off="마인드맵으로 보기"></label>
+        <input type="checkbox" id="view-mode-switch" aria-label="지식 그래프 보기와 목록 보기 전환" />
+        <label class="btn-color-mode-switch-inner" for="view-mode-switch" data-on="목록으로 보기" data-off="지식 그래프"></label>
       </div>
     </div>
 
     <div class="mindmap-stage" id="mindmap-stage">
       <div id="mindmap-graph" style="width:100%;height:100%;"></div>
-      <div class="mindmap-loading" id="mindmap-loading" role="status" aria-label="마인드맵 로딩 중">
+      <div class="mindmap-loading" id="mindmap-loading" role="status" aria-label="지식 그래프 로딩 중">
         <div class="loader" aria-hidden="true">
           <span class="loader__circle"></span>
           <span class="loader__circle"></span>
@@ -170,7 +170,7 @@
   </div>
 </footer>
 
-<script src="../js/main.js?v=14"></script>
+<script src="../js/main.js?v=15"></script>
 <script src="../js/vendor/three.min.js"></script>
 <script>
 if (window.THREE && !window.THREE.Timer) {
@@ -222,7 +222,7 @@ if (window.THREE && !window.THREE.Timer) {
   var loadingEl = document.getElementById('mindmap-loading');
 
   if (!data || typeof ForceGraph3D !== 'function' || typeof window.THREE === 'undefined') {
-    if (loadingEl) loadingEl.textContent = '마인드맵을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.';
+    if (loadingEl) loadingEl.textContent = '지식 그래프를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.';
     return;
   }
 
@@ -1101,11 +1101,93 @@ if (window.THREE && !window.THREE.Timer) {
     focusCameraOnNode(node);
   }
 
-  // 목록 보기 (List View)
+  // 목록 보기 (List View) — 연구활동/QI활동 전용 페이지와 동일한
+  // 카드·테이블 디자인을 그대로 재사용해 마인드맵 안에서도 일관된 룩을 유지한다.
   function escapeHtml(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
+  }
+
+  var DEPT_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>';
+  var QI_DEPT_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>';
+  var CHECK_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+
+  // 제목 앞의 "[CQI]"·"[편리하GURO]" 같은 대괄호 태그를 배지로 분리해낸다.
+  function splitBracketTag(title) {
+    var m = /^\[([^\]]+)\]\s*/.exec(title);
+    if (!m) return { tag: null, title: title };
+    return { tag: m[1], title: title.slice(m[0].length) };
+  }
+
+  function buildResearchYearBlock(year, items) {
+    var cards = items.map(function (n, i) {
+      var idx = String(i + 1).padStart(2, '0');
+      return (
+        '<article class="research-study-card">' +
+          '<div class="res-card-top">' +
+            '<div class="res-card-badges">' +
+              '<span class="res-dept-pill">' + DEPT_ICON + escapeHtml(n.dept || '') + '</span>' +
+              '<span class="res-year-pill">' + year + '</span>' +
+            '</div>' +
+            '<span class="res-paper-idx">STUDY · ' + idx + '</span>' +
+          '</div>' +
+          '<h3 class="res-card-title">' + escapeHtml(n.name) + '</h3>' +
+          '<div class="res-card-bottom">' +
+            '<div class="res-tags-wrap">' +
+              (n.featured ? '<span class="res-chip featured">우수활동</span>' : '') +
+              '<span class="res-chip">임상연구</span>' +
+            '</div>' +
+            '<span class="res-card-status">' + CHECK_ICON + ' 연구 완료</span>' +
+          '</div>' +
+        '</article>'
+      );
+    }).join('');
+    return (
+      '<section class="res-year-block" data-scope="research" data-filter-year="' + year + '">' +
+        '<div class="res-year-title-row">' +
+          '<span class="res-year-badge-big">' + year + '</span>' +
+          '<span class="res-year-count-label">임상간호연구</span>' +
+        '</div>' +
+        '<div class="research-cards-stream">' + cards + '</div>' +
+      '</section>'
+    );
+  }
+
+  function buildQiYearBlock(year, items) {
+    var rows = items.map(function (n, i) {
+      var split = splitBracketTag(n.name);
+      var tagHtml = split.tag
+        ? '<span class="qi-tag-cqi">' + escapeHtml(split.tag) + '</span>'
+        : (n.featured ? '<span class="qi-tag-featured">우수활동</span>' : '');
+      return (
+        '<tr>' +
+          '<td><span class="qi-dept-badge">' + QI_DEPT_ICON + escapeHtml(n.dept || '') + '</span></td>' +
+          '<td><div class="qi-topic-wrap"><span class="qi-topic-title">' + escapeHtml(split.title) + '</span>' + tagHtml + '</div></td>' +
+        '</tr>'
+      );
+    }).join('');
+    return (
+      '<section class="res-year-block" data-scope="qi" data-filter-year="' + year + '">' +
+        '<div class="res-year-title-row">' +
+          '<span class="res-year-badge-big">' + year + '</span>' +
+          '<span class="res-year-count-label">질 향상(QI) 개선 과제</span>' +
+        '</div>' +
+        '<div class="qi-table-box"><table class="qi-modern-table">' +
+          '<thead><tr><th class="th-dept">수행 부서 / 팀</th><th class="th-topic">QI 개선 활동 주제</th></tr></thead>' +
+          '<tbody>' + rows + '</tbody>' +
+        '</table></div>' +
+      '</section>'
+    );
+  }
+
+  function buildFilterTabs(scope, years, counts) {
+    var btns = '<button type="button" class="res-tab-btn active" data-scope="' + scope + '" data-filter="all">전체보기</button>';
+    years.forEach(function (y) {
+      if (!counts[y]) return;
+      btns += '<button type="button" class="res-tab-btn" data-scope="' + scope + '" data-filter="' + y + '">' + y + '년</button>';
+    });
+    return '<nav class="res-filter-tabs" aria-label="' + (scope === 'research' ? '연구활동' : 'QI활동') + ' 연도별 필터">' + btns + '</nav>';
   }
 
   function buildListView() {
@@ -1118,29 +1200,52 @@ if (window.THREE && !window.THREE.Timer) {
       (bucket[n.year] = bucket[n.year] || []).push(n);
     });
     var years = [2025, 2024, 2023];
+
+    var researchCounts = {}, qiCounts = {};
+    years.forEach(function (y) {
+      researchCounts[y] = (byCat.research[y] || []).length;
+      qiCounts[y] = (byCat.qi[y] || []).length;
+    });
+
     var html = '';
 
-    html += '<h2>연도별 연구활동 (10편)</h2><p class="lede">부서별로 진행한 임상 간호연구를 연도별로 소개합니다.</p>';
+    html += '<div class="research-list-section" data-scope="research">';
+    html += '<h2>연구활동</h2><p class="lede">부서별로 진행한 임상 간호연구를 연도별로 소개합니다.</p>';
+    html += buildFilterTabs('research', years, researchCounts);
     years.forEach(function (y) {
       var items = byCat.research[y];
-      if (!items || !items.length) return;
-      html += '<div class="year-group"><h3>' + y + '</h3><ul>' + items.map(function (n) {
-        return '<li>' + escapeHtml(n.name) + '<span class="dept">_' + escapeHtml(n.dept || '') + '</span></li>';
-      }).join('') + '</ul></div>';
+      if (items && items.length) html += buildResearchYearBlock(y, items);
     });
+    html += '</div>';
 
-    html += '<h2 style="margin-top:44px;">연도별 QI활동 (53건)</h2><p class="lede">환자안전과 진료의 질을 높이기 위해 부서별로 추진한 QI(질 향상) 활동을 연도별로 소개합니다.</p>';
+    html += '<div class="research-list-section" data-scope="qi" style="margin-top:56px;">';
+    html += '<h2>QI</h2><p class="lede">환자안전과 진료의 질을 높이기 위해 부서별로 추진한 QI(질 향상) 활동을 연도별로 소개합니다.</p>';
+    html += buildFilterTabs('qi', years, qiCounts);
     years.forEach(function (y) {
       var items = byCat.qi[y];
-      if (!items || !items.length) return;
-      html += '<div class="qi-table-wrap"><div class="qi-year-badge">' + y + '</div>' +
-        '<table class="qi-table"><thead><tr><th>연도</th><th>번호</th><th>부서/팀</th><th>주제</th></tr></thead><tbody>' +
-        items.map(function (n, i) {
-          return '<tr><td>' + y + '</td><td>' + (i + 1) + '</td><td>' + escapeHtml(n.dept || '') + '</td><td>' + escapeHtml(n.name) + '</td></tr>';
-        }).join('') + '</tbody></table></div>';
+      if (items && items.length) html += buildQiYearBlock(y, items);
     });
+    html += '</div>';
 
     host.innerHTML = html;
+
+    // 연도별 필터 탭 인터랙션 (연구활동/QI활동 각각 독립적으로 동작)
+    host.querySelectorAll('.res-filter-tabs').forEach(function (nav) {
+      var scope = nav.querySelector('.res-tab-btn').getAttribute('data-scope');
+      var tabs = nav.querySelectorAll('.res-tab-btn');
+      var blocks = host.querySelectorAll('.res-year-block[data-scope="' + scope + '"]');
+      tabs.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          tabs.forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          var filter = btn.getAttribute('data-filter');
+          blocks.forEach(function (block) {
+            var year = block.getAttribute('data-filter-year');
+            block.style.display = (filter === 'all' || filter === year) ? '' : 'none';
+          });
+        });
+      });
+    });
   }
   buildListView();
 

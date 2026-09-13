@@ -7,7 +7,7 @@
 <meta name="description" content="고려대학교구로병원 간호부 — 부서별 간호사들의 직무 인터뷰" />
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-<link rel="stylesheet" href="../css/styles.css?v=38" />
+<link rel="stylesheet" href="../css/styles.css?v=57" />
 </head>
 <body>
 
@@ -40,9 +40,9 @@
         </li>
         <li><a href="research-mindmap.html">연구·QI</a>
           <ul class="submenu">
-            <li><a href="research-study.html">연도별 연구활동</a></li>
-            <li><a href="research-qi.html">연도별 QI활동</a></li>
-            <li><a href="research-mindmap.html">마인드맵으로 보기</a></li>
+            <li><a href="research-study.html">연구활동</a></li>
+            <li><a href="research-qi.html">QI</a></li>
+            <li><a href="research-mindmap.html">지식 그래프</a></li>
           </ul>
         </li>
         <li><a href="life.html">복지 및 채용</a>
@@ -104,47 +104,46 @@
         </defs>
       </svg>
 
-      <p class="interview-grid-lede">부서를 선택하면 그 부서 간호사의 이야기를 바로 아래에서 볼 수 있습니다.</p>
       <div class="interview-grid" role="tablist">
         <button type="button" class="interview-card active" data-role="icu" role="tab" aria-selected="true">
           <span class="interview-card-avatar" style="--iv-scrub:#2f6f8c;"><svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/></svg></span>
-          <span class="interview-card-name">김ㅇ영 <em>책임간호사</em></span>
-          <span class="interview-card-unit">중환자실 · 10년차</span>
+          <span class="interview-card-name">김*호 <em>간호사</em></span>
+          <span class="interview-card-unit">중환자실</span>
         </button>
         <button type="button" class="interview-card" data-role="delivery" role="tab" aria-selected="false">
           <span class="interview-card-avatar" style="--iv-scrub:#b56b8f;"><svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/></svg></span>
-          <span class="interview-card-name">이ㅇ수 <em>주임간호사</em></span>
-          <span class="interview-card-unit">분만실 · 7년차</span>
+          <span class="interview-card-name">이*아 <em>간호사</em></span>
+          <span class="interview-card-unit">분만실</span>
         </button>
         <button type="button" class="interview-card" data-role="ward" role="tab" aria-selected="false">
           <span class="interview-card-avatar" style="--iv-scrub:#3d8c6f;"><svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/></svg></span>
-          <span class="interview-card-name">박ㅇ진 <em>간호사</em></span>
-          <span class="interview-card-unit">병동 · 4년차</span>
+          <span class="interview-card-name">박*영 <em>간호사</em></span>
+          <span class="interview-card-unit">병동</span>
         </button>
         <button type="button" class="interview-card" data-role="er" role="tab" aria-selected="false">
           <span class="interview-card-avatar" style="--iv-scrub:#c0392b;"><svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/></svg></span>
-          <span class="interview-card-name">정ㅇ아 <em>책임간호사</em></span>
-          <span class="interview-card-unit">응급실 · 9년차</span>
+          <span class="interview-card-name">최*지 <em>간호사</em></span>
+          <span class="interview-card-unit">응급실</span>
         </button>
         <button type="button" class="interview-card" data-role="or" role="tab" aria-selected="false">
           <span class="interview-card-avatar" style="--iv-scrub:#2f7a52;"><svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C27 27 37 20 50 20 C63 20 73 27 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="var(--iv-scrub)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/></svg></span>
-          <span class="interview-card-name">최ㅇ훈 <em>수석간호사</em></span>
-          <span class="interview-card-unit">수술실 · 12년차</span>
+          <span class="interview-card-name">윤*호 <em>간호사</em></span>
+          <span class="interview-card-unit">수술실</span>
         </button>
         <button type="button" class="interview-card" data-role="pacu" role="tab" aria-selected="false">
           <span class="interview-card-avatar" style="--iv-scrub:#d9a441;"><svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/></svg></span>
-          <span class="interview-card-name">한ㅇ미 <em>간호사</em></span>
-          <span class="interview-card-unit">회복실 · 5년차</span>
+          <span class="interview-card-name">정*희 <em>간호사</em></span>
+          <span class="interview-card-unit">마취회복실</span>
         </button>
         <button type="button" class="interview-card" data-role="specialist" role="tab" aria-selected="false">
           <span class="interview-card-avatar" style="--iv-scrub:#34495e;"><svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/></svg></span>
-          <span class="interview-card-name">조ㅇ현 <em>전담간호사</em></span>
-          <span class="interview-card-unit">전담간호사 · 8년차</span>
+          <span class="interview-card-name">한*안 <em>간호사</em></span>
+          <span class="interview-card-unit">전담간호사</span>
         </button>
         <button type="button" class="interview-card" data-role="outpatient" role="tab" aria-selected="false">
           <span class="interview-card-avatar" style="--iv-scrub:#5b7fa6;"><svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/></svg></span>
-          <span class="interview-card-name">윤ㅇ주 <em>간호사</em></span>
-          <span class="interview-card-unit">외래 · 6년차</span>
+          <span class="interview-card-name">오*훈 <em>간호사</em></span>
+          <span class="interview-card-unit">외래</span>
         </button>
       </div>
 
@@ -156,26 +155,34 @@
             </div>
             <div class="interview-headline">
               <p class="interview-greeting">안녕하세요.</p>
-              <h3 class="interview-title">중환자실에서 환자분들의 가장 위태로운 순간을 함께 지키고 있는 김ㅇ영입니다.</h3>
-              <p class="interview-byline">김ㅇ영 <span>책임간호사</span> · 중환자실 · 10년차</p>
+              <h3 class="interview-title">미세한 변화를 캐치해 환자의 내일을 지키는, 김*호 간호사입니다.</h3>
+              <p class="interview-byline">김*호 <span>간호사</span> · 중환자실</p>
             </div>
           </div>
           <div class="interview-essay">
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 업무를 소개해 주세요</h4>
-              <p class="qa-answer">중환자실은 생명이 위중한 환자분들이 24시간 집중 치료를 받는 공간입니다. 처음 이 부서에 왔을 때는 알람 소리 하나에도 심장이 철렁 내려앉곤 했는데, 이제는 그 소리들이 무엇을 의미하는지 몸이 먼저 반응할 만큼 익숙해졌어요. 10년이라는 시간 동안 이곳에서 참 많은 환자분과 보호자분을 만나왔습니다.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 현재 어떤 업무를 담당하시나요?</h4>
+              <p class="qa-answer">주로 중증 환자들의 활력징후를 모니터링하고, CRRT나 인공호흡기 같은 생명 유지 장치들을 관리합니다. 환자가 스스로 말하지 못하는 경우가 많아, 수치와 데이터, 그리고 미세한 신체 변화를 통해 환자의 상태를 읽어내는 것이 제 주된 일입니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 일을 하면서 가장 중요하게 생각하는 것은 무엇인가요?</h4>
-              <p class="qa-answer">제 하루는 인수인계로 시작됩니다. 밤사이 환자분들의 활력징후와 인공호흡기, 수액 상태를 꼼꼼히 확인하고, 낮 동안에도 작은 변화 하나까지 놓치지 않으려 계속 모니터링해요. 응급 상황은 예고 없이 찾아오기 때문에, 동료들과의 호흡이 무엇보다 중요합니다. 서로 눈빛만 봐도 다음 행동을 알 수 있을 정도로 손발을 맞춰온 팀이 있다는 게 이 일을 버티게 해주는 힘인 것 같아요.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 우리 부서의 역할과 중요성은?</h4>
+              <p class="qa-answer">병원의 '최후의 방어선'이라고 생각합니다. 아주 작은 변화가 생명과 직결되기 때문에, 선제적으로 문제를 파악하고 의료진과 소통해 즉각적인 처치가 이루어지도록 조율하는 나침반 역할을 합니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 가장 기억에 남는 순간이 있다면?</h4>
-              <p class="qa-answer">의식이 없던 환자분이 어느 날 아침 눈을 뜨고 제 손을 꼭 잡아주셨던 때예요. 며칠 밤낮으로 지켜봐 온 시간이 주마등처럼 스쳐 지나가면서, 이 일을 계속해야겠다고 다짐하게 된 순간이었습니다. 물론 힘든 순간도 많습니다. 최선을 다했음에도 환자분을 보내드려야 할 때는 지금도 마음이 무겁습니다. 그럴 때마다 동료들과 서로 다독이며 다시 일어설 힘을 얻어요.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 팀 문화는 어떤가요?</h4>
+              <p class="qa-answer">조용하지만 가장 치열한 팀워크를 자랑합니다. 응급 상황(Code)이 발생하면 누가 먼저랄 것 없이 각자의 포지션에서 손발을 맞춥니다. 철저한 원칙주의자들 같지만, 듀티가 끝나면 서로의 멘탈을 챙겨주는 끈끈한 전우애가 있어요.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 분야를 꿈꾸는 후배에게 하고 싶은 말은?</h4>
-              <p class="qa-answer">중환자실 간호사를 꿈꾸는 후배가 있다면, 완벽하지 않아도 괜찮다는 말씀을 드리고 싶어요. 매 순간이 배움이라고 생각하고, 혼자 다 하려 하지 않고 동료를 믿고 함께 움직이는 법을 먼저 배우셨으면 합니다. 그 마음가짐이 있다면 분명 이 일을 오래, 잘 해내실 수 있을 거예요.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 비전은 무엇인가요?</h4>
+              <p class="qa-answer">중환자 전문 간호사로서의 임상 지식을 끝없이 깊게 파고드는 것입니다. 동시에, 오프 때는 일 생각을 완전히 스위치 오프하고 저만의 체력을 기르며 '오래도록 단단하게 일하는 사람'이 되고 싶습니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 지원자를 위한 팁이 있다면?</h4>
+              <p class="qa-answer">해부학과 생리학 등 탄탄한 이론적 배경이 정말 중요합니다. 기계의 알람이 울릴 때 왜 울리는지 원리를 아는 것과 모르는 것은 대처 속도에서 큰 차이를 만드니까요.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 나에게 병원이란?</h4>
+              <p class="qa-answer">'생명의 무게를 배우는 곳'. 가끔은 그 무게가 버겁기도 하지만, 제가 배운 지식이 누군가의 심장을 다시 뛰게 할 수 있다는 사실이 저를 끊임없이 성장하게 만듭니다.</p>
             </div>
           </div>
         </article>
@@ -187,26 +194,34 @@
             </div>
             <div class="interview-headline">
               <p class="interview-greeting">안녕하세요.</p>
-              <h3 class="interview-title">새 생명이 세상에 나오는 첫 순간을 함께하는 분만실 간호사 이ㅇ수입니다.</h3>
-              <p class="interview-byline">이ㅇ수 <span>주임간호사</span> · 분만실 · 7년차</p>
+              <h3 class="interview-title">두 생명의 안전한 만남을 돕는 감성 가이드, 이*아 간호사입니다.</h3>
+              <p class="interview-byline">이*아 <span>간호사</span> · 분만실</p>
             </div>
           </div>
           <div class="interview-essay">
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 업무를 소개해 주세요</h4>
-              <p class="qa-answer">분만실은 산모분과 함께 진통부터 분만까지의 전 과정을 지나는 공간이에요. 태아 심박수를 감시하고 진통 단계마다 필요한 처치를 하다 보면, 짧게는 몇 시간, 길게는 하루 종일 산모분 곁을 지키게 됩니다. 7년째 이 자리를 지키고 있지만, 매번 새로운 생명을 맞이하는 순간의 떨림은 조금도 줄어들지 않아요.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 현재 어떤 업무를 담당하시나요?</h4>
+              <p class="qa-answer">산모의 진통부터 출산, 그리고 태아의 첫 울음이 터지는 순간까지 모든 과정을 함께합니다. 태아 안녕 평가(NST)를 모니터링하고, 분만 진행 상황을 체크하며, 산모가 두려움을 이겨낼 수 있도록 정서적인 지지와 라마즈 호흡을 돕는 역할을 합니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 일을 하면서 가장 중요하게 생각하는 것은 무엇인가요?</h4>
-              <p class="qa-answer">예정된 분만도 있지만 응급 분만도 정말 많습니다. 언제 상황이 급박해질지 모르기 때문에 늘 준비된 상태를 유지하는 게 이 일의 기본이에요. 체력적으로 힘든 날도 많지만, 그만큼 순간순간 집중력을 잃지 않으려 노력하고 있습니다.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 우리 부서의 역할과 중요성은?</h4>
+              <p class="qa-answer">유일하게 '새로운 생명이 탄생하는 기쁨'이 있는 곳입니다. 하지만 동시에 산모와 태아 두 명의 생명을 동시에 지켜내야 하는 고도의 긴장감이 존재하는 곳이기도 하죠. 안전한 출산 환경을 만드는 시작점입니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 가장 기억에 남는 순간이 있다면?</h4>
-              <p class="qa-answer">가장 기억에 남는 순간은 역시 아이의 첫 울음을 듣는 순간이에요. 산모분이 눈물을 글썽이며 고맙다고 손을 잡아주실 때, 이 일을 선택하길 정말 잘했다는 생각이 듭니다. 반대로 예상치 못한 상황이 생겨 긴장했던 순간들도 있었지만, 그런 경험들이 쌓여 지금의 저를 만들어준 것 같아요.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 팀 문화는 어떤가요?</h4>
+              <p class="qa-answer">감정적인 교류가 깊은 '자매' 같은 분위기입니다. 새 생명이 태어날 때 다 같이 기뻐하고, 때로는 힘든 상황에서 서로 어깨를 토닥이며 위로를 나눕니다. 서로의 눈빛만 봐도 무엇이 필요한지 아는 눈치가 백단인 팀이에요.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 분야를 꿈꾸는 후배에게 하고 싶은 말은?</h4>
-              <p class="qa-answer">이 길을 꿈꾸는 후배들에게는, 체력 관리와 평정심을 유지하는 자신만의 방법을 꼭 만들어두라고 말씀드리고 싶어요. 긴장되는 순간에도 침착함을 잃지 않는 것, 그것이 분만실 간호사에게 가장 필요한 덕목이라고 생각합니다.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 비전은 무엇인가요?</h4>
+              <p class="qa-answer">산모들이 출산이라는 미지의 경험을 두려움이 아닌 축복으로 느낄 수 있도록 돕는 전문가가 되고 싶습니다. 일적으로는 조산사 자격에 도전해보고 싶고, 개인적으로는 나중에 따뜻한 에세이 한 권을 써보고 싶어요.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 지원자를 위한 팁이 있다면?</h4>
+              <p class="qa-answer">임상 스킬만큼이나 '공감 능력'이 중요합니다. 극심한 통증 속에서 예민해진 산모의 마음을 헤아리고 다독일 수 있는 따뜻한 언어 습관을 길러두시면 큰 무기가 될 거예요.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 나에게 병원이란?</h4>
+              <p class="qa-answer">'가장 경이로운 다큐멘터리 극장'. 매일 새로운 생명이 세상과 만나는 경이로운 순간을 제일 먼저 목격할 수 있다는 특권이 있는 곳입니다.</p>
             </div>
           </div>
         </article>
@@ -218,26 +233,34 @@
             </div>
             <div class="interview-headline">
               <p class="interview-greeting">안녕하세요.</p>
-              <h3 class="interview-title">환자분과 가장 가까이에서, 가장 오래 함께하는 병동 간호사 박ㅇ진입니다.</h3>
-              <p class="interview-byline">박ㅇ진 <span>간호사</span> · 병동 · 4년차</p>
+              <h3 class="interview-title">24시간 환자의 곁에서 가장 치열하게 회복을 이끄는 박*영 간호사입니다.</h3>
+              <p class="interview-byline">박*영 <span>간호사</span> · 병동</p>
             </div>
           </div>
           <div class="interview-essay">
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 업무를 소개해 주세요</h4>
-              <p class="qa-answer">병동에서는 입원해 계신 환자분들의 전반적인 간호와 투약, 처치를 담당하고 있어요. 매일 회진에 동행하고, 검사를 준비하고, 보호자분들의 질문에 답해드리다 보면 하루가 정말 빠르게 지나갑니다.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 현재 어떤 업무를 담당하시나요?</h4>
+              <p class="qa-answer">담당 환자들의 24시간을 책임지며 직접적인 간호 실무를 수행합니다. 정규 투약부터 수액 요법 관리, 상처 소독, 각종 배액관 관리 등의 처치(Acting)를 진행하고, 시시각각 변하는 환자의 활력징후와 증상을 모니터링하여 즉각적으로 대처합니다. 응급 상황 발생 시 주치의에게 정확하게 노티(Notify)하고 발 빠르게 초기 대응을 하는 것 역시 핵심 업무입니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 일을 하면서 가장 중요하게 생각하는 것은 무엇인가요?</h4>
-              <p class="qa-answer">신입 시절에는 손이 느려서 스스로에게 실망한 날이 많았어요. 그런데 선배들이 “처음엔 다 그렇다”며 곁에서 함께 해주셨던 게 지금까지도 큰 힘이 되고 있습니다. 그 마음을 이제는 제가 후배들에게 돌려주려고 노력해요.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 우리 부서의 역할과 중요성은?</h4>
+              <p class="qa-answer">병원에서 환자가 가장 오랜 시간을 머무는 곳이자, 치료의 결과가 실제 '회복'으로 이어지는 최전선입니다. 의사의 처방이 환자에게 도달하는 최종 관문이기에, 우리가 환자의 작은 변화를 놓치지 않고 얼마나 빠르고 정확하게 처치하느냐가 전체 예후를 좌우합니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 가장 기억에 남는 순간이 있다면?</h4>
-              <p class="qa-answer">가장 뿌듯한 순간은 퇴원하시는 환자분이 “고생 많았다”고 한마디 건네주실 때예요. 별것 아닌 말 같아도, 그 한마디에 힘든 하루의 피로가 눈 녹듯 사라지곤 합니다.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 팀 문화는 어떤가요?</h4>
+              <p class="qa-answer">마치 유기체처럼 움직입니다. 액팅과 차팅(Charting)이 폭풍처럼 쏟아지는 듀티 중에도, 옆 연차가 바빠 보이면 말하지 않아도 서로 수액을 연결해 주거나 콜벨을 대신 받아주는 끈끈한 '전우애'가 있습니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 분야를 꿈꾸는 후배에게 하고 싶은 말은?</h4>
-              <p class="qa-answer">병동 간호사를 꿈꾸는 분들께는, 완벽함보다 성실함이 먼저라는 말씀을 드리고 싶어요. 하루하루 성실하게 쌓아가다 보면 손도, 마음도 자연스럽게 여물어갈 거예요.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 비전은 무엇인가요?</h4>
+              <p class="qa-answer">어떤 케이스의 중증 환자가 배정되어도 흔들림 없이 간호를 수행할 수 있는 단단한 내공의 임상 전문가가 되는 것입니다. 그리고 퇴근 후에는 병원에서의 긴장감을 완전히 내려놓고 저만의 건강한 일상을 챙기는 워라밸을 지켜가고 싶습니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 지원자를 위한 팁이 있다면?</h4>
+              <p class="qa-answer">수많은 환자의 요구와 처방이 동시다발적으로 쏟아질 때, 어떤 처치가 환자의 생명과 직결되는지 파악하는 '우선순위 설정(Prioritization)' 능력이 가장 중요합니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 나에게 병원이란?</h4>
+              <p class="qa-answer">'사람을 배우는 학교'. 정말 다양한 배경과 성향을 가진 환자와 보호자들을 만나면서, 소통하는 법과 인간에 대한 이해의 폭이 하루하루 넓어지고 있습니다.</p>
             </div>
           </div>
         </article>
@@ -249,26 +272,34 @@
             </div>
             <div class="interview-headline">
               <p class="interview-greeting">안녕하세요.</p>
-              <h3 class="interview-title">1분 1초가 소중한 응급실의 최전선을 지키고 있는 정ㅇ아입니다.</h3>
-              <p class="interview-byline">정ㅇ아 <span>책임간호사</span> · 응급실 · 9년차</p>
+              <h3 class="interview-title">골든타임의 최전선에서 혼란을 질서로 바꾸는 최*지 간호사입니다.</h3>
+              <p class="interview-byline">최*지 <span>간호사</span> · 응급실</p>
             </div>
           </div>
           <div class="interview-essay">
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 업무를 소개해 주세요</h4>
-              <p class="qa-answer">응급실은 중증도에 따라 환자분을 신속히 분류하고, 응급처치부터 각종 검사와 시술 보조까지 빠르게 대응해야 하는 곳이에요. 하루도 같은 날이 없다는 말이 딱 맞는 곳이죠.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 현재 어떤 업무를 담당하시나요?</h4>
+              <p class="qa-answer">응급실 문을 열고 들어오는 환자들의 중증도를 분류(Triage)하고, 심정지나 중증 외상 등 촌각을 다투는 응급 상황에서 빠르고 정확한 초기 처치를 수행합니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 일을 하면서 가장 중요하게 생각하는 것은 무엇인가요?</h4>
-              <p class="qa-answer">언제 어떤 환자분이 오실지 예측할 수 없기 때문에, 매뉴얼을 숙지하는 것만큼이나 순간적인 판단력이 중요합니다. 9년을 이곳에서 지내면서 얻은 가장 큰 자산은, 어떤 상황에서도 침착함을 잃지 않는 법을 배운 것이라고 생각해요.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 우리 부서의 역할과 중요성은?</h4>
+              <p class="qa-answer">병원의 '첫인상이자 방패'입니다. 진단명이 없는 상태로 들어오는 환자들의 첫 순간을 마주하기 때문에, 빠르고 날카로운 초기 평가가 환자의 예후를 완전히 바꿀 수 있습니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 가장 기억에 남는 순간이 있다면?</h4>
-              <p class="qa-answer">위급했던 환자분이 무사히 회복해서 나중에 감사 인사를 하러 와주실 때, 그동안의 긴장과 피로가 한순간에 보상받는 기분이 들어요. 물론 뜻대로 되지 않는 순간들도 있지만, 그런 날에도 동료들과 서로를 다독이며 다시 힘을 냅니다.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 팀 문화는 어떤가요?</h4>
+              <p class="qa-answer">마치 특수부대 같습니다. 평소에는 서로 장난도 잘 치고 유쾌하지만, 중증 환자가 들어오면 눈빛부터 변하며 일사불란하게 움직입니다. 예측 불가능한 상황을 매일 함께 헤쳐 나가다 보니 동료애가 남다릅니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 분야를 꿈꾸는 후배에게 하고 싶은 말은?</h4>
-              <p class="qa-answer">응급실을 꿈꾸는 후배가 있다면, 체력과 마음의 근력을 함께 키우라고 말씀드리고 싶어요. 그리고 혼자 견디려 하지 말고, 동료에게 기대는 법도 꼭 배우시길 바랍니다.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 비전은 무엇인가요?</h4>
+              <p class="qa-answer">어떤 극한 상황에서도 평정심을 잃지 않는 베테랑 응급 간호사가 되는 것입니다. 그리고 퇴근 후에는 병원에서의 긴장감을 완벽히 털어내고 저만의 취미 생활에 100% 몰입하는 삶을 즐기고 싶습니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 지원자를 위한 팁이 있다면?</h4>
+              <p class="qa-answer">빠른 상황 판단력과 유연함이 필요합니다. 교과서처럼 흘러가지 않는 상황이 대부분이거든요. 그리고 생각보다 감정 노동이 있는 곳이라, 스트레스를 자신만의 방법으로 쿨하게 넘길 수 있는 멘탈 관리가 필수입니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 나에게 병원이란?</h4>
+              <p class="qa-answer">'나의 한계를 깨주는 스파링 파트너'. 매일매일 새로운 위급 상황이 닥치지만, 그걸 해결해 나갈 때마다 제 능력이 한 뼘씩 더 커지는 걸 느낍니다.</p>
             </div>
           </div>
         </article>
@@ -280,26 +311,34 @@
             </div>
             <div class="interview-headline">
               <p class="interview-greeting">안녕하세요.</p>
-              <h3 class="interview-title">한 치의 오차도 허용되지 않는 정확함의 공간, 수술실을 지키는 최ㅇ훈입니다.</h3>
-              <p class="interview-byline">최ㅇ훈 <span>수석간호사</span> · 수술실 · 12년차</p>
+              <h3 class="interview-title">수술실이라는 무대 위 완벽한 디테일을 세팅하는 윤*호 간호사입니다.</h3>
+              <p class="interview-byline">윤*호 <span>간호사</span> · 수술실</p>
             </div>
           </div>
           <div class="interview-essay">
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 업무를 소개해 주세요</h4>
-              <p class="qa-answer">수술실 간호사는 수술 전 기구와 재료를 준비하는 것부터, 수술 중 집도의 곁에서 보조하고, 수술 후 기록을 정리하는 것까지 전 과정을 함께합니다. 12년째 이 일을 하고 있지만 여전히 수술방에 들어설 때마다 긴장의 끈을 놓지 않아요.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 현재 어떤 업무를 담당하시나요?</h4>
+              <p class="qa-answer">소독 간호사(Scrub)로서 집도의가 수술을 원활히 진행할 수 있도록 해부학적 구조를 예측해 적시에 기구를 건네고, 순환 간호사(Circulating)로서 수술실 내 무균 환경을 감시하며 장비와 물품을 지원하는 업무를 합니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 일을 하면서 가장 중요하게 생각하는 것은 무엇인가요?</h4>
-              <p class="qa-answer">하루에도 여러 진료과의 다양한 수술이 이어지다 보니, 매번 다른 종류의 집중력이 필요합니다. 처음에는 그 전환이 낯설고 힘들었는데, 이제는 그 다양함이 오히려 이 일의 매력이라고 느껴져요.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 우리 부서의 역할과 중요성은?</h4>
+              <p class="qa-answer">환자의 질환을 물리적으로 직접 해결하는 핵심 구역입니다. 수술실에서의 사소한 오염이나 기구의 카운트 실수는 치명적인 결과로 이어질 수 있기 때문에, 감염 관리와 환자 안전을 통제하는 매우 엄격하고 중요한 역할을 합니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 가장 기억에 남는 순간이 있다면?</h4>
-              <p class="qa-answer">길고 어려웠던 수술이 무사히 끝나고 수술방 전체가 안도의 한숨을 내쉬는 순간, 그 짜릿함은 몇 번을 겪어도 익숙해지지 않습니다. 그 순간을 위해 이 일을 계속하고 있다고 해도 과언이 아니에요.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 팀 문화는 어떤가요?</h4>
+              <p class="qa-answer">군더더기 없이 깔끔하고 프로페셔널합니다. 수술 중에는 마스크를 쓰고 있어 눈빛과 짧은 손짓만으로 소통해야 하므로 고도의 집중력을 요구합니다. 업무가 명확하게 분리되어 있어 개인의 전문성이 크게 존중받는 분위기입니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 분야를 꿈꾸는 후배에게 하고 싶은 말은?</h4>
-              <p class="qa-answer">이 길을 꿈꾸는 후배들에게는 꼼꼼함과 냉정함을 함께 갖추는 연습을 꾸준히 해보라고 권하고 싶어요. 처음엔 낯설어도, 반복하다 보면 자연스럽게 몸에 배게 될 겁니다.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 비전은 무엇인가요?</h4>
+              <p class="qa-answer">최신 로봇 수술이나 복잡한 이식 수술 등 고난도 수술의 마스터가 되는 것입니다. 사생활에서는 쉴 때 확실히 쉬면서 일과 삶의 철저한 분리를 통해 롱런하는 직장인이 되고 싶습니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 지원자를 위한 팁이 있다면?</h4>
+              <p class="qa-answer">강인한 체력과 인내심이 기본입니다. 긴 시간 서 있어야 하고 집중해야 하니까요. 더불어 수술 기구와 해부학적 지식에 대해 암기해야 할 양이 방대하므로 꼼꼼하게 정리하고 학습하는 습관을 들이시면 좋습니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 나에게 병원이란?</h4>
+              <p class="qa-answer">'정교한 톱니바퀴'. 수술실 밖과는 완전히 다른 세상이 펼쳐지는 곳이며, 외과 의사, 마취과 의사, 간호사들이 하나의 톱니바퀴처럼 완벽히 맞물려 돌아갈 때 최고의 희열을 느낍니다.</p>
             </div>
           </div>
         </article>
@@ -311,26 +350,34 @@
             </div>
             <div class="interview-headline">
               <p class="interview-greeting">안녕하세요.</p>
-              <h3 class="interview-title">마취에서 깨어나는 그 순간 가장 먼저 곁을 지키는 회복실 간호사 한ㅇ미입니다.</h3>
-              <p class="interview-byline">한ㅇ미 <span>간호사</span> · 회복실 · 5년차</p>
+              <h3 class="interview-title">수술실 안팎에서 마취의 시작과 안전한 회복을 함께하는 정*희 간호사입니다.</h3>
+              <p class="interview-byline">정*희 <span>간호사</span> · 마취회복실</p>
             </div>
           </div>
           <div class="interview-essay">
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 업무를 소개해 주세요</h4>
-              <p class="qa-answer">회복실에서는 수술 직후 환자분의 의식 회복과 활력징후를 세심하게 관찰합니다. 통증이나 오심 같은 초기 합병증을 놓치지 않고 바로 대응하는 것이 저희의 가장 중요한 역할이에요.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 현재 어떤 업무를 담당하시나요?</h4>
+              <p class="qa-answer">저희 업무는 크게 수술실 내부와 회복실 두 공간으로 나뉩니다. 수술실 안에서는 마취통증의학과 교수님과 함께 환자의 기도 확보(Intubation)를 돕고, 수술 중 마취 유도 및 유지가 안정적으로 이루어지도록 혈역학적 수치를 모니터링하며 처치를 돕습니다. 수술이 끝나면 환자를 회복실(PACU)로 인계받아, 전신 및 부위 마취에서 안전하게 깨어날 수 있도록 자가 호흡 회복을 돕고 급격한 통증과 오심을 컨트롤합니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 일을 하면서 가장 중요하게 생각하는 것은 무엇인가요?</h4>
-              <p class="qa-answer">짧은 시간 안에 여러 환자분의 회복 상태를 동시에 살펴야 해서 순환이 정말 빠른 편입니다. 5년을 이곳에서 일하면서, 작은 변화를 알아채는 관찰력이 점점 예민해지는 걸 스스로도 느끼고 있어요.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 우리 부서의 역할과 중요성은?</h4>
+              <p class="qa-answer">수술의 가장 첫 단추인 '마취'부터, 가장 불안정한 시기인 '회복'의 골든타임을 지키는 곳입니다. 마취에서 깨어나는 과정은 심혈관계 및 호흡기계의 급격한 변화가 일어날 수 있는 위급한 순간이기 때문에, 고도의 집중력으로 환자의 생명 징후를 방어해야 합니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 가장 기억에 남는 순간이 있다면?</h4>
-              <p class="qa-answer">눈을 뜬 환자분이 안심한 표정으로 저를 바라봐 주실 때, 제가 하는 일의 의미를 다시 한번 느끼게 됩니다. 마취에서 깨어나는 그 불안한 순간에 누군가 곁에 있다는 사실만으로도 큰 안정감을 드릴 수 있다는 게, 이 일의 가장 큰 보람인 것 같아요.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 팀 문화는 어떤가요?</h4>
+              <p class="qa-answer">마취 간호와 회복실 환자 케어를 동시에 소화하다 보니 업무 회전이 빠르고 굉장히 다이나믹합니다. 그만큼 위급 상황에서의 피드백이 즉각적이고, 서로의 포지션을 완벽하게 백업해 주는 속도가 엄청납니다. 실무 노하우 공유가 투명한 스마트한 조직입니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 분야를 꿈꾸는 후배에게 하고 싶은 말은?</h4>
-              <p class="qa-answer">회복실을 꿈꾸는 후배가 있다면, 순간의 변화를 놓치지 않는 관찰력과 순발력을 꾸준히 키워보시길 권해드리고 싶어요.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 비전은 무엇인가요?</h4>
+              <p class="qa-answer">다양한 마취제와 진통제에 대한 약리학적 지식을 마스터해, 호흡 간호와 통증 조절의 스페셜리스트가 되는 것입니다. 수술이라는 큰 고비를 넘긴 환자가 안전한 첫 숨을 쉴 수 있도록 곁을 지키고 싶습니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 지원자를 위한 팁이 있다면?</h4>
+              <p class="qa-answer">마취 약물과 심혈관계, 호흡기계 해부생리에 대한 깊은 이해가 필수적입니다. 발관(Extubation) 직후의 불안정한 환자나 마취 덜 깬 상태에서 섬망을 보이는 환자를 안전하게 케어할 수 있는 단단하고 침착한 마인드 컨트롤 능력도 중요합니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 나에게 병원이란?</h4>
+              <p class="qa-answer">'안전한 첫 숨을 내어주는 공간'. 환자가 수술이라는 큰 고비를 넘기고 무사히 눈을 떠 안도하는 그 첫 순간을 지켜볼 때, 제 직업의 진짜 가치를 느낍니다.</p>
             </div>
           </div>
         </article>
@@ -342,26 +389,34 @@
             </div>
             <div class="interview-headline">
               <p class="interview-greeting">안녕하세요.</p>
-              <h3 class="interview-title">의료진과 환자 사이를 한 발 더 다가가 연결하는 전담간호사 조ㅇ현입니다.</h3>
-              <p class="interview-byline">조ㅇ현 <span>전담간호사</span> · 전담간호사 · 8년차</p>
+              <h3 class="interview-title">근거 기반 실무로 임상 간호의 깊이를 더하는 한*안 간호사입니다.</h3>
+              <p class="interview-byline">한*안 <span>간호사</span> · 전담간호사</p>
             </div>
           </div>
           <div class="interview-essay">
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 업무를 소개해 주세요</h4>
-              <p class="qa-answer">저는 특정 진료과와 긴밀하게 협업하며 환자 관리와 처치, 시술 보조 등 전문화된 업무를 맡고 있어요. 의료진 회진에 동행하는 것부터 환자 상태를 지속적으로 모니터링하고 기록하는 일까지, 업무 범위가 꽤 넓은 편입니다.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 현재 어떤 업무를 담당하시나요?</h4>
+              <p class="qa-answer">세분화된 특정 전문 분야에서 심도 있는 임상 업무를 수행합니다. 중증도가 높거나 복잡한 질환을 가진 환자 및 보호자에게 치료 과정에 대한 심층적인 교육을 제공합니다. 또한 최신 실무 지침(Protocol)을 병원 환경에 맞게 개발하고, 의료진과 협력하여 환자 맞춤형 심화 간호 중재를 직접 수행합니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 일을 하면서 가장 중요하게 생각하는 것은 무엇인가요?</h4>
-              <p class="qa-answer">8년째 이 역할을 하면서 느낀 건, 전문성이라는 게 하루아침에 쌓이지 않는다는 사실이에요. 매번 새로운 사례를 마주할 때마다 공부하고, 의료진과 소통하며 조금씩 제 영역을 넓혀왔습니다.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 우리 부서의 역할과 중요성은?</h4>
+              <p class="qa-answer">병동이나 외래에서 다루기 힘든 특수하고 전문적인 간호 영역을 책임집니다. 전문간호사(APN)로서 고도로 훈련된 임상적 판단을 바탕으로 합병증을 예방하고 치료 효과를 극대화하며, 병원 전체의 간호 질(Quality)을 한 차원 높이는 스페셜리스트 역할을 합니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 가장 기억에 남는 순간이 있다면?</h4>
-              <p class="qa-answer">전문성을 인정받아 의료진과 원활하게 협업하고, 그 결과로 환자분께 더 나은 치료를 제공했다고 느낄 때 가장 큰 성취감을 느껴요. 그 순간들이 쌓여 지금의 제가 있다고 생각합니다.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 팀 문화는 어떤가요?</h4>
+              <p class="qa-answer">개인의 독립성과 학구적인 분위기가 강합니다. 주도적으로 환자 케이스를 분석하고 교육 자료를 기획해야 하죠. 타 부서 간호사들은 물론 진료과 의료진들과 직접적으로 임상적 의견을 나누고 협업하는 경우가 많아, 상호 존중과 전문성이 기본 바탕이 됩니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 분야를 꿈꾸는 후배에게 하고 싶은 말은?</h4>
-              <p class="qa-answer">전담간호사를 꿈꾸는 후배들에게는, 꾸준한 학습과 자기계발을 게을리하지 않는 것이 가장 확실한 성장의 열쇠라는 말씀을 드리고 싶어요.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 비전은 무엇인가요?</h4>
+              <p class="qa-answer">제가 맡은 세부 전공 분야에서만큼은 누구에게나 인정받는 최고의 마스터가 되는 것입니다. 현재에 안주하지 않고 임상 대학원 진학이나 연구(Research) 참여를 통해 제 간호 실무의 이론적 근거를 더욱 탄탄하게 다지는 것이 목표입니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 지원자를 위한 팁이 있다면?</h4>
+              <p class="qa-answer">임상 경험을 바탕으로 스스로 문제를 발견하고 해결책을 찾아가는 '주도성'과 '탐구력'이 필요합니다. 연차가 쌓이면서 자신이 유독 깊게 파고들고 싶은 세부 질환이나 간호 영역을 미리 고민해 보시는 것을 추천합니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 나에게 병원이란?</h4>
+              <p class="qa-answer">'무한한 성장의 캔버스'. 정해진 매뉴얼을 넘어 제가 주도적으로 간호의 영역을 넓히고 전문성을 그려나갈 수 있는 기회의 장입니다.</p>
             </div>
           </div>
         </article>
@@ -373,26 +428,34 @@
             </div>
             <div class="interview-headline">
               <p class="interview-greeting">안녕하세요.</p>
-              <h3 class="interview-title">병원을 찾는 분들의 첫 마음을 가장 먼저 만나는 외래 간호사 윤ㅇ주입니다.</h3>
-              <p class="interview-byline">윤ㅇ주 <span>간호사</span> · 외래 · 6년차</p>
+              <h3 class="interview-title">복잡한 진료실의 흐름을 조율하고, 환자의 길잡이가 되어주는 오*훈 간호사입니다.</h3>
+              <p class="interview-byline">오*훈 <span>간호사</span> · 외래</p>
             </div>
           </div>
           <div class="interview-essay">
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 업무를 소개해 주세요</h4>
-              <p class="qa-answer">외래에서는 진료 전후 환자분을 응대하고, 검사를 안내하고, 처치를 보조하는 등 외래 진료의 전 과정을 지원하고 있어요. 하루에 정말 많은 분을 만나기 때문에, 정확하고 친절한 응대가 무엇보다 중요합니다.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 현재 어떤 업무를 담당하시나요?</h4>
+              <p class="qa-answer">외래 진료가 시작되기 전 필요한 기구나 물품을 세팅하고, 하루 동안 교수님의 진료가 지연 없이 매끄럽게 흘러가도록 돕는 것이 제 주된 업무입니다. 짧은 진료 시간 안에 교수님이 환자에게 온전히 집중하실 수 있도록 진료실 내 처치(단순 소독, 실밥 제거 준비 등)를 어시스트합니다. 그리고 진료실 밖에서는 대기 환자들의 순서를 관리하고, 진료가 끝난 환자분들께 다음 예약 일정, 복잡한 검사 동선, 투약 방법 등을 알기 쉽게 설명해 드리는 안내자 역할을 하고 있습니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 일을 하면서 가장 중요하게 생각하는 것은 무엇인가요?</h4>
-              <p class="qa-answer">처음 병원을 찾으시는 분들은 대부분 긴장하거나 불안해하세요. 그런 분들께 편안함을 드리는 것도 제 역할 중 하나라고 생각하며 하루하루 임하고 있습니다.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 우리 부서의 역할과 중요성은?</h4>
+              <p class="qa-answer">대학병원은 규모가 크고 시스템이 복잡해서 환자분들이 길을 잃거나 당황하기 쉽습니다. 저희는 짧은 진료 후 쏟아지는 환자들의 수많은 질문(검사실 위치, 수납 방법, 약 타는 곳 등)을 해결해 주는 '나침반' 같은 역할을 합니다. 또한 의사와 환자 사이, 그리고 원무팀, 검사실 등 타 부서 사이에서 끊임없이 소통하며, 병원이라는 커다란 톱니바퀴가 멈추지 않고 돌아가게 만드는 '윤활유'이자 진료실의 '교통경찰'이라고 생각합니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 가장 기억에 남는 순간이 있다면?</h4>
-              <p class="qa-answer">불안해하시던 환자분이 진료를 마치고 안심한 얼굴로 돌아가실 때, 마음 한켠이 뿌듯해져요. 사소해 보이는 순간들이지만, 그런 순간들이 모여 저를 이 자리에 있게 하는 것 같아요.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 팀 문화는 어떤가요?</h4>
+              <p class="qa-answer">하루에도 수십, 수백 명의 환자를 만나고 끊임없이 울리는 전화를 받아야 해서 그야말로 '폭풍우 치듯' 바쁩니다. 진료 지연이 생기면 환자분들의 컴플레인을 가장 먼저 마주해야 하는 고충도 있죠. 하지만 그만큼 동료들과 전우애가 끈끈합니다. 바쁜 진료 세션이 끝난 뒤 다 같이 "오늘도 무사히 넘겼다!"며 안도할 때의 쾌감이 큽니다. 무엇보다 교대 근무가 아닌 상근직 형태이다 보니, 퇴근 시간이 명확해서 개인의 시간을 철저히 존중해 주는 산뜻하고 깔끔한 문화가 가장 큰 장점입니다.</p>
             </div>
             <div class="qa-block">
-              <h4 class="qa-question">Q. 이 분야를 꿈꾸는 후배에게 하고 싶은 말은?</h4>
-              <p class="qa-answer">외래를 꿈꾸는 후배들에게는, 다양한 분을 만나는 만큼 소통 능력을 기르는 것이 큰 자산이 될 거라는 말씀을 드리고 싶습니다.</p>
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 비전은 무엇인가요?</h4>
+              <p class="qa-answer">어떤 돌발 상황이나 컴플레인 앞에서도 유연하고 둥글게 대처할 수 있는 단단한 멘탈을 가진 베테랑이 되고 싶습니다. 제가 속한 진료과의 검사 과정이나 약물 지식을 꼼꼼히 쌓아서, 고령의 환자분들에게도 찰떡같이 이해되는 설명을 해드리고 싶어요. 그리고 개인적으로는 주말 오프와 저녁이 있는 삶을 십분 활용해, 미뤄뒀던 취미 생활도 마음껏 즐기며 몸과 마음이 모두 건강한 직장인으로 롱런하는 것이 목표입니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 지원자를 위한 팁이 있다면?</h4>
+              <p class="qa-answer">외래는 그 어떤 부서보다 '멀티태스킹'과 '순발력'이 필수입니다. 환자에게 안내를 하면서 동시에 전화를 받고, 다음 대기 환자를 파악하는 일이 일상이기 때문입니다. 또한, 진료 대기 시간 등으로 인해 화가 난 환자의 마음을 다독일 수 있는 융통성 있는 소통 능력, 그리고 상처받지 않고 훌훌 털어낼 수 있는 나만의 스트레스 관리법을 꼭 하나쯤 마련해 두시길 추천합니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question"><span class="q-mark">Q.</span> 나에게 병원이란?</h4>
+              <p class="qa-answer">'치열함과 일상의 소중함이 공존하는 곳'. 진료실 앞 대기실은 매일같이 치열한 소통이 오가는 전쟁터 같지만, 역설적으로 규칙적인 퇴근 후의 제 소중한 일상을 가장 안정적으로 지켜주는 든든한 직장이기도 합니다.</p>
             </div>
           </div>
         </article>
@@ -425,7 +488,7 @@
   </div>
 </footer>
 
-<script src="../js/main.js?v=14"></script>
+<script src="../js/main.js?v=15"></script>
 <script>
 (function () {
   var cards = document.querySelectorAll('.interview-card');

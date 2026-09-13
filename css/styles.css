@@ -40,6 +40,7 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   word-break: keep-all;
+  text-align: justify;
 }
 
 a {
@@ -621,18 +622,22 @@ nav:hover .mega-backdrop {
   display: block;
 }
 
+/* 현대차 Team Hyundai 인터뷰 상세페이지 참고 — 사진을 크게, 인사말/이름을
+   가운데 정렬한 헤더 */
 .interview-profile {
   display: flex;
-  align-items: flex-start;
-  gap: 28px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
   margin-bottom: 8px;
   padding-bottom: 32px;
   border-bottom: 1px solid var(--color-border);
 }
 
 .interview-avatar {
-  width: 110px;
-  height: 110px;
+  width: 140px;
+  height: 140px;
   flex-shrink: 0;
   border-radius: 50%;
   background: var(--color-bg-alt);
@@ -672,6 +677,8 @@ nav:hover .mega-backdrop {
 
 .interview-essay {
   padding-top: 32px;
+  max-width: 720px;
+  margin: 0 auto;
 }
 
 .interview-essay p {
@@ -679,6 +686,40 @@ nav:hover .mega-backdrop {
   line-height: 1.95;
   color: var(--color-text);
   margin: 0 0 26px;
+}
+
+/* Q&A 블록 — 참고 페이지처럼 질문을 굵은 헤더로 두고 그 아래 답변을 놓는
+   형식. 기존 4문단 에세이 내용은 그대로 두고 질문 헤더만 붙였다. */
+.qa-block {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.qa-block:first-child {
+  padding-top: 0;
+}
+
+.qa-block:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.qa-question {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0 0 14px;
+  line-height: 1.4;
+}
+
+.qa-answer {
+  font-size: 20px;
+  line-height: 1.8;
+  color: var(--color-text);
+  margin: 0;
 }
 
 .interview-essay p:last-child {
@@ -4187,12 +4228,12 @@ a.crumb-item:hover {
     justify-content: flex-start;
     padding: 12px 0 40px;
     overflow-y: auto;
-    transform: translateY(-120%);
+    transform: translateX(100%);
     transition: transform 0.2s ease;
   }
 
   .gnb.open {
-    transform: translateY(0);
+    transform: translateX(0);
   }
 
   .gnb > li {
@@ -4268,6 +4309,29 @@ a.crumb-item:hover {
 
   .hero h1 {
     font-size: 48px;
+  }
+}
+
+/* 좁은 폰 화면(≈480px 이하)에서는 로고 클러스터(로고+구분선+"간호부")가
+   기존 108px 로고 높이 그대로면 header-tools/nav-toggle을 밀어내 햄버거 버튼이
+   화면 밖으로 잘리는 문제가 있어 축소했었는데, 그때보다 "간호부" 글자를 더
+   줄이고 간격도 좁혀둔 지금은 여유가 생겨서 안암병원 캡처만큼 로고를 다시
+   키워도 버튼이 밀리지 않는다. */
+@media (max-width: 480px) {
+  :root {
+    --logo-overlap-height: 92px;
+  }
+
+  .site-header .wrap {
+    gap: 8px;
+  }
+
+  .brand {
+    gap: 6px;
+  }
+
+  .brand-divider {
+    height: 28px;
   }
 }
 
@@ -7757,4 +7821,774 @@ h1, h2, h3, h4, p, li, a, button {
   }
 }
 
+/* ==========================================================================
+   모바일 메뉴: 좌측 대메뉴 칼럼 + 우측 하위메뉴 패널 2단 레이아웃
+   (안암병원 모바일 메뉴 참고 — 아코디언 방식 대신, 왼쪽 칼럼에서 대메뉴를 탭하면
+   같은 화면 오른쪽에 그 하위메뉴만 바뀌어 나타나는 탭 전환 방식)
+   ========================================================================== */
+@media (max-width: 960px) {
+  :root {
+    /* 참고 이미지처럼 채도 낮은 톤(dusty wine) — 기존 --color-primary/-light는
+       이 메뉴엔 너무 쨍한 빨강이라 톤을 낮춘 전용 색을 쓰고, 헤더 열림 상태도
+       같은 변수를 참조해서 메뉴 색과 항상 맞도록 한다. */
+    --mnav-wine: #7c2c4a;
+    --mnav-wine-light: #a8536f;
+  }
 
+  .gnb {
+    align-items: flex-start;
+    background: #fff;
+  }
+
+  /* .submenu를 .gnb(고정 위치) 기준으로 절대배치하기 위해 li의 포지셔닝 컨텍스트 해제 */
+  .gnb > li {
+    position: static;
+    flex: 0 0 auto;
+    width: 50%;
+    background: var(--mnav-wine-light);
+  }
+
+  .gnb > li.open {
+    background: var(--mnav-wine);
+    border-left: 5px solid var(--color-gold);
+  }
+
+  .gnb > li > a {
+    display: flex;
+    align-items: center;
+    min-height: 30px;
+    border-bottom: none;
+    padding: 24px 16px 24px 26px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.35;
+    color: rgba(255, 255, 255, 0.68);
+    white-space: normal;
+  }
+
+  /* 데스크톱용 '현재 페이지 표시' 빨간 글자(.active) 규칙이 명시도가 높아서
+     모바일 2단 메뉴에서도 그대로 적용돼, 열려있지 않을 때도 그 항목만 빨갛게
+     보였다. 모바일에서는 색상 표시를 전적으로 .open(선택 상태)에만 맡긴다. */
+  .gnb > li.active > a {
+    color: rgba(255, 255, 255, 0.68);
+  }
+
+  /* border-left 5px만큼 왼쪽 패딩을 줄여서, 선택 여부와 상관없이 텍스트 시작
+     위치(정렬)가 항상 똑같이 유지되도록 보정 */
+  .gnb > li.open > a {
+    padding-left: 21px;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  /* bottom/overflow를 따로 주지 않고 내용만큼 자연스럽게 늘어나게 둔다 — .gnb 자체가
+     이미 overflow-y:auto라서, 내용이 길어지면 좌/우가 같이 하나로 스크롤된다.
+     (이전엔 여기 별도로 bottom:0 + overflow-y:auto를 또 줘서 이중 스크롤 영역이
+     생겼고, 거기에 line-height까지 상속받아 커진 탓에 마지막 항목이 잘려 보였다) */
+  .gnb .submenu {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 0;
+    display: none;
+    background: #fff;
+    padding: 0 24px 28px 30px;
+  }
+
+  /* 예전 아코디언 시절 규칙(.gnb > li:not(:first-child) .submenu)이 detail 명시도가
+     더 높아서 첫 번째 대메뉴("간호부 소개")를 제외한 나머지 하위메뉴들의 왼쪽 여백을
+     0으로 되돌리고 있었다 — 그래서 유독 다른 메뉴들만 글자가 왼쪽에 쏠려 보였다.
+     같은 만큼의 명시도로 다시 덮어써서 모든 대메뉴의 하위메뉴가 동일하게 정렬되도록 한다. */
+  .gnb > li:not(:first-child) .submenu {
+    padding-left: 30px;
+  }
+
+  .gnb > li.open > .submenu {
+    display: block;
+  }
+
+  .gnb .submenu li:not(:last-child) a {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .gnb .submenu a {
+    display: flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 20px 2px;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--color-text);
+  }
+
+  /* 헤더 햄버거 버튼: 안암병원처럼 골드 색 사각 버튼으로 */
+  .nav-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border: none;
+    border-radius: 6px;
+    background: var(--color-gold);
+    color: #fff;
+  }
+
+  /* 메뉴가 열리면 햄버거(≡) 아이콘이 X 모양으로 자연스럽게 회전 전환 */
+  .nav-toggle svg line {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .nav-toggle.is-open svg line:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .nav-toggle.is-open svg line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle.is-open svg line:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  /* "간호부" 글자가 축소된 모바일 로고 옆에서 상대적으로 너무 커 보여 부자연스러웠던 것을 보정 */
+  .brand-dept {
+    font-size: 18px;
+  }
+
+  /* 메뉴가 열리면 헤더 전체가 와인색 띠로 바뀌고 로고는 숨겨지는 안암병원 스타일.
+     마크업은 그대로 두고 :has()로 열림 상태만 감지해서 헤더 쪽 색만 바꾼다. */
+  .site-header:has(.gnb.open) {
+    background: var(--mnav-wine);
+    border-top-color: var(--mnav-wine);
+    border-bottom-color: var(--mnav-wine);
+  }
+
+  .site-header:has(.gnb.open) .brand {
+    visibility: hidden;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-dept {
+    font-size: 15px;
+  }
+
+  /* 이 media 블록보다 뒤에 있는 unscoped .site-header .wrap { gap: 28px }
+     규칙이 명시도가 같아서 소스 순서상 이겨버려, 좁은 폰에서 로고+간호부+햄버거
+     버튼 합친 폭이 padding-right를 뚫고 나가 버튼이 화면 오른쪽 끝에 거의 붙어
+     보이던 문제가 있었다(넘치진 않았지만 여유가 0에 가까웠다). 같은 만큼의
+     명시도로 다시 좁혀서 확실히 이기도록 한다. */
+  .site-header .wrap {
+    gap: 8px;
+  }
+
+  .brand {
+    gap: 6px;
+  }
+}
+
+/* ==========================================================================
+   모바일 가로 넘침(overflow) 일괄 점검 후 수정
+   실제 기기 폭(390px)으로 전 페이지를 훑어보니 body의 overflow-x:hidden에 가려서
+   눈에는 안 띄지만, 아래 요소들이 화면 폭보다 넓게 렌더링되며 내용 일부가 잘려
+   보이지 않고 있었다.
+   ========================================================================== */
+@media (max-width: 960px) {
+  /* 1) .cols-2/.cols-3/.cols-4 같은 변형 클래스는 명시도가 더 높아서, 아래쪽
+     미디어쿼리의 일반 .hub-grid/.channel-grid { grid-template-columns:1fr } 축소
+     규칙을 이겨버리고 데스크톱 칼럼 수 그대로 좁은 화면에 욱여넣어지고 있었다
+     (about.html, community.html의 카드가 화면 밖으로 넘쳤던 원인). */
+  .hub-grid.cols-2,
+  .channel-grid.cols-3,
+  .channel-grid.cols-4 {
+    grid-template-columns: 1fr;
+  }
+
+  /* 2) 홈 화면 "간호영역"/"임상역량단계"가 원래 3칼럼·5칼럼 그리드인데 모바일
+     전용 축소 규칙이 아예 없었다. 칼럼마다 배정된 폭보다 글자(한 단어라 줄바꿈이
+     안 되는 "간호교육기획팀", "Advanced Beginner" 등)가 더 넓어서 그리드 트랙
+     자체가 늘어나 버렸고, 그 폭이 그대로 .two-col/.main-col까지 밀어올려 홈
+     화면 전체가 옆으로 넘쳤다. */
+  .area-preview-grid,
+  .level-rings {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* 그리드/플렉스 자식은 기본이 min-width:auto라서, 내용이 배정된 칸보다 넓으면
+     줄어들지 않고 그리드 트랙 자체를 밀어 넘친다. 부모 쪽 칼럼들에 안전하게
+     min-width:0을 줘서, 안에서 무슨 일이 생기든 최소한 이 칼럼들 때문에 페이지
+     전체가 넘치는 일은 없도록 막는다. */
+  .main-col,
+  .side-col {
+    min-width: 0;
+  }
+
+  /* 3) 페이지 상단 브레드크럼(예: 간호영역 > 간호교육기획팀)이 줄바꿈/축소가
+     안 되는 flex 한 줄이라, 하위 페이지 이름이 길면 마지막 홈 아이콘까지
+     화면 밖으로 밀려 잘려 보였다. 줄이는 대신 가로로 스와이프해서 볼 수 있게. */
+  .page-breadcrumb .wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .crumb-home,
+  .crumb-sep,
+  .crumb-item,
+  .crumb-link {
+    flex-shrink: 0;
+  }
+}
+
+/* ==========================================================================
+   헤더/GNB 타이포그래피를 구로병원 공식 홈페이지(guro.kumc.or.kr) 기준으로 조정
+   실제 페이지를 렌더링해서 재본 값: GNB 상위 메뉴 font-weight 400(레귤러),
+   페이지 타이틀 h2 40px/600 — 지금 우리는 GNB가 700(볼드)이라 그쪽보다 훨씬
+   무거워 보인다. 로고가 헤더보다 크게 튀어나오는 오버랩 디자인은 이번 세션에
+   공들여 다듬은 것이라 그대로 유지하고, 글자 무게감만 맞춘다.
+   이 선택자(.gnb > li > a 등)는 파일 앞쪽에 base/1200px/960px/후반부
+   "fluid typography" 구간까지 여러 번 반복 정의돼 있어서, 명시도가 같은 채로
+   먼저 나온 규칙에 밀리지 않도록 반드시 파일 맨 끝에 둔다. */
+.gnb > li > a {
+  font-weight: 600;
+}
+
+.page-title-block h1 {
+  font-weight: 600;
+}
+
+@media (max-width: 1200px) and (min-width: 961px) {
+  .gnb > li > a {
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 960px) {
+  .gnb > li > a {
+    font-weight: 600;
+  }
+
+  .gnb > li.open > a {
+    font-weight: 700;
+  }
+}
+
+/* ==========================================================================
+   상단 브레드크럼(홈 | 간호부 소개 | 간호영역 | 간호교육기획팀)이 좁은 폰
+   화면에서 데스크톱 크기(19px) 그대로라 마지막 항목이 화면 밖으로 밀려
+   보이지 않던 문제. 글자·아이콘·간격을 모두 줄여서 실제로 한 줄 안에 들어오게
+   한다(그래도 유독 긴 조합이 있을 수 있어 앞서 넣어둔 overflow-x:auto는
+   안전장치로 남겨둔다). */
+@media (max-width: 960px) {
+  .page-breadcrumb .wrap {
+    height: auto;
+    min-height: 46px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    gap: 8px;
+  }
+
+  .crumb-item {
+    gap: 3px;
+    font-size: 13px;
+  }
+
+  .crumb-sep {
+    font-size: 12px;
+  }
+
+  .crumb-home svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .crumb-item svg {
+    width: 9px;
+    height: 9px;
+  }
+
+  .crumb-link svg {
+    width: 13px;
+    height: 13px;
+  }
+}
+
+/* ==========================================================================
+   팀 소개 상세페이지(간호영역 하위 6개 팀 페이지 — about-areas-*.html) 폰트가
+   데스크톱 크기 그대로라 폰 화면에서 큰 제목 하나가 화면을 거의 다 차지할
+   정도로 부담스러웠다. 화면 폭에 맞게 전반적으로 축소.
+   ========================================================================== */
+@media (max-width: 960px) {
+  .team-eyebrow {
+    gap: 8px;
+    font-size: 20px;
+    margin-bottom: 18px;
+  }
+
+  .team-eyebrow::before {
+    width: 4px;
+    height: 18px;
+  }
+
+  /* .team-tagline은 <h2> 태그라 ".detail-section h2"(요소+클래스, 특정도가 더
+     높음)에도 동시에 걸려서 51px/38px가 아니라 그 규칙의 34px로 계속
+     보였다 — h2.team-tagline으로 특정도를 맞춰서 확실히 이기게 한다. */
+  h2.team-tagline {
+    font-size: 22px;
+    line-height: 1.45;
+    margin-bottom: 22px;
+  }
+
+  .team-divider {
+    margin-bottom: 22px;
+  }
+
+  .team-intro-box {
+    padding: 22px 20px;
+    border-radius: 12px;
+    margin-bottom: 22px;
+  }
+
+  .team-intro-box .label {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .team-intro-box p {
+    font-size: 15.5px;
+    line-height: 1.75;
+  }
+
+  .duties-heading {
+    font-size: 19px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+  }
+
+  .duties-cols li {
+    font-size: 15.5px;
+    line-height: 1.55;
+  }
+}
+
+
+
+/* auto-generated mobile font-size reduction pass */
+@media (max-width: 960px) {
+  h3.summary-section-title { font-size: 20.0px; } /* was 32px — 임상역량 4단계 전체 비교 (All-Leve */
+  h3.stage-panel-title { font-size: 17.0px; } /* was 24px — 임상 입문단계 */
+  p.lede { font-size: 15.5px; } /* was 22px — 또한 본 체계는 간호사의 전문성 향상과 함께 */
+  span.col-icon-box { font-size: 15.5px; } /* was 22px — 🎯 */
+  h4.summary-card-title { font-size: 15.5px; } /* was 22px — 임상 입문단계 */
+  h4.col-head-title { font-size: 16.5px; } /* was 21px — 핵심 역량 및 업무 범위 */
+  p.detail-kicker { font-size: 15.5px; } /* was 20px — 임상역량 4단계 : 4-Level Clini */
+  span.tab-name { font-size: 15.5px; } /* was 20px — 임상 입문단계 */
+  span.stage-panel-badge { font-size: 15.5px; } /* was 20px — CN1 */
+  p.summary-section-desc { font-size: 15.0px; } /* was 19.5px — 카드를 클릭하면 바운싱 볼이 해당 계단으로  */
+  div.stage-role-motto { font-size: 15.0px; } /* was 19px — 신규간호사의 전문 실무 적응 및 안전한 임상 */
+  span.stage-period-pill { font-size: 15.5px; } /* was 17.5px — 1년 미만 */
+  span.substage-name { font-size: 15.0px; } /* was 17px — 업무 안정성단계 */
+  span.summary-card-badge { font-size: 15.0px; } /* was 17px — CN1 */
+  span.tab-num { font-size: 14.5px; } /* was 16.5px — CN1 */
+  p.summary-card-desc { font-size: 14.5px; } /* was 16.5px — 1:1 프리셉터십, 표준 임상술기 실습, 환 */
+  span.status-text { font-size: 14.0px; } /* was 16px — 자동 순회 중 · 클릭 시 즉시 멈춥니다 */
+  span.btn-icon { font-size: 14.0px; } /* was 16px — ⏸ */
+  span.btn-text { font-size: 14.0px; } /* was 16px — 일시정지 */
+  span.surface-badge { font-size: 14.0px; } /* was 16px — CN1 */
+  span.tab-sub { font-size: 13.5px; } /* was 15.5px — 1년 미만 */
+  span.surface-label { font-size: 13.5px; } /* was 15.5px — 입문단계 */
+  p.substage-desc { font-size: 13.5px; } /* was 15.5px — 단독 간호업무 안정화, 다빈도 질환 중증환자 */
+  span.stage-tag-badge { font-size: 13.0px; } /* was 15px — INTERACTIVE LADDER */
+  span.summary-card-years { font-size: 13.0px; } /* was 15px — 1년 미만 */
+  h2.brand-hero-title { font-size: 21.0px; } /* was 34px — ‘K-NURSE NEXT’ */
+  span.edu-goal-num { font-size: 21.0px; } /* was 34px — 01 */
+  h3.section-subhead { font-size: 17.0px; } /* was 24px — 4대 교육목표 */
+  h4.box-title { font-size: 15.5px; } /* was 22px — 경력단계별공통교육 */
+  div.edu-goal-title { font-size: 15.5px; } /* was 20px — 전문성 강화 */
+  p.brand-hero-desc { font-size: 14.0px; } /* was 18px — ‘K-NURSE NEXT’는 자발적 · 지속 */
+  div.track-arrow-right { font-size: 14.0px; } /* was 18px — ➔ */
+  span.slogan-text { font-size: 15.5px; } /* was 17.5px — 간호의 미래를 준비하다, ‘K-NURSE N */
+  span.track-plane-name { font-size: 15.0px; } /* was 17px — 리더십 역량개발 */
+  div.point-text { font-size: 14.5px; } /* was 16.5px — 성장형 인재개발 체계 : 간호사의 자발적 · */
+  div.core-heading { font-size: 14.5px; } /* was 16.5px — 자기주도적 · 지속적 성장을 통한 전문성 · */
+  span.target-name { font-size: 14.0px; } /* was 16px — 간호리더 */
+  div.edu-goal-desc { font-size: 13.5px; } /* was 15.5px — 분야별 전문성과 실무역량을 체계적으로 강화한 */
+  div.title { font-size: 18.5px; } /* was 30px — QUICKMENU */
+  div.meta { font-size: 16.0px; } /* was 20.5px — "선배에게 무엇이든 물어봐요" · 고대구로병 */
+  span.seq-info { font-size: 15.5px; } /* was 20px — 재생 중 (1/3): 간호사들의 톡톡 (1~ */
+  span.audio-icon { font-size: 14.5px; } /* was 18.5px — 🔇 */
+  span.audio-label { font-size: 14.5px; } /* was 18.5px — 소리 켜기 (무음 중) */
+  span.seq-badge { font-size: 14.0px; } /* was 18px — 순차 자동재생 */
+  button.btn-seq-nav { font-size: 14.0px; } /* was 18px — ◀ 이전 영상 */
+  a.external-yt-link { font-size: 14.0px; } /* was 18px — YouTube에서 크게 보기 ↗ */
+  span.video-now-playing-tag { font-size: 14.5px; } /* was 16.5px — ▶ 지금 재생 중 */
+  span.audio-text { font-size: 14.5px; } /* was 16.5px — 소리 켜기 (무음 중) */
+  span.channel-thumb-duration { font-size: 14.0px; } /* was 16px — 04:15 */
+  div.video-card-badge.waiting-badge { font-size: 13.0px; } /* was 15px — 대기 중 (클릭 시 재생) */
+  h2.res-banner-title { font-size: 21.0px; } /* was 34px — 환자 안전과 의료 질 향상을 이끄는 혁신 활 */
+  span.res-stat-num { font-size: 17.0px; } /* was 24px — 53건 */
+  span.res-year-badge-big { font-size: 15.5px; } /* was 20px — 2025 */
+  p.res-banner-desc { font-size: 15.0px; } /* was 19px — 고려대학교 구로병원 간호부는 환자안전 사고  */
+  span.qi-topic-title { font-size: 14.5px; } /* was 18.5px — 투약프로토콜 준수를 통한 투약오류 감소 */
+  th.th-no { font-size: 14.0px; } /* was 18px — No. */
+  th.th-dept { font-size: 14.0px; } /* was 18px — 수행 부서 / 팀 */
+  th.th-topic { font-size: 14.0px; } /* was 18px — QI 개선 활동 주제 */
+  button.res-tab-btn.active { font-size: 15.0px; } /* was 17px — 전체보기 53 */
+  button.res-tab-btn { font-size: 15.0px; } /* was 17px — 2025년 19 */
+  span.res-year-count-label { font-size: 15.0px; } /* was 17px — 총 19건의 질 향상(QI) 개선 과제 */
+  span.qi-dept-badge { font-size: 15.0px; } /* was 17px — 신생아중환자실 */
+  span.qi-no-badge { font-size: 14.0px; } /* was 16px — 1 */
+  span.res-banner-tag { font-size: 13.0px; } /* was 15px — QUALITY IMPROVEMENT (QI) */
+  h3.res-card-title { font-size: 15.0px; } /* was 19.5px — 신생아중환자실 부모참여돌봄 활동이 미숙아의  */
+  span.res-dept-pill { font-size: 13.5px; } /* was 15.5px — NICU */
+  span.res-paper-idx { font-size: 13.0px; } /* was 15px — STUDY · 01 */
+  h2.intro-main { font-size: 21.0px; } /* was 34px — 생애주기별복지제도 */
+  h4.panel-step-title { font-size: 19.0px; } /* was 31px — 입사 */
+  h3.roadmap-title { font-size: 18.5px; } /* was 26.5px — 생애주기별 복지제도 로드맵 */
+  h4.welfare-card-title { font-size: 18.5px; } /* was 26.5px — 웰컴키트 */
+  h4.step-card-title { font-size: 17.5px; } /* was 25px — 입사 */
+  div.footnote-icon { font-size: 17.0px; } /* was 24px — 📌 */
+  button.welfare-quicknav-link.active { font-size: 16.0px; } /* was 23px — 입사 */
+  button.welfare-quicknav-link { font-size: 16.0px; } /* was 23px — 자기계발 */
+  div.step-flower-num { font-size: 16.5px; } /* was 21px — 01 */
+  span.panel-step-tag { font-size: 16.0px; } /* was 20.5px — 01단계 */
+  span.coin-score-pill { font-size: 15.5px; } /* was 20px — 0 / 6 */
+  p.welfare-card-desc { font-size: 15.0px; } /* was 19.5px — 의료원 가족이 됨을 환영하는 의미의 정성 가 */
+  a.btn.btn-primary { font-size: 15.0px; } /* was 19.5px — 채용정보 보기 */
+  a.btn.btn-secondary { font-size: 15.0px; } /* was 19.5px — 레지던스(기숙사) 안내 */
+  button.btn-game-jump { font-size: 15.0px; } /* was 19px — 🎮 점프하기 (Space) */
+  span.welfare-step-num { font-size: 15.0px; } /* was 19px — STEP 01 */
+  span.tiger-level-tag { font-size: 14.5px; } /* was 18.5px — 레벨: 신규간호사 🐯 */
+  span.welfare-header-eng { font-size: 14.0px; } /* was 18px — Onboarding & Care */
+  span.welfare-count-badge { font-size: 14.0px; } /* was 18px — 총 4개 혜택 지원 */
+  button.btn-game-reset { font-size: 15.5px; } /* was 17.5px — 다시 달리기 🔄 */
+  button.roadmap-step-btn.active { font-size: 15.5px; } /* was 17.5px — 01. 입사 */
+  button.roadmap-step-btn { font-size: 15.5px; } /* was 17.5px — 02. 대학원 */
+  p.footnote-text { font-size: 15.5px; } /* was 17.5px — ※ 연금 개시연령 등 일부 항목은 개인별로  */
+  p.intro-desc { font-size: 14.5px; } /* was 16.5px — 교직원들의 행복한 오늘과
+           */
+  span.intro-sub { font-size: 14.0px; } /* was 16px — 고려대학교의료원의 맞춤형 지원서비스 */
+  span.welfare-card-category-pill { font-size: 14.0px; } /* was 16px — 온보딩 케어 */
+  span.welfare-perk-chip { font-size: 14.0px; } /* was 16px — ✓ 신규 입사자 전원 */
+  h2.jobs-nursing-title { font-size: 21.0px; } /* was 34px — 간호직 */
+  h3.jobs-subheading { font-size: 20.0px; } /* was 28.5px — 모집방법 */
+  p.jobs-desc-lead { font-size: 18.0px; } /* was 25.5px — 본원 채용시스템을 통하여 채용공고하며, 지원 */
+  p.step-card-desc-body { font-size: 18.0px; } /* was 25.5px — 지원자는 정해진 기간에 채용 홈페이지에 접속 */
+  h5.step-card-desc-title { font-size: 16.0px; } /* was 23px — 1. 지원서 접수 */
+  span.step-card-num { font-size: 16.5px; } /* was 21px — 01 */
+  span.chip { font-size: 16.0px; } /* was 20.5px — 정규직 */
+  span.ce-course-num { font-size: 21.5px; } /* was 35px — 01 */
+  div.callout-box { font-size: 16.5px; } /* was 23.5px — 신청 안내 — KNA 에듀센터(edu.kor */
+  div.ce-course-title { font-size: 15.5px; } /* was 22.5px — 프리셉터 교육과정 */
+  div.ce-course-desc { font-size: 15.0px; } /* was 17px — 프리셉터 간호사 역할수행에 필요한 교육과 의 */
+  span.ce-course-term { font-size: 14.0px; } /* was 16px — 상반기 */
+  div.num { font-size: 17.0px; } /* was 24px — 01 */
+  div.desc { font-size: 15.5px; } /* was 22px — 온라인 예비교육 · 조직 및 직무 이해 */
+  div.org-hq-tier { font-size: 19.0px; } /* was 27px — 병 원 장 */
+  div.org-team { font-size: 17.5px; } /* was 25px — 간호교육기획팀 */
+  div.org-team.committee { font-size: 15.5px; } /* was 22px — 제위원회 */
+  div.hub-title { font-size: 21.0px; } /* was 33.5px — 간호부서장 인사말 */
+  p.hub-intro { font-size: 19.0px; } /* was 27px — 고려대학교구로병원 간호부의 철학과 사람들을  */
+  div.hub-desc { font-size: 17.5px; } /* was 25px — 간호부를 이끄는 간호부서장의 인사말과 철학을 */
+  span.blur-word { font-size: 24.0px; } /* was 39px — 환 */
+  h3.cal-title { font-size: 20.5px; } /* was 29.5px — 2026년 9월 */
+  a.more-link { font-size: 16.5px; } /* was 23.5px — 전체보기 → */
+  span.day { font-size: 15.5px; } /* was 22px — 1 */
+  span.day.sat { font-size: 15.5px; } /* was 22px — 5 */
+  span.day.sun { font-size: 15.5px; } /* was 22px — 6 */
+  span.day.sat.today { font-size: 15.5px; } /* was 22px — 12 */
+  span.day.sun.holiday { font-size: 15.5px; } /* was 22px — 24 */
+  span.day.sun.sat.holiday { font-size: 15.5px; } /* was 22px — 26 */
+  span.label { font-size: 16.5px; } /* was 21px — 간호교육기획팀 */
+  div.level-ring { font-size: 16.0px; } /* was 20.5px — Novice(신입) */
+  span.dow.sun { font-size: 15.0px; } /* was 19.5px — 일 */
+  span.dow { font-size: 15.0px; } /* was 19.5px — 월 */
+  span.dow.sat { font-size: 15.0px; } /* was 19.5px — 토 */
+  p.hero-pretitle { font-size: 14.0px; } /* was 18px — 고려대학교 구로병원 간호부 */
+  p.section-desc { font-size: 15.0px; } /* was 17px — 신입부터 전문가까지, 간호역량이 성장하는 다 */
+  a.quick-item { font-size: 14.0px; } /* was 16px — 미션과 비전 */
+
+
+/* 요소 자체엔 글자가 없고(자식 요소만 있음) 부모 컨테이너의 font-size를
+   상속받아 렌더링되는 경우들 — 컨테이너 쪽 font-size를 줄이면 자식(strong,
+   span, li, b, a 등)도 같이 줄어든다. */
+.page-title-block h1 { font-size: 24px; }
+.card-head h3 { font-size: 22px; }
+.side-widget h3 { font-size: 19px; }
+.jobs-card h3 { font-size: 19px; }
+.growth-col { font-size: 16px; }
+.growth-col h4 { font-size: 18px; }
+.welfare-cta-text p { font-size: 15px; }
+.coin-scoreboard { font-size: 14px; }
+.congrats-text { font-size: 15px; }
+.comp-table { font-size: 16px; }
+.comp-table th { font-size: 15px; }
+.comp-table .chip { font-size: 14px; }
+
+/* 위 자동 축소 규칙들이 "태그.클래스" 형태라 특정도가 낮아서, 원래 규칙이
+   "부모클래스 자식클래스"처럼 클래스 두 개짜리라 특정도가 더 높으면
+   이겨버려 안 줄어든 것들 — 실제로 이기고 있는 그 선택자를 그대로 다시 써서
+   확실히 덮어쓴다. */
+.hub-card .hub-title { font-size: 21px; }
+.hub-card .hub-desc { font-size: 17.5px; }
+.quick-menu-label .title { font-size: 18.5px; }
+.step-flow-item .num { font-size: 17px; }
+.step-flow-item .desc { font-size: 15.5px; }
+.plane-box .box-title { font-size: 15.5px; }
+.area-preview-item .label { font-size: 16.5px; }
+.channel-card .meta { font-size: 16px; }
+.mini-cal-grid span.dow { font-size: 15px; }
+.qi-modern-table thead th.th-no,
+.qi-modern-table thead th.th-dept,
+.qi-modern-table thead th.th-topic {
+  font-size: 14px;
+}
+.brand-slogan-wrap .slogan-text { font-size: 15.5px; }
+.brand-point .point-text { font-size: 14.5px; }
+.plane-engine-core .core-heading { font-size: 14.5px; }
+.track-target.crimson-target .target-name,
+.track-target.teal-target .target-name {
+  font-size: 14px;
+}
+}
+
+/* community.html / life-welfare.html / life-jobs.html에 클래스 없이
+   style="font-size:...px"로 직접 박혀있던 소제목 3개 — 인라인 스타일은
+   미디어쿼리로 못 이기므로 클래스를 붙여서 반응형으로 만들었다. */
+.section-subhead-inline {
+  font-size: 26px;
+}
+
+@media (max-width: 960px) {
+  .section-subhead-inline {
+    font-size: 18px;
+  }
+}
+
+/* 두 번째 검증 라운드에서 추가로 발견된, 아직 안 줄어든 것들 */
+@media (max-width: 960px) {
+  .channel-card .title { font-size: 16px; }
+  .step-flow-item .title { font-size: 15.5px; }
+  .welfare-header-title-group h3 { font-size: 20px; }
+  .welfare-cta-text h3 { font-size: 19px; }
+  .btn-scroll-to-sec { font-size: 15px; }
+  .process-circle-badge { font-size: 14px; }
+}
+
+/* "교육 부분(간호인재 및 교육 섹션)을 모두 더 작게" 요청으로 한 단계 더 축소.
+   직무 인터뷰, 대상별 교육, 교육체계 Overview, 임상역량단계, 보수교육 등
+   교육 섹션 전용 컴포넌트들과, 그 페이지들에서 여전히 큼직하게 남아있던
+   공용 컴포넌트(hub-title/hub-desc/num 등)를 한 번 더 줄인다. */
+@media (max-width: 960px) {
+  .interview-title { font-size: 19px; }
+  .hub-center { font-size: 18px; }
+  .interview-essay p { font-size: 15.5px; }
+  .interview-greeting { font-size: 16px; }
+  .interview-tab { font-size: 15.5px; }
+  .interview-byline { font-size: 15px; }
+  .interview-byline span { font-size: 14px; }
+  .stage-item-list li { font-size: 15px; }
+  .col-head-title { font-size: 15px; }
+  .card-head h3 { font-size: 18px; }
+
+  /* 앞선 라운드에서 이미 "태그.클래스"(예: h2.brand-hero-title) 형태로 한 번
+     줄여놓은 것들 — 이번에 bare .class로만 다시 썼더니 특정도가 그때보다
+     낮아서 이번 값이 안 먹혔다. 그때와 같은 형태로 맞춰서 다시 줄인다. */
+  span.edu-goal-num { font-size: 16px; }
+  h2.brand-hero-title { font-size: 17px; }
+  h3.summary-section-title { font-size: 16px; }
+  p.hub-intro { font-size: 15.5px; }
+  h3.section-subhead { font-size: 14.5px; }
+  h3.stage-panel-title { font-size: 14.5px; }
+
+  /* 이것들은 ".부모클래스 .자식클래스"(2개 클래스) 형태가 이미 이기고 있어서
+     그것과 똑같은 선택자로 다시 써야 한다(위 두 경우 모두 이미 한 번 겪은
+     패턴). about.html/community.html 등과 공유하는 클래스라 여기서 더
+     줄이면 그쪽도 같이 작아지는데, "전체적으로 더 줄여달라"던 흐름과 같은
+     방향이라 문제없다. */
+  .hub-card .hub-title { font-size: 18px; }
+  .hub-card .hub-desc { font-size: 14.5px; }
+  .step-flow-item .num { font-size: 14px; }
+}
+
+/* ==========================================================================
+   직무 인터뷰(education-talent.html) 모바일 다듬기 — 글자 크기만 줄여놓고
+   탭 패딩·아바타 크기·줄간격 등 레이아웃은 데스크톱 그대로라 폰에서
+   답답하고 엉성해 보이던 부분을 정리한다.
+   ========================================================================== */
+@media (max-width: 960px) {
+  .interview-tabs {
+    gap: 6px;
+    margin: 6px 0 20px;
+  }
+
+  .interview-tab {
+    padding: 8px 14px;
+  }
+
+  .interview-profile {
+    gap: 14px;
+    padding-bottom: 18px;
+    margin-bottom: 2px;
+  }
+
+  .interview-avatar {
+    width: 96px;
+    height: 96px;
+    padding: 5px;
+  }
+
+  .interview-greeting {
+    margin: 0 0 4px;
+  }
+
+  .interview-title {
+    line-height: 1.4;
+    margin: 0 0 6px;
+  }
+
+  .interview-essay {
+    padding-top: 18px;
+  }
+
+  .interview-essay p {
+    line-height: 1.75;
+    margin: 0 0 16px;
+  }
+}
+
+/* ==========================================================================
+   직무 인터뷰(education-talent.html) — 참고 페이지(현대자동차 Team Hyundai
+   직무 인터뷰: ALL/부서 필터 + 인물 카드 그리드, 클릭하면 아래에 상세 소개가
+   나오는 방식)를 참고해서, 기존 알약 탭 목록 대신 인물 카드 그리드로 바꿨다.
+   카드를 누르면 클릭한 카드가 활성화되고 아래 상세 인터뷰로 스크롤 이동한다.
+   ========================================================================== */
+.interview-grid-lede {
+  font-size: 18px;
+  color: var(--color-text-mute);
+  margin: 0 0 20px;
+}
+
+.interview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+  margin: 0 0 40px;
+}
+
+.interview-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding: 22px 14px;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.interview-card:hover {
+  border-color: var(--color-primary-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+
+.interview-card.active {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(151, 0, 34, 0.15), var(--shadow-card);
+}
+
+.interview-card-avatar {
+  display: block;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-bg-alt);
+  padding: 5px;
+}
+
+.interview-card-avatar svg {
+  width: 100%;
+  height: 100%;
+}
+
+.interview-card-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.interview-card-name em {
+  display: block;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13.5px;
+  color: var(--color-text-mute);
+  margin-top: 2px;
+}
+
+.interview-card-unit {
+  font-size: 13.5px;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+@media (max-width: 960px) {
+  .interview-grid-lede {
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+
+  .interview-grid {
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .interview-card {
+    padding: 14px 8px;
+    gap: 6px;
+    border-radius: 12px;
+  }
+
+  .interview-card-avatar {
+    width: 44px;
+    height: 44px;
+  }
+
+  .interview-card-name {
+    font-size: 13.5px;
+  }
+
+  .interview-card-name em {
+    font-size: 11.5px;
+  }
+
+  .interview-card-unit {
+    font-size: 11px;
+  }
+}
+
+/* Q&A 형식 인터뷰 본문(qa-question/qa-answer) 모바일 축소 */
+@media (max-width: 960px) {
+  .qa-block {
+    padding: 18px 0;
+  }
+
+  .qa-question {
+    font-size: 16px;
+    margin: 0 0 8px;
+    gap: 6px;
+  }
+
+  .qa-answer {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+}

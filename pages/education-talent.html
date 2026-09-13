@@ -7,7 +7,7 @@
 <meta name="description" content="고려대학교구로병원 간호부 — 부서별 간호사들의 직무 인터뷰" />
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-<link rel="stylesheet" href="../css/styles.css?v=13" />
+<link rel="stylesheet" href="../css/styles.css?v=38" />
 </head>
 <body>
 
@@ -104,22 +104,55 @@
         </defs>
       </svg>
 
-      <div class="interview-tabs" role="tablist">
-        <button type="button" class="interview-tab active" data-role="icu" role="tab" aria-selected="true">중환자실</button>
-        <button type="button" class="interview-tab" data-role="delivery" role="tab" aria-selected="false">분만실</button>
-        <button type="button" class="interview-tab" data-role="ward" role="tab" aria-selected="false">병동</button>
-        <button type="button" class="interview-tab" data-role="er" role="tab" aria-selected="false">응급실</button>
-        <button type="button" class="interview-tab" data-role="or" role="tab" aria-selected="false">수술실</button>
-        <button type="button" class="interview-tab" data-role="pacu" role="tab" aria-selected="false">회복실</button>
-        <button type="button" class="interview-tab" data-role="specialist" role="tab" aria-selected="false">전담간호사</button>
-        <button type="button" class="interview-tab" data-role="outpatient" role="tab" aria-selected="false">외래</button>
+      <p class="interview-grid-lede">부서를 선택하면 그 부서 간호사의 이야기를 바로 아래에서 볼 수 있습니다.</p>
+      <div class="interview-grid" role="tablist">
+        <button type="button" class="interview-card active" data-role="icu" role="tab" aria-selected="true">
+          <span class="interview-card-avatar" style="--iv-scrub:#2f6f8c;"><svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/></svg></span>
+          <span class="interview-card-name">김ㅇ영 <em>책임간호사</em></span>
+          <span class="interview-card-unit">중환자실 · 10년차</span>
+        </button>
+        <button type="button" class="interview-card" data-role="delivery" role="tab" aria-selected="false">
+          <span class="interview-card-avatar" style="--iv-scrub:#b56b8f;"><svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/></svg></span>
+          <span class="interview-card-name">이ㅇ수 <em>주임간호사</em></span>
+          <span class="interview-card-unit">분만실 · 7년차</span>
+        </button>
+        <button type="button" class="interview-card" data-role="ward" role="tab" aria-selected="false">
+          <span class="interview-card-avatar" style="--iv-scrub:#3d8c6f;"><svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/></svg></span>
+          <span class="interview-card-name">박ㅇ진 <em>간호사</em></span>
+          <span class="interview-card-unit">병동 · 4년차</span>
+        </button>
+        <button type="button" class="interview-card" data-role="er" role="tab" aria-selected="false">
+          <span class="interview-card-avatar" style="--iv-scrub:#c0392b;"><svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/></svg></span>
+          <span class="interview-card-name">정ㅇ아 <em>책임간호사</em></span>
+          <span class="interview-card-unit">응급실 · 9년차</span>
+        </button>
+        <button type="button" class="interview-card" data-role="or" role="tab" aria-selected="false">
+          <span class="interview-card-avatar" style="--iv-scrub:#2f7a52;"><svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C27 27 37 20 50 20 C63 20 73 27 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="var(--iv-scrub)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/></svg></span>
+          <span class="interview-card-name">최ㅇ훈 <em>수석간호사</em></span>
+          <span class="interview-card-unit">수술실 · 12년차</span>
+        </button>
+        <button type="button" class="interview-card" data-role="pacu" role="tab" aria-selected="false">
+          <span class="interview-card-avatar" style="--iv-scrub:#d9a441;"><svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/></svg></span>
+          <span class="interview-card-name">한ㅇ미 <em>간호사</em></span>
+          <span class="interview-card-unit">회복실 · 5년차</span>
+        </button>
+        <button type="button" class="interview-card" data-role="specialist" role="tab" aria-selected="false">
+          <span class="interview-card-avatar" style="--iv-scrub:#34495e;"><svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/></svg></span>
+          <span class="interview-card-name">조ㅇ현 <em>전담간호사</em></span>
+          <span class="interview-card-unit">전담간호사 · 8년차</span>
+        </button>
+        <button type="button" class="interview-card" data-role="outpatient" role="tab" aria-selected="false">
+          <span class="interview-card-avatar" style="--iv-scrub:#5b7fa6;"><svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/></svg></span>
+          <span class="interview-card-name">윤ㅇ주 <em>간호사</em></span>
+          <span class="interview-card-unit">외래 · 6년차</span>
+        </button>
       </div>
 
       <div class="interview-panels">
         <article class="interview-panel active" data-role="icu">
           <div class="interview-profile">
             <div class="interview-avatar" style="--iv-scrub:#2f6f8c;">
-              <svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><path d="M24 44 C22 55 27 64 33 68 C29 59 28 50 30 41 Z" fill="url(#ivHair)"/><path d="M76 44 C78 55 73 64 67 68 C71 59 72 50 70 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/><ellipse cx="37" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><ellipse cx="63" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><path d="M44 54 Q50 58 56 54" stroke="#a5665a" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="78" cy="80" r="11" fill="#fff" stroke="var(--iv-scrub)" stroke-width="2"/><path d="M72 80 h3 l2 -4 l2 8 l2 -6 l1 2 h3" fill="none" stroke="var(--iv-scrub)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><path d="M24 44 C22 55 27 64 33 68 C29 59 28 50 30 41 Z" fill="url(#ivHair)"/><path d="M76 44 C78 55 73 64 67 68 C71 59 72 50 70 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/><ellipse cx="37" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><ellipse cx="63" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><path d="M44 54 Q50 58 56 54" stroke="#a5665a" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M40 62 Q37 74 45 80 Q50 83 55 80 Q63 74 60 62" fill="none" stroke="#e7ebee" stroke-width="2.4" stroke-linecap="round"/><circle cx="50" cy="82.5" r="4" fill="#e7ebee" stroke="#c3cbd1" stroke-width="1"/><circle cx="78" cy="80" r="12" fill="#fff" stroke="var(--iv-scrub)" stroke-width="2"/><path d="M72 80 h3 l2 -4 l2 8 l2 -6 l1 2 h3" fill="none" stroke="var(--iv-scrub)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
             <div class="interview-headline">
               <p class="interview-greeting">안녕하세요.</p>
@@ -128,17 +161,29 @@
             </div>
           </div>
           <div class="interview-essay">
-            <p>중환자실은 생명이 위중한 환자분들이 24시간 집중 치료를 받는 공간입니다. 처음 이 부서에 왔을 때는 알람 소리 하나에도 심장이 철렁 내려앉곤 했는데, 이제는 그 소리들이 무엇을 의미하는지 몸이 먼저 반응할 만큼 익숙해졌어요. 10년이라는 시간 동안 이곳에서 참 많은 환자분과 보호자분을 만나왔습니다.</p>
-            <p>제 하루는 인수인계로 시작됩니다. 밤사이 환자분들의 활력징후와 인공호흡기, 수액 상태를 꼼꼼히 확인하고, 낮 동안에도 작은 변화 하나까지 놓치지 않으려 계속 모니터링해요. 응급 상황은 예고 없이 찾아오기 때문에, 동료들과의 호흡이 무엇보다 중요합니다. 서로 눈빛만 봐도 다음 행동을 알 수 있을 정도로 손발을 맞춰온 팀이 있다는 게 이 일을 버티게 해주는 힘인 것 같아요.</p>
-            <p>가장 기억에 남는 순간을 꼽자면, 의식이 없던 환자분이 어느 날 아침 눈을 뜨고 제 손을 꼭 잡아주셨던 때예요. 며칠 밤낮으로 지켜봐 온 시간이 주마등처럼 스쳐 지나가면서, 이 일을 계속해야겠다고 다짐하게 된 순간이었습니다. 물론 힘든 순간도 많습니다. 최선을 다했음에도 환자분을 보내드려야 할 때는 지금도 마음이 무겁습니다. 그럴 때마다 동료들과 서로 다독이며 다시 일어설 힘을 얻어요.</p>
-            <p>중환자실 간호사를 꿈꾸는 후배가 있다면, 완벽하지 않아도 괜찮다는 말씀을 드리고 싶어요. 매 순간이 배움이라고 생각하고, 혼자 다 하려 하지 않고 동료를 믿고 함께 움직이는 법을 먼저 배우셨으면 합니다. 그 마음가짐이 있다면 분명 이 일을 오래, 잘 해내실 수 있을 거예요.</p>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 업무를 소개해 주세요</h4>
+              <p class="qa-answer">중환자실은 생명이 위중한 환자분들이 24시간 집중 치료를 받는 공간입니다. 처음 이 부서에 왔을 때는 알람 소리 하나에도 심장이 철렁 내려앉곤 했는데, 이제는 그 소리들이 무엇을 의미하는지 몸이 먼저 반응할 만큼 익숙해졌어요. 10년이라는 시간 동안 이곳에서 참 많은 환자분과 보호자분을 만나왔습니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 일을 하면서 가장 중요하게 생각하는 것은 무엇인가요?</h4>
+              <p class="qa-answer">제 하루는 인수인계로 시작됩니다. 밤사이 환자분들의 활력징후와 인공호흡기, 수액 상태를 꼼꼼히 확인하고, 낮 동안에도 작은 변화 하나까지 놓치지 않으려 계속 모니터링해요. 응급 상황은 예고 없이 찾아오기 때문에, 동료들과의 호흡이 무엇보다 중요합니다. 서로 눈빛만 봐도 다음 행동을 알 수 있을 정도로 손발을 맞춰온 팀이 있다는 게 이 일을 버티게 해주는 힘인 것 같아요.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 가장 기억에 남는 순간이 있다면?</h4>
+              <p class="qa-answer">의식이 없던 환자분이 어느 날 아침 눈을 뜨고 제 손을 꼭 잡아주셨던 때예요. 며칠 밤낮으로 지켜봐 온 시간이 주마등처럼 스쳐 지나가면서, 이 일을 계속해야겠다고 다짐하게 된 순간이었습니다. 물론 힘든 순간도 많습니다. 최선을 다했음에도 환자분을 보내드려야 할 때는 지금도 마음이 무겁습니다. 그럴 때마다 동료들과 서로 다독이며 다시 일어설 힘을 얻어요.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 분야를 꿈꾸는 후배에게 하고 싶은 말은?</h4>
+              <p class="qa-answer">중환자실 간호사를 꿈꾸는 후배가 있다면, 완벽하지 않아도 괜찮다는 말씀을 드리고 싶어요. 매 순간이 배움이라고 생각하고, 혼자 다 하려 하지 않고 동료를 믿고 함께 움직이는 법을 먼저 배우셨으면 합니다. 그 마음가짐이 있다면 분명 이 일을 오래, 잘 해내실 수 있을 거예요.</p>
+            </div>
           </div>
         </article>
 
         <article class="interview-panel" data-role="delivery">
           <div class="interview-profile">
             <div class="interview-avatar" style="--iv-scrub:#b56b8f;">
-              <svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><path d="M24 44 C22 55 27 64 33 68 C29 59 28 50 30 41 Z" fill="url(#ivHair)"/><path d="M76 44 C78 55 73 64 67 68 C71 59 72 50 70 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/><ellipse cx="37" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><ellipse cx="63" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><path d="M44 54 Q50 58 56 54" stroke="#a5665a" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="78" cy="80" r="11" fill="#fff" stroke="var(--iv-scrub)" stroke-width="2"/><path d="M78 74 C74 78 74 82 78 86 C82 82 82 78 78 74 Z" fill="var(--iv-scrub)"/></svg>
+              <svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><path d="M24 44 C22 55 27 64 33 68 C29 59 28 50 30 41 Z" fill="url(#ivHair)"/><path d="M76 44 C78 55 73 64 67 68 C71 59 72 50 70 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/><ellipse cx="37" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><ellipse cx="63" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><path d="M44 54 Q50 58 56 54" stroke="#a5665a" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M40 62 Q37 74 45 80 Q50 83 55 80 Q63 74 60 62" fill="none" stroke="#e7ebee" stroke-width="2.4" stroke-linecap="round"/><circle cx="50" cy="82.5" r="4" fill="#e7ebee" stroke="#c3cbd1" stroke-width="1"/><circle cx="78" cy="80" r="12" fill="#fff" stroke="var(--iv-scrub)" stroke-width="2"/><path d="M78 74 C74 78 74 82 78 86 C82 82 82 78 78 74 Z" fill="var(--iv-scrub)"/></svg>
             </div>
             <div class="interview-headline">
               <p class="interview-greeting">안녕하세요.</p>
@@ -147,17 +192,29 @@
             </div>
           </div>
           <div class="interview-essay">
-            <p>분만실은 산모분과 함께 진통부터 분만까지의 전 과정을 지나는 공간이에요. 태아 심박수를 감시하고 진통 단계마다 필요한 처치를 하다 보면, 짧게는 몇 시간, 길게는 하루 종일 산모분 곁을 지키게 됩니다. 7년째 이 자리를 지키고 있지만, 매번 새로운 생명을 맞이하는 순간의 떨림은 조금도 줄어들지 않아요.</p>
-            <p>예정된 분만도 있지만 응급 분만도 정말 많습니다. 언제 상황이 급박해질지 모르기 때문에 늘 준비된 상태를 유지하는 게 이 일의 기본이에요. 체력적으로 힘든 날도 많지만, 그만큼 순간순간 집중력을 잃지 않으려 노력하고 있습니다.</p>
-            <p>가장 기억에 남는 순간은 역시 아이의 첫 울음을 듣는 순간이에요. 산모분이 눈물을 글썽이며 고맙다고 손을 잡아주실 때, 이 일을 선택하길 정말 잘했다는 생각이 듭니다. 반대로 예상치 못한 상황이 생겨 긴장했던 순간들도 있었지만, 그런 경험들이 쌓여 지금의 저를 만들어준 것 같아요.</p>
-            <p>이 길을 꿈꾸는 후배들에게는, 체력 관리와 평정심을 유지하는 자신만의 방법을 꼭 만들어두라고 말씀드리고 싶어요. 긴장되는 순간에도 침착함을 잃지 않는 것, 그것이 분만실 간호사에게 가장 필요한 덕목이라고 생각합니다.</p>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 업무를 소개해 주세요</h4>
+              <p class="qa-answer">분만실은 산모분과 함께 진통부터 분만까지의 전 과정을 지나는 공간이에요. 태아 심박수를 감시하고 진통 단계마다 필요한 처치를 하다 보면, 짧게는 몇 시간, 길게는 하루 종일 산모분 곁을 지키게 됩니다. 7년째 이 자리를 지키고 있지만, 매번 새로운 생명을 맞이하는 순간의 떨림은 조금도 줄어들지 않아요.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 일을 하면서 가장 중요하게 생각하는 것은 무엇인가요?</h4>
+              <p class="qa-answer">예정된 분만도 있지만 응급 분만도 정말 많습니다. 언제 상황이 급박해질지 모르기 때문에 늘 준비된 상태를 유지하는 게 이 일의 기본이에요. 체력적으로 힘든 날도 많지만, 그만큼 순간순간 집중력을 잃지 않으려 노력하고 있습니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 가장 기억에 남는 순간이 있다면?</h4>
+              <p class="qa-answer">가장 기억에 남는 순간은 역시 아이의 첫 울음을 듣는 순간이에요. 산모분이 눈물을 글썽이며 고맙다고 손을 잡아주실 때, 이 일을 선택하길 정말 잘했다는 생각이 듭니다. 반대로 예상치 못한 상황이 생겨 긴장했던 순간들도 있었지만, 그런 경험들이 쌓여 지금의 저를 만들어준 것 같아요.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 분야를 꿈꾸는 후배에게 하고 싶은 말은?</h4>
+              <p class="qa-answer">이 길을 꿈꾸는 후배들에게는, 체력 관리와 평정심을 유지하는 자신만의 방법을 꼭 만들어두라고 말씀드리고 싶어요. 긴장되는 순간에도 침착함을 잃지 않는 것, 그것이 분만실 간호사에게 가장 필요한 덕목이라고 생각합니다.</p>
+            </div>
           </div>
         </article>
 
         <article class="interview-panel" data-role="ward">
           <div class="interview-profile">
             <div class="interview-avatar" style="--iv-scrub:#3d8c6f;">
-              <svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><path d="M24 44 C22 55 27 64 33 68 C29 59 28 50 30 41 Z" fill="url(#ivHair)"/><path d="M76 44 C78 55 73 64 67 68 C71 59 72 50 70 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/><ellipse cx="37" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><ellipse cx="63" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><path d="M44 54 Q50 58 56 54" stroke="#a5665a" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="78" cy="80" r="11" fill="#fff" stroke="var(--iv-scrub)" stroke-width="2"/><path d="M73 84 v-7 a5 5 0 0 1 10 0 v7 M72 84 h12" fill="none" stroke="var(--iv-scrub)" stroke-width="1.6" stroke-linecap="round"/></svg>
+              <svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><path d="M24 44 C22 55 27 64 33 68 C29 59 28 50 30 41 Z" fill="url(#ivHair)"/><path d="M76 44 C78 55 73 64 67 68 C71 59 72 50 70 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/><ellipse cx="37" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><ellipse cx="63" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><path d="M44 54 Q50 58 56 54" stroke="#a5665a" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M40 62 Q37 74 45 80 Q50 83 55 80 Q63 74 60 62" fill="none" stroke="#e7ebee" stroke-width="2.4" stroke-linecap="round"/><circle cx="50" cy="82.5" r="4" fill="#e7ebee" stroke="#c3cbd1" stroke-width="1"/><circle cx="78" cy="80" r="12" fill="#fff" stroke="var(--iv-scrub)" stroke-width="2"/><path d="M73 84 v-7 a5 5 0 0 1 10 0 v7 M72 84 h12" fill="none" stroke="var(--iv-scrub)" stroke-width="1.6" stroke-linecap="round"/></svg>
             </div>
             <div class="interview-headline">
               <p class="interview-greeting">안녕하세요.</p>
@@ -166,17 +223,29 @@
             </div>
           </div>
           <div class="interview-essay">
-            <p>병동에서는 입원해 계신 환자분들의 전반적인 간호와 투약, 처치를 담당하고 있어요. 매일 회진에 동행하고, 검사를 준비하고, 보호자분들의 질문에 답해드리다 보면 하루가 정말 빠르게 지나갑니다.</p>
-            <p>신입 시절에는 손이 느려서 스스로에게 실망한 날이 많았어요. 그런데 선배들이 “처음엔 다 그렇다”며 곁에서 함께 해주셨던 게 지금까지도 큰 힘이 되고 있습니다. 그 마음을 이제는 제가 후배들에게 돌려주려고 노력해요.</p>
-            <p>가장 뿌듯한 순간은 퇴원하시는 환자분이 “고생 많았다”고 한마디 건네주실 때예요. 별것 아닌 말 같아도, 그 한마디에 힘든 하루의 피로가 눈 녹듯 사라지곤 합니다.</p>
-            <p>병동 간호사를 꿈꾸는 분들께는, 완벽함보다 성실함이 먼저라는 말씀을 드리고 싶어요. 하루하루 성실하게 쌓아가다 보면 손도, 마음도 자연스럽게 여물어갈 거예요.</p>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 업무를 소개해 주세요</h4>
+              <p class="qa-answer">병동에서는 입원해 계신 환자분들의 전반적인 간호와 투약, 처치를 담당하고 있어요. 매일 회진에 동행하고, 검사를 준비하고, 보호자분들의 질문에 답해드리다 보면 하루가 정말 빠르게 지나갑니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 일을 하면서 가장 중요하게 생각하는 것은 무엇인가요?</h4>
+              <p class="qa-answer">신입 시절에는 손이 느려서 스스로에게 실망한 날이 많았어요. 그런데 선배들이 “처음엔 다 그렇다”며 곁에서 함께 해주셨던 게 지금까지도 큰 힘이 되고 있습니다. 그 마음을 이제는 제가 후배들에게 돌려주려고 노력해요.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 가장 기억에 남는 순간이 있다면?</h4>
+              <p class="qa-answer">가장 뿌듯한 순간은 퇴원하시는 환자분이 “고생 많았다”고 한마디 건네주실 때예요. 별것 아닌 말 같아도, 그 한마디에 힘든 하루의 피로가 눈 녹듯 사라지곤 합니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 분야를 꿈꾸는 후배에게 하고 싶은 말은?</h4>
+              <p class="qa-answer">병동 간호사를 꿈꾸는 분들께는, 완벽함보다 성실함이 먼저라는 말씀을 드리고 싶어요. 하루하루 성실하게 쌓아가다 보면 손도, 마음도 자연스럽게 여물어갈 거예요.</p>
+            </div>
           </div>
         </article>
 
         <article class="interview-panel" data-role="er">
           <div class="interview-profile">
             <div class="interview-avatar" style="--iv-scrub:#c0392b;">
-              <svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><path d="M24 44 C22 55 27 64 33 68 C29 59 28 50 30 41 Z" fill="url(#ivHair)"/><path d="M76 44 C78 55 73 64 67 68 C71 59 72 50 70 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/><ellipse cx="37" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><ellipse cx="63" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><path d="M44 54 Q50 58 56 54" stroke="#a5665a" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="78" cy="80" r="11" fill="#fff" stroke="var(--iv-scrub)" stroke-width="2"/><path d="M78 74 v12 M72 80 h12" stroke="var(--iv-scrub)" stroke-width="2.2" stroke-linecap="round"/></svg>
+              <svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><path d="M24 44 C22 55 27 64 33 68 C29 59 28 50 30 41 Z" fill="url(#ivHair)"/><path d="M76 44 C78 55 73 64 67 68 C71 59 72 50 70 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/><ellipse cx="37" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><ellipse cx="63" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><path d="M44 54 Q50 58 56 54" stroke="#a5665a" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M40 62 Q37 74 45 80 Q50 83 55 80 Q63 74 60 62" fill="none" stroke="#e7ebee" stroke-width="2.4" stroke-linecap="round"/><circle cx="50" cy="82.5" r="4" fill="#e7ebee" stroke="#c3cbd1" stroke-width="1"/><circle cx="78" cy="80" r="12" fill="#fff" stroke="var(--iv-scrub)" stroke-width="2"/><path d="M78 74 v12 M72 80 h12" stroke="var(--iv-scrub)" stroke-width="2.2" stroke-linecap="round"/></svg>
             </div>
             <div class="interview-headline">
               <p class="interview-greeting">안녕하세요.</p>
@@ -185,17 +254,29 @@
             </div>
           </div>
           <div class="interview-essay">
-            <p>응급실은 중증도에 따라 환자분을 신속히 분류하고, 응급처치부터 각종 검사와 시술 보조까지 빠르게 대응해야 하는 곳이에요. 하루도 같은 날이 없다는 말이 딱 맞는 곳이죠.</p>
-            <p>언제 어떤 환자분이 오실지 예측할 수 없기 때문에, 매뉴얼을 숙지하는 것만큼이나 순간적인 판단력이 중요합니다. 9년을 이곳에서 지내면서 얻은 가장 큰 자산은, 어떤 상황에서도 침착함을 잃지 않는 법을 배운 것이라고 생각해요.</p>
-            <p>위급했던 환자분이 무사히 회복해서 나중에 감사 인사를 하러 와주실 때, 그동안의 긴장과 피로가 한순간에 보상받는 기분이 들어요. 물론 뜻대로 되지 않는 순간들도 있지만, 그런 날에도 동료들과 서로를 다독이며 다시 힘을 냅니다.</p>
-            <p>응급실을 꿈꾸는 후배가 있다면, 체력과 마음의 근력을 함께 키우라고 말씀드리고 싶어요. 그리고 혼자 견디려 하지 말고, 동료에게 기대는 법도 꼭 배우시길 바랍니다.</p>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 업무를 소개해 주세요</h4>
+              <p class="qa-answer">응급실은 중증도에 따라 환자분을 신속히 분류하고, 응급처치부터 각종 검사와 시술 보조까지 빠르게 대응해야 하는 곳이에요. 하루도 같은 날이 없다는 말이 딱 맞는 곳이죠.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 일을 하면서 가장 중요하게 생각하는 것은 무엇인가요?</h4>
+              <p class="qa-answer">언제 어떤 환자분이 오실지 예측할 수 없기 때문에, 매뉴얼을 숙지하는 것만큼이나 순간적인 판단력이 중요합니다. 9년을 이곳에서 지내면서 얻은 가장 큰 자산은, 어떤 상황에서도 침착함을 잃지 않는 법을 배운 것이라고 생각해요.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 가장 기억에 남는 순간이 있다면?</h4>
+              <p class="qa-answer">위급했던 환자분이 무사히 회복해서 나중에 감사 인사를 하러 와주실 때, 그동안의 긴장과 피로가 한순간에 보상받는 기분이 들어요. 물론 뜻대로 되지 않는 순간들도 있지만, 그런 날에도 동료들과 서로를 다독이며 다시 힘을 냅니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 분야를 꿈꾸는 후배에게 하고 싶은 말은?</h4>
+              <p class="qa-answer">응급실을 꿈꾸는 후배가 있다면, 체력과 마음의 근력을 함께 키우라고 말씀드리고 싶어요. 그리고 혼자 견디려 하지 말고, 동료에게 기대는 법도 꼭 배우시길 바랍니다.</p>
+            </div>
           </div>
         </article>
 
         <article class="interview-panel" data-role="or">
           <div class="interview-profile">
             <div class="interview-avatar" style="--iv-scrub:#2f7a52;">
-              <svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C27 27 37 20 50 20 C63 20 73 27 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="var(--iv-scrub)"/><path d="M40 55 Q50 60 60 55 L60 62 Q50 68 40 62 Z" fill="#eef3f2" stroke="#cfe0da" stroke-width="1"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/><circle cx="78" cy="80" r="11" fill="#fff" stroke="var(--iv-scrub)" stroke-width="2"/><path d="M73 85 l10 -10 M76 85 l7 -7" stroke="var(--iv-scrub)" stroke-width="1.6" stroke-linecap="round"/></svg>
+              <svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C27 27 37 20 50 20 C63 20 73 27 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="var(--iv-scrub)"/><path d="M40 55 Q50 60 60 55 L60 62 Q50 68 40 62 Z" fill="#eef3f2" stroke="#cfe0da" stroke-width="1"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/><circle cx="78" cy="80" r="12" fill="#fff" stroke="var(--iv-scrub)" stroke-width="2"/><path d="M73 85 l10 -10 M76 85 l7 -7" stroke="var(--iv-scrub)" stroke-width="1.6" stroke-linecap="round"/></svg>
             </div>
             <div class="interview-headline">
               <p class="interview-greeting">안녕하세요.</p>
@@ -204,17 +285,29 @@
             </div>
           </div>
           <div class="interview-essay">
-            <p>수술실 간호사는 수술 전 기구와 재료를 준비하는 것부터, 수술 중 집도의 곁에서 보조하고, 수술 후 기록을 정리하는 것까지 전 과정을 함께합니다. 12년째 이 일을 하고 있지만 여전히 수술방에 들어설 때마다 긴장의 끈을 놓지 않아요.</p>
-            <p>하루에도 여러 진료과의 다양한 수술이 이어지다 보니, 매번 다른 종류의 집중력이 필요합니다. 처음에는 그 전환이 낯설고 힘들었는데, 이제는 그 다양함이 오히려 이 일의 매력이라고 느껴져요.</p>
-            <p>길고 어려웠던 수술이 무사히 끝나고 수술방 전체가 안도의 한숨을 내쉬는 순간, 그 짜릿함은 몇 번을 겪어도 익숙해지지 않습니다. 그 순간을 위해 이 일을 계속하고 있다고 해도 과언이 아니에요.</p>
-            <p>이 길을 꿈꾸는 후배들에게는 꼼꼼함과 냉정함을 함께 갖추는 연습을 꾸준히 해보라고 권하고 싶어요. 처음엔 낯설어도, 반복하다 보면 자연스럽게 몸에 배게 될 겁니다.</p>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 업무를 소개해 주세요</h4>
+              <p class="qa-answer">수술실 간호사는 수술 전 기구와 재료를 준비하는 것부터, 수술 중 집도의 곁에서 보조하고, 수술 후 기록을 정리하는 것까지 전 과정을 함께합니다. 12년째 이 일을 하고 있지만 여전히 수술방에 들어설 때마다 긴장의 끈을 놓지 않아요.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 일을 하면서 가장 중요하게 생각하는 것은 무엇인가요?</h4>
+              <p class="qa-answer">하루에도 여러 진료과의 다양한 수술이 이어지다 보니, 매번 다른 종류의 집중력이 필요합니다. 처음에는 그 전환이 낯설고 힘들었는데, 이제는 그 다양함이 오히려 이 일의 매력이라고 느껴져요.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 가장 기억에 남는 순간이 있다면?</h4>
+              <p class="qa-answer">길고 어려웠던 수술이 무사히 끝나고 수술방 전체가 안도의 한숨을 내쉬는 순간, 그 짜릿함은 몇 번을 겪어도 익숙해지지 않습니다. 그 순간을 위해 이 일을 계속하고 있다고 해도 과언이 아니에요.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 분야를 꿈꾸는 후배에게 하고 싶은 말은?</h4>
+              <p class="qa-answer">이 길을 꿈꾸는 후배들에게는 꼼꼼함과 냉정함을 함께 갖추는 연습을 꾸준히 해보라고 권하고 싶어요. 처음엔 낯설어도, 반복하다 보면 자연스럽게 몸에 배게 될 겁니다.</p>
+            </div>
           </div>
         </article>
 
         <article class="interview-panel" data-role="pacu">
           <div class="interview-profile">
             <div class="interview-avatar" style="--iv-scrub:#d9a441;">
-              <svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><path d="M24 44 C22 55 27 64 33 68 C29 59 28 50 30 41 Z" fill="url(#ivHair)"/><path d="M76 44 C78 55 73 64 67 68 C71 59 72 50 70 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/><ellipse cx="37" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><ellipse cx="63" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><path d="M44 54 Q50 58 56 54" stroke="#a5665a" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="78" cy="80" r="11" fill="#fff" stroke="var(--iv-scrub)" stroke-width="2"/><path d="M82 74 a7 7 0 1 0 0.5 12.5 a5.5 5.5 0 0 1 -0.5 -12.5 Z" fill="var(--iv-scrub)"/></svg>
+              <svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><path d="M24 44 C22 55 27 64 33 68 C29 59 28 50 30 41 Z" fill="url(#ivHair)"/><path d="M76 44 C78 55 73 64 67 68 C71 59 72 50 70 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/><ellipse cx="37" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><ellipse cx="63" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><path d="M44 54 Q50 58 56 54" stroke="#a5665a" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M40 62 Q37 74 45 80 Q50 83 55 80 Q63 74 60 62" fill="none" stroke="#e7ebee" stroke-width="2.4" stroke-linecap="round"/><circle cx="50" cy="82.5" r="4" fill="#e7ebee" stroke="#c3cbd1" stroke-width="1"/><circle cx="78" cy="80" r="12" fill="#fff" stroke="var(--iv-scrub)" stroke-width="2"/><path d="M82 74 a7 7 0 1 0 0.5 12.5 a5.5 5.5 0 0 1 -0.5 -12.5 Z" fill="var(--iv-scrub)"/></svg>
             </div>
             <div class="interview-headline">
               <p class="interview-greeting">안녕하세요.</p>
@@ -223,17 +316,29 @@
             </div>
           </div>
           <div class="interview-essay">
-            <p>회복실에서는 수술 직후 환자분의 의식 회복과 활력징후를 세심하게 관찰합니다. 통증이나 오심 같은 초기 합병증을 놓치지 않고 바로 대응하는 것이 저희의 가장 중요한 역할이에요.</p>
-            <p>짧은 시간 안에 여러 환자분의 회복 상태를 동시에 살펴야 해서 순환이 정말 빠른 편입니다. 5년을 이곳에서 일하면서, 작은 변화를 알아채는 관찰력이 점점 예민해지는 걸 스스로도 느끼고 있어요.</p>
-            <p>눈을 뜬 환자분이 안심한 표정으로 저를 바라봐 주실 때, 제가 하는 일의 의미를 다시 한번 느끼게 됩니다. 마취에서 깨어나는 그 불안한 순간에 누군가 곁에 있다는 사실만으로도 큰 안정감을 드릴 수 있다는 게, 이 일의 가장 큰 보람인 것 같아요.</p>
-            <p>회복실을 꿈꾸는 후배가 있다면, 순간의 변화를 놓치지 않는 관찰력과 순발력을 꾸준히 키워보시길 권해드리고 싶어요.</p>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 업무를 소개해 주세요</h4>
+              <p class="qa-answer">회복실에서는 수술 직후 환자분의 의식 회복과 활력징후를 세심하게 관찰합니다. 통증이나 오심 같은 초기 합병증을 놓치지 않고 바로 대응하는 것이 저희의 가장 중요한 역할이에요.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 일을 하면서 가장 중요하게 생각하는 것은 무엇인가요?</h4>
+              <p class="qa-answer">짧은 시간 안에 여러 환자분의 회복 상태를 동시에 살펴야 해서 순환이 정말 빠른 편입니다. 5년을 이곳에서 일하면서, 작은 변화를 알아채는 관찰력이 점점 예민해지는 걸 스스로도 느끼고 있어요.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 가장 기억에 남는 순간이 있다면?</h4>
+              <p class="qa-answer">눈을 뜬 환자분이 안심한 표정으로 저를 바라봐 주실 때, 제가 하는 일의 의미를 다시 한번 느끼게 됩니다. 마취에서 깨어나는 그 불안한 순간에 누군가 곁에 있다는 사실만으로도 큰 안정감을 드릴 수 있다는 게, 이 일의 가장 큰 보람인 것 같아요.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 분야를 꿈꾸는 후배에게 하고 싶은 말은?</h4>
+              <p class="qa-answer">회복실을 꿈꾸는 후배가 있다면, 순간의 변화를 놓치지 않는 관찰력과 순발력을 꾸준히 키워보시길 권해드리고 싶어요.</p>
+            </div>
           </div>
         </article>
 
         <article class="interview-panel" data-role="specialist">
           <div class="interview-profile">
             <div class="interview-avatar" style="--iv-scrub:#34495e;">
-              <svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><path d="M24 44 C22 55 27 64 33 68 C29 59 28 50 30 41 Z" fill="url(#ivHair)"/><path d="M76 44 C78 55 73 64 67 68 C71 59 72 50 70 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/><ellipse cx="37" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><ellipse cx="63" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><path d="M44 54 Q50 58 56 54" stroke="#a5665a" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="78" cy="80" r="11" fill="#fff" stroke="var(--iv-scrub)" stroke-width="2"/><path d="M78 73 l2.4 5 5.6 0.6 -4 4 1 5.6 -5 -2.8 -5 2.8 1 -5.6 -4 -4 5.6 -0.6 Z" fill="var(--iv-scrub)"/></svg>
+              <svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><path d="M24 44 C22 55 27 64 33 68 C29 59 28 50 30 41 Z" fill="url(#ivHair)"/><path d="M76 44 C78 55 73 64 67 68 C71 59 72 50 70 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/><ellipse cx="37" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><ellipse cx="63" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><path d="M44 54 Q50 58 56 54" stroke="#a5665a" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M40 62 Q37 74 45 80 Q50 83 55 80 Q63 74 60 62" fill="none" stroke="#e7ebee" stroke-width="2.4" stroke-linecap="round"/><circle cx="50" cy="82.5" r="4" fill="#e7ebee" stroke="#c3cbd1" stroke-width="1"/><circle cx="78" cy="80" r="12" fill="#fff" stroke="var(--iv-scrub)" stroke-width="2"/><path d="M78 73 l2.4 5 5.6 0.6 -4 4 1 5.6 -5 -2.8 -5 2.8 1 -5.6 -4 -4 5.6 -0.6 Z" fill="var(--iv-scrub)"/></svg>
             </div>
             <div class="interview-headline">
               <p class="interview-greeting">안녕하세요.</p>
@@ -242,17 +347,29 @@
             </div>
           </div>
           <div class="interview-essay">
-            <p>저는 특정 진료과와 긴밀하게 협업하며 환자 관리와 처치, 시술 보조 등 전문화된 업무를 맡고 있어요. 의료진 회진에 동행하는 것부터 환자 상태를 지속적으로 모니터링하고 기록하는 일까지, 업무 범위가 꽤 넓은 편입니다.</p>
-            <p>8년째 이 역할을 하면서 느낀 건, 전문성이라는 게 하루아침에 쌓이지 않는다는 사실이에요. 매번 새로운 사례를 마주할 때마다 공부하고, 의료진과 소통하며 조금씩 제 영역을 넓혀왔습니다.</p>
-            <p>전문성을 인정받아 의료진과 원활하게 협업하고, 그 결과로 환자분께 더 나은 치료를 제공했다고 느낄 때 가장 큰 성취감을 느껴요. 그 순간들이 쌓여 지금의 제가 있다고 생각합니다.</p>
-            <p>전담간호사를 꿈꾸는 후배들에게는, 꾸준한 학습과 자기계발을 게을리하지 않는 것이 가장 확실한 성장의 열쇠라는 말씀을 드리고 싶어요.</p>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 업무를 소개해 주세요</h4>
+              <p class="qa-answer">저는 특정 진료과와 긴밀하게 협업하며 환자 관리와 처치, 시술 보조 등 전문화된 업무를 맡고 있어요. 의료진 회진에 동행하는 것부터 환자 상태를 지속적으로 모니터링하고 기록하는 일까지, 업무 범위가 꽤 넓은 편입니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 일을 하면서 가장 중요하게 생각하는 것은 무엇인가요?</h4>
+              <p class="qa-answer">8년째 이 역할을 하면서 느낀 건, 전문성이라는 게 하루아침에 쌓이지 않는다는 사실이에요. 매번 새로운 사례를 마주할 때마다 공부하고, 의료진과 소통하며 조금씩 제 영역을 넓혀왔습니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 가장 기억에 남는 순간이 있다면?</h4>
+              <p class="qa-answer">전문성을 인정받아 의료진과 원활하게 협업하고, 그 결과로 환자분께 더 나은 치료를 제공했다고 느낄 때 가장 큰 성취감을 느껴요. 그 순간들이 쌓여 지금의 제가 있다고 생각합니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 분야를 꿈꾸는 후배에게 하고 싶은 말은?</h4>
+              <p class="qa-answer">전담간호사를 꿈꾸는 후배들에게는, 꾸준한 학습과 자기계발을 게을리하지 않는 것이 가장 확실한 성장의 열쇠라는 말씀을 드리고 싶어요.</p>
+            </div>
           </div>
         </article>
 
         <article class="interview-panel" data-role="outpatient">
           <div class="interview-profile">
             <div class="interview-avatar" style="--iv-scrub:#5b7fa6;">
-              <svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><path d="M24 44 C22 55 27 64 33 68 C29 59 28 50 30 41 Z" fill="url(#ivHair)"/><path d="M76 44 C78 55 73 64 67 68 C71 59 72 50 70 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/><ellipse cx="37" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><ellipse cx="63" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><path d="M44 54 Q50 58 56 54" stroke="#a5665a" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="78" cy="80" r="11" fill="#fff" stroke="var(--iv-scrub)" stroke-width="2"/><path d="M73 74 h10 v12 h-10 Z M75 78 h6 M75 81 h6 M75 84 h4" fill="none" stroke="var(--iv-scrub)" stroke-width="1.3" stroke-linecap="round"/></svg>
+              <svg viewBox="0 0 100 106"><ellipse cx="50" cy="100" rx="30" ry="6" fill="rgba(20,8,14,0.14)"/><path d="M18 100 C18 76 32 64 50 64 C68 64 82 76 82 100 Z" fill="var(--iv-scrub)"/><circle cx="50" cy="42" r="26" fill="url(#ivHair)"/><circle cx="50" cy="45" r="21" fill="url(#ivSkin)"/><path d="M27 41 C26 25 38 16 50 16 C64 16 74 26 73 41 C73 34 66 27 50 27 C36 27 27 33 27 41 Z" fill="url(#ivHair)"/><path d="M24 44 C22 55 27 64 33 68 C29 59 28 50 30 41 Z" fill="url(#ivHair)"/><path d="M76 44 C78 55 73 64 67 68 C71 59 72 50 70 41 Z" fill="url(#ivHair)"/><circle cx="42" cy="46" r="2.3" fill="#3a2a26"/><circle cx="58" cy="46" r="2.3" fill="#3a2a26"/><ellipse cx="37" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><ellipse cx="63" cy="51" rx="3.4" ry="2" fill="#f5a9a0" opacity="0.55"/><path d="M44 54 Q50 58 56 54" stroke="#a5665a" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M40 62 Q37 74 45 80 Q50 83 55 80 Q63 74 60 62" fill="none" stroke="#e7ebee" stroke-width="2.4" stroke-linecap="round"/><circle cx="50" cy="82.5" r="4" fill="#e7ebee" stroke="#c3cbd1" stroke-width="1"/><circle cx="78" cy="80" r="12" fill="#fff" stroke="var(--iv-scrub)" stroke-width="2"/><path d="M73 74 h10 v12 h-10 Z M75 78 h6 M75 81 h6 M75 84 h4" fill="none" stroke="var(--iv-scrub)" stroke-width="1.3" stroke-linecap="round"/></svg>
             </div>
             <div class="interview-headline">
               <p class="interview-greeting">안녕하세요.</p>
@@ -261,10 +378,22 @@
             </div>
           </div>
           <div class="interview-essay">
-            <p>외래에서는 진료 전후 환자분을 응대하고, 검사를 안내하고, 처치를 보조하는 등 외래 진료의 전 과정을 지원하고 있어요. 하루에 정말 많은 분을 만나기 때문에, 정확하고 친절한 응대가 무엇보다 중요합니다.</p>
-            <p>처음 병원을 찾으시는 분들은 대부분 긴장하거나 불안해하세요. 그런 분들께 편안함을 드리는 것도 제 역할 중 하나라고 생각하며 하루하루 임하고 있습니다.</p>
-            <p>불안해하시던 환자분이 진료를 마치고 안심한 얼굴로 돌아가실 때, 마음 한켠이 뿌듯해져요. 사소해 보이는 순간들이지만, 그런 순간들이 모여 저를 이 자리에 있게 하는 것 같아요.</p>
-            <p>외래를 꿈꾸는 후배들에게는, 다양한 분을 만나는 만큼 소통 능력을 기르는 것이 큰 자산이 될 거라는 말씀을 드리고 싶습니다.</p>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 업무를 소개해 주세요</h4>
+              <p class="qa-answer">외래에서는 진료 전후 환자분을 응대하고, 검사를 안내하고, 처치를 보조하는 등 외래 진료의 전 과정을 지원하고 있어요. 하루에 정말 많은 분을 만나기 때문에, 정확하고 친절한 응대가 무엇보다 중요합니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 일을 하면서 가장 중요하게 생각하는 것은 무엇인가요?</h4>
+              <p class="qa-answer">처음 병원을 찾으시는 분들은 대부분 긴장하거나 불안해하세요. 그런 분들께 편안함을 드리는 것도 제 역할 중 하나라고 생각하며 하루하루 임하고 있습니다.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 가장 기억에 남는 순간이 있다면?</h4>
+              <p class="qa-answer">불안해하시던 환자분이 진료를 마치고 안심한 얼굴로 돌아가실 때, 마음 한켠이 뿌듯해져요. 사소해 보이는 순간들이지만, 그런 순간들이 모여 저를 이 자리에 있게 하는 것 같아요.</p>
+            </div>
+            <div class="qa-block">
+              <h4 class="qa-question">Q. 이 분야를 꿈꾸는 후배에게 하고 싶은 말은?</h4>
+              <p class="qa-answer">외래를 꿈꾸는 후배들에게는, 다양한 분을 만나는 만큼 소통 능력을 기르는 것이 큰 자산이 될 거라는 말씀을 드리고 싶습니다.</p>
+            </div>
           </div>
         </article>
       </div>
@@ -296,21 +425,27 @@
   </div>
 </footer>
 
-<script src="../js/main.js?v=13"></script>
+<script src="../js/main.js?v=14"></script>
 <script>
 (function () {
-  var tabs = document.querySelectorAll('.interview-tab');
+  var cards = document.querySelectorAll('.interview-card');
   var panels = document.querySelectorAll('.interview-panel');
-  tabs.forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      var role = tab.getAttribute('data-role');
-      tabs.forEach(function (t) {
-        t.classList.toggle('active', t === tab);
-        t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+  var panelsWrap = document.querySelector('.interview-panels');
+  cards.forEach(function (card) {
+    card.addEventListener('click', function () {
+      var role = card.getAttribute('data-role');
+      var alreadyActive = card.classList.contains('active');
+      cards.forEach(function (c) {
+        c.classList.toggle('active', c === card);
+        c.setAttribute('aria-selected', c === card ? 'true' : 'false');
       });
       panels.forEach(function (p) {
         p.classList.toggle('active', p.getAttribute('data-role') === role);
       });
+      // 카드는 위에, 실제 이야기는 아래에 있으니 클릭하면 그 위치로 스크롤 이동
+      if (!alreadyActive && panelsWrap) {
+        panelsWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
   });
 })();

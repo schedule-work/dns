@@ -1,18 +1,31 @@
 document.addEventListener("DOMContentLoaded", () => {
   const navToggle = document.querySelector(".nav-toggle");
   const gnb = document.querySelector(".gnb");
+  const isMobileNav = () => window.matchMedia("(max-width: 960px)").matches;
 
   if (navToggle && gnb) {
     navToggle.addEventListener("click", () => {
-      gnb.classList.toggle("open");
+      const isOpen = gnb.classList.toggle("open");
+      navToggle.classList.toggle("is-open", isOpen);
+      navToggle.setAttribute("aria-label", isOpen ? "메뉴 닫기" : "메뉴 열기");
+
+      // 메뉴를 처음 열 때는 항상 하나의 대메뉴가 선택돼 있어야 오른쪽 패널이
+      // 비어 보이지 않으므로, 현재 페이지의 활성 메뉴(없으면 첫 번째)를 기본 선택한다.
+      if (isOpen && isMobileNav() && !gnb.querySelector(":scope > li.open")) {
+        const current = gnb.querySelector(":scope > li.active") || gnb.querySelector(":scope > li");
+        if (current) current.classList.add("open");
+      }
     });
 
+    // 왼쪽 대메뉴 칼럼 + 오른쪽 하위메뉴 패널 방식: 한 번에 하나의 대메뉴만 선택되고,
+    // 그 하위메뉴가 오른쪽에 표시된다(기존 아코디언처럼 여러 개가 동시에 펼쳐지지 않음).
     gnb.querySelectorAll(":scope > li > a").forEach((link) => {
       link.addEventListener("click", (e) => {
         const parent = link.parentElement;
-        if (parent.querySelector(".submenu") && window.matchMedia("(max-width: 960px)").matches) {
+        if (parent.querySelector(".submenu") && isMobileNav()) {
           e.preventDefault();
-          parent.classList.toggle("open");
+          gnb.querySelectorAll(":scope > li").forEach((li) => li.classList.remove("open"));
+          parent.classList.add("open");
         }
       });
     });
